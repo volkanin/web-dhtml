@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Разметка</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Разметка</h1>
+	<p>HTML и прочие</p>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Разметка</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>История HTML</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HTML</h2>
+	<p>HyperText Markup Language</p>
+	<ol>
+		<li>Гипертекст — форма письма, которое ветвится или осуществляется по запросу</li>
+		<li>Язык разметки — набор символов или последовательностей, вставляемых в текст для передачи информации о его выводе или строении</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Гипертекст</h2>
+	<p>1945, Ванневар Буш — концепция системы Memex<br><small>«Tzar of Science», декан MIT, научный советник президента Рузвельта, идеолог ARPA</small></p>
+	<p>1963, Даглас Энгельбарт — «Концептуальная схема усиления человеческого интеллекта»
+	<p>1965, Тед Нельсон — термин «гипертекст», идея единой литературной среды</p>
+	<p>www.computer-museum.ru/histsoft/hypertxt.htm</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Языки разметки</h2>
+	<ul>
+		<li>Логические и визуальные</li>
+		<li>Командные и теговые</li>
+	</ul>
+	<p>Нужна программа-интерпретатор</p>
+	<p>Простейший пример: ASCII Art = текст с переводами строк + принтер</p>
+	<p>Ещё пример — L<sub>A</sub>T<sub>E</sub>X, PostScript</p>
+	<p>Lightweight Markup Language — BBCode, Markdown, вики</p>
+</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История — GML</h2>
+	<p>IBM — Generalized Markup Language, 1960-е годы</p>
+	<code>:h1.Chapter 1:  Introduction<br>
+	:p.GML supported hierarchical containers, such as<br>
+	:ol<br>
+	:li.Ordered lists (like this one),<br>
+	:li.Unordered lists, and<br>
+	:li.Definition lists<br>
+	:eol.</code>
+</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История — SGML</h2>
+	<p>ISO 8879 — Standard Generalized Markup Language, 1986 год</p>
+	<p>Это системы логической структурной разметки любых видов текстов</p>
+	<code>&lt;QUOTE TYPE="example"&gt;как-то &lt;ITALICS&gt;так&lt;/ITALICS&gt;&lt;/QUOTE&gt;</code>
+	<p>HTML — приложение SGML, а XML — подмножество SGML</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История — HTML</h2>
+	<p>Разработан в CERN Тимом Бернерсом-Ли (Tim Berners-Lee)</p>
+	<ol>
+		<li>HTML 1.2 — 1993</li>
+		<li>HTML 2.0 — 22 сентября 1995</li>
+		<li>HTML 3.0 — 14 января 1997</li>
+		<li>HTML 4.0 — 18 декабря 1997</li>
+		<li>HTML 4.1 — 24 декабря 1999</li>
+		<li>HTML 5.0 — 2014</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История — XML</h2>
+	<p>XML (eXtensible Markup Language), расширяемый язык разметки, предназначен для хранения структурированных данных</p>
+	<p>XML может содержать любые теги, описанные создателями словаря, но XML не даёт указаний, как должны отображаться данные</p>
+	<ol>
+		<li>XML 1.0 — 10 февраля 1998</li>
+		<li>XML 1.0 (Fifth edition) — 26 ноября 2008</li>
+		<li>XML 1.1 (Second edition)— 16 августа 2006</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Приложения XML</h2>
+	<ol>
+		<li>XHTML — семейство языков разметки веб-страниц на основе XML, повторяющих HTML 4</li>
+		<li>MathML — язык математических формул</li>
+		<li>SMIL — язык интеграции и синхронизации мультимедийных средств</li>
+		<li>SVG — язык двумерной векторной графики</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кто занимается разработкой веб-стандартов?</h2>
+	<p>Консорциум Всемирной паутины (World Wide Web Consortium, W3C)</p>
+	<h2>Задача W3C</h2>
+	<p>Разработка для интернета единых принципов и стандартов («Рекомендаций», W3C Recommendations)</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>HTML</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример документа</h2>
+	<pre>
+	<code>&lt;!DOCTYPE html&gt;</code>
+	<code>&lt;html&gt;</code>
+	<code>&lt;head&gt; &lt;meta charset="utf-8" /&gt; &lt;title&gt;...&lt;/title&gt; &lt;/head&gt;</code>
+	<code>&lt;body&gt;</code>
+	<code>	&lt;p&gt;&lt;b&gt;Этот текст будет полужирным,</code>
+	<code>		&lt;i&gt;а этот - ещё и курсивным&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;</code>
+	<code>	&lt;p&gt; &amp;copy; 2015 &lt;!-- комментарий --&gt; &lt;/p&gt;</code>
+	<code>&lt;/body&gt; &lt;/html&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Теги</h2>
+	<p>Тег — элемент языка разметки, заключённый между <code>&lt;</code> и <code>&gt;</code></p>
+	<ul>
+		<li>бывают двойные (открывающий и закрывающий): <code>&lt;div&gt; &lt;/div&gt;</code></li>
+		<li>одиночные (самозакрывающиеся): <code>&lt;input&gt;</code>, в XHTML <code>&lt;input /&gt;</code></li>
+	</ul>
+	<p>&lt;html&gt; &lt;HTML&gt; и &lt;hTml&gt; — одинаковые теги, регистронезависимые (для XML и XHTML это не так)</p>
+	<p>Теги в HTML можно не закрывать, но так делать не рекомендуется</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Вложенность тегов</h2>
+	<pre>
+		<code>&lt;i&gt;очень <mark>&lt;b&gt; длинный текст &lt;/b&gt;</mark> очень&lt;/i&gt;  — <mark>Правильно</mark></code>
+		<code>&lt;i&gt;очень &lt;b&gt; длинный текст <mark class="important">&lt;/i&gt;</mark> очень&lt;/b&gt;  — <mark class="important">Неправильно</mark></code>
+		<code><mark class="comment">&lt;!--Браузер это поймет так:--&gt;</mark></code>
+		<code>&lt;i&gt;очень &lt;b&gt; длинный текст &lt;/b&gt;<mark class="important">&lt;/i&gt;</mark> очень&lt;/b&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Атрибуты тегов</h2>
+	<pre>
+		<code>&lt;div title=&quot;he&apos;s alive&quot;&gt; — в двойных кавычках</code>
+		<code>&lt;div title=&apos;size is 10&quot; more&apos;&gt; — в апострофах</code>
+		<code>&lt;div class=footers&gt; — без кавычек (если нет пробелов)</code>
+		<code>&lt;input checked&gt; — одиночные атрибуты</code>
+		<code>в XHTML значение обязательно &lt;input checked=&apos;checked&apos;&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Универсальные атрибуты</h2>
+	<ol>
+		<li>базовые атрибуты <span title="title — всплывающее описание">(class, id, style и title)</span></li>
+		<li>локализующие атрибуты (dir и lang)</li>
+		<li>обработчики событий (on...)</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>САМОЕ ВАЖНОЕ</h2>
+	<p>&lt;!-- Комментарий --&gt;</p>
+</div></section>
+
+<section class="slide"><div>
+	<img src="pictures/shout-entity.jpg" alt="*" width="100%">
+</div></section>
+
+<section class="slide"><div>
+	<h2>HTML Entity</h2>
+	<pre>
+		<code>"	&amp;#34;	&amp;quot;	двойная кавычка</code>
+		<code>'	&amp;#39;	&amp;apos;	апостроф</code>
+		<code>&amp;	&amp;#38;	&amp;amp;	амперсанд</code>
+		<code>&lt;	&amp;#60;	&amp;lt;	меньше</code>
+		<code>&gt;	&amp;#62;	&amp;gt;	больше</code>
+		<code>&nbsp;	&amp;#160;	&amp;nbsp;	неразрывный пробел</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Шапка HTML-документа</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Теги верхнего уровня</h2>
+	<pre>
+		<code>&lt;!DOCTYPE&gt;</code>
+		<code>&lt;html&gt;</code>
+		<code>	&lt;head&gt;</code>
+		<code>		<mark class="comment">&lt;!--Информация о странице--&gt;</mark></code>
+		<code>	&lt;/head&gt;</code>
+		<code>	&lt;body&gt;</code>
+		<code>		<mark class="comment">&lt;!--Содержимое страницы--&gt;</mark></code>
+		<code>	&lt;/body&gt;</code>
+		<code>&lt;/html&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>!DOCTYPE</h2>
+	<p>Указание типа документа</p>
+	<ol>
+		<li>Валидация</li>
+		<li>Режимы отображения/совместимости</li>
+	</ol>
+	<code>&lt;!DOCTYPE [Элемент верхнего уровня] [Публичность] "[Регистрация]//[Организация]//[Тип] [Имя]//[Язык]" "[URL]"&gt;</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>!DOCTYPE</h2>
+	<p><code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;</code></p>
+	<p><code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</code></p>
+	<p><code>&lt;!DOCTYPE html&gt;</code> для HTML 5</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HTML</h2>
+	<p>Корневой тег, может быть только один</p>
+	<p>Атрибуты:
+	<ul>
+		<li>универсальные</li>
+		<li>manifest — для автономных приложений</li>
+		<li>xmlns</li>
+	</ul>
+	</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Автономные приложения</h2>
+	<p><code>&lt;html manifest="URL"&gt;</code>, там указываются зависимые ресурсы</p>
+	<pre>
+		<code>CACHE MANIFEST</code>
+		<code>CACHE: <mark class="comment">Ресурсы, которые надо кешировать</mark></code>
+		<code>	style.css</code>
+		<code>NETWORK: <mark class="comment">Ресурсы, доступные только онлайн</mark></code>
+		<code>	api.php</code>
+		<code>FALLBACK: <mark class="comment">Замещающие ресурсы, если нет связи</mark></code>
+		<code>	*.php /offline.html</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HTML &gt; HEAD</h2>
+	<p>Содержит информацию о странице, описываемую тегами</p>
+	<ul>
+		<li>TITLE — заголовок окна</li>
+		<li>LINK — подключаемые файлы и описание связей</li>
+		<li>META — мета-информация</li>
+		<li>BASE — базовый URL для относительных ссылок</li>
+		<li>STYLE — правила CSS</li>
+		<li>SCRIPT — сценарии JavaScript</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HEAD &gt; TITLE</h2>
+	<code>&lt;title&gt;Яндекс&lt;/title&gt;</code>
+	<img src="pictures/title.png" alt="*">
+</div></section>
+
+<section class="slide"><div>
+	<h2>HEAD &gt; META</h2>
+	<p>Вариант 1 — установка HTTP-заголовка. Атрибуты:
+	<ul>
+		<li>http-equiv — имя заголовка</li>
+		<li>content — значение</li>
+	</ul></p>
+	<p><code>&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;</code></p>
+	<p><code>&lt;meta http-equiv="X-UA-Compatible" content="IE=7"/&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HEAD &gt; META</h2>
+	<p>Вариант 2 — произвольная информация</p>
+	<p><code>&lt;meta name="Keywords" content="HTML, CSS"/&gt;</code></p>
+	<p><code>&lt;meta name="Robots" content="index, nofollow"/&gt;</code></p>
+	<hr>
+	<p>Вариант 3 (в HTML 5)</p>
+	<code>&lt;meta charset="utf-8"&gt;</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример: область просмотра (Viewport)</h2>
+	<p><img src="pictures/viewport1.jpg" alt="*"> <img src="pictures/viewport2.jpg" alt="*"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример: область просмотра (Viewport)</h2>
+	<code>&lt;meta name="viewport" content="width=device-width, maximum-scale=1,initial-scale=1,user-scalable=no"/&gt;</code>
+	<ul>
+		<li>width — ширина</li>
+		<li>maximum-scale — максимальный масштаб</li>
+		<li>initial-scale — начальный масштаб</li>
+		<li>user-scalable — изменение масштаба (yes/no)</li>
+	</ul>
+	<p><a href="https://developers.google.com/speed/docs/insights/ConfigureViewport" target="_blank">developers.google.com/speed/docs/insights/ConfigureViewport</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример: анонсы в соцсетях (Opengraph)</h2>
+	<p>У Skype, VK или Facebook своё мнение, как публиковать вашу ссылку, надо им подсказать!</p>
+	<p><img src="pictures/opengraph.jpg" alt="*"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример: анонсы в соцсетях (Opengraph)</h2>
+	<code>&lt;meta property="og:title" content="Попробуйте Яндекс.Диск — новый сервис от Яндекса"/&gt;</code>
+	<ul>
+		<li>og:description — описание</li>
+		<li>og:image — превью-картинка</li>
+		<li>og:video — видео</li>
+		<li>og:url — путь к странице</li>
+	</ul>
+	<p><a href="http://http://ogp.me/" target="_blank">http://ogp.me/</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HEAD &gt; LINK</h2>
+	<p> Атрибуты:
+	<ul>
+		<li>rel — отношения между документом и файлом, на который ссылаемся</li>
+		<li>href — путь к связываемому файлу</li>
+		<li>type — MIME-тип данных подключаемого файла</li>
+		<li>media — устройство, для которого применяется стилевое оформление</li>
+		<li>charset — кодировка связываемого документа</li>
+		<li>...</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HEAD &gt; LINK</h2>
+	<p><code>&lt;link rel="stylesheet" href="style.css" type="text/css"&gt;</code></p>
+	<p><code>&lt;link rel="shortcut icon" href="favicon.ico"&gt;</code></p>
+	<p><code>&lt;link rel="alternate" media="print" href="invoice.pdf" type="application/pdf"&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Некоторые типы ссылок</h2>
+	<ul>
+		<li>alternate — альтернативная версия (другой язык, для печати)</li>
+		<li>author — ссылка на профиль автора документа</li>
+		<li>license — ссылка на лицензию для опубликованного документа</li>
+		<li>stylesheet — внешняя таблица стилей</li>
+		<li>contents — ссылка на документ, содержащий оглавление</li>
+		<li>next, prev — ссылка на следующий/предыдущий документ в коллекции</li>
+		<li>icon, shortcut icon — ссылка на значок документа</li>
+		<li>...</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Содержимое документа</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Тело документа</h2>
+	<p>Всё, что пользователь видит в окне браузера, описывается внутри <code>&lt;BODY&gt;</code> (непосредственно содержимое документа)
+	или <code>&lt;FRAMESET&gt;</code> (компоновка на экране из отдельных документов)</p>
+	<p>Подробно их дочерние элементы рассмотрим в следующей лекции!</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Блочные и строчные элементы</h2>
+	<p>Блочный элемент (block)
+	<ul>
+		<li>До и после себя генерирует разрыв потока (строки)</li>
+	</ul></p>
+	<p>Строчные элементы (inline)
+	<ul>
+		<li>Находятся внутри строки</li>
+		<li>Переносятся на следующую строку, если не влезают в текущую</li>
+		<li>Ни единого разрыва</li>
+	</ul></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Блочные элементы</h2>
+	<code><mark>&lt;div&gt;</mark>Интеграл Пуассона стабилизирует бином Ньютона.<mark>&lt;/div&gt;</mark>&lt;div&gt;Дальнейшие выкладки оставим студентам в качестве домашней работы.&lt;/div&gt;</code>
+	<p><div style="border: 2px solid black">Интеграл Пуассона стабилизирует бином Ньютона.</div></p>
+	<p><div style="border: 2px solid black">Дальнейшие выкладки оставим студентам в качестве домашней работы.</div></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Строчные элементы</h2>
+	<code><mark>&lt;span&gt;</mark>Интеграл Пуассона стабилизирует бином Ньютона.<mark>&lt;/span&gt;</mark>&lt;span&gt;Дальнейшие выкладки оставим студентам в качестве домашней работы.&lt;/span&gt;</code>
+	<p><span style="border: 2px solid black">Интеграл Пуассона стабилизирует бином Ньютона.</span>
+	<span style="border: 2px solid black">Дальнейшие выкладки оставим студентам в качестве домашней работы.</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Блочные и строчные элементы</h2>
+	<p>Строчные в блочные можно</p>
+	<p>Строчные в строчные можно</p>
+	<p>Блочные в блочные можно</p>
+	<p><mark>Блочные в строчные НЕЛЬЗЯ</mark></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Поток элементов HTML</h2>
+	<p>Поток — порядок отображения элементов на странице</p>
+	<p>Чем раньше в коде расположен элемент, тем выше он на странице</p>
+	<p>Иногда элемент «вырывается» из потока, это рассмотрим особо</p>
+	<hr>
+	<p>Блочные элементы — прямоугольные области, идущие друг за другом сверху вниз</p>
+	<p>Строчные элементы — сверху вниз и слева направо и при необходимости переносятся на новую строку</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Гипертекст в HTML</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>URL</h2>
+	<p>RFC 3986 «Uniform Resource Identifier (URI): Generic Syntax»</p>
+	<p><img src="pictures/url.jpg" alt="" width="100%"></p>
+	<p>Выделим ссылки абсолютные, относительные, в документе (#)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Гиперссылки — A</h2>
+	<p><code>&lt;a href="URL"&gt;Текст ссылки&lt;/a&gt;</code></p>
+	<p><code>&lt;a href="URL"&gt;&lt;img src="logo.png" alt="" /&gt;&lt;/a&gt;</code></p>
+	<p><code>&lt;a href="#якорь"&gt;в начало&lt;/a&gt;</code></p>
+	<p>Это — строчный элемент</p>
+	<h2>Закладки</h2>
+	<p><code>&lt;h1&gt;&lt;a name="якорь"&gt;&lt;/a&gt;Начало&lt;/h1&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Гиперссылки — A</h2>
+	<ul>
+		<li>href и name — цель гиперссылки и якорь</li>
+		<li>title — краткое описание цели, отображается как «подсказка»</li>
+		<li>target — имя фрейма, в котором отобразится цель гиперссылки</li>
+		<li>hreflang и charset — язык и кодировка ссылки</li>
+		<li>accesskey — символ Unicode в качестве клавиши быстрого перехода</li>
+		<li>tabindex — целое число от 0 до 32767, номер при переходах по Tab</li>
+		<li>rel и rev — то же назначение, что и у элемента LINK</li>
+		<li>shape и coord — в картах ссылок</li>
+	</ul>
+</div></section>
+		
+<section class="slide"><div>
+	<h2>Гиперссылки — AREA и MAP</h2>
+	<pre>
+		<code>&lt;img src="navigate.png" alt="Навигация" <mark>usemap="#Nav"</mark>&gt;</code>
+		<code>&lt;map name="Nav"&gt;</code>
+		<code>	&lt;area shape="poly" coords="..." href="a" alt="..."&gt;</code>
+		<code>	&lt;area shape="rect" coords="..." href="b" alt="..."&gt;</code>
+		<code>	&lt;area shape="circle" coords="..." href="c" alt="..."&gt;</code>
+		<code>&lt;/map&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Гиперссылки — AREA и MAP</h2>
+	<p>&lt;map&gt; — описание клиентской карты ссылок</p>
+	<p>&lt;area&gt; — активные области изображения, которые являются ссылками</p>
+	<p>Атрибут shape принимает значения
+	<ul>
+		<li>rect — прямоугольник, coords="x<sub>левый</sub>, y<sub>верхний</sub>, x<sub>правый</sub>, y<sub>нижний</sub>"</li>
+		<li>circle — круг, coords="x<sub>центра</sub>, y<sub>центра</sub>, радиус"</li>
+		<li>poly — многоугольник, coords="x<sub>1</sub>, y<sub>1</sub>, ..., x<sub>n</sub>, y<sub>n</sub>"</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Валидность</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Well-formed (синтаксически корректный)</h2>
+	<ol>
+		<li>ровно один корневой элемент</li>
+		<li>открытые теги обязаны быть закрыты (для XML)</li>
+		<li>теги не нарушают вложенность</li>
+		<li>атрибуты тегов заключены в кавычки " (для XML)</li>
+		<li>символы <, >, & и кавычки экранированы</li>
+		<li>все символы в документе соответствуют заявленной кодировке</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Valid (соответствующий правилам)</h2>
+	<ol>
+		<li>правильный корневой элемент</li>
+		<li>элементы, допустимые внутри какого-то элемента</li>
+		<li>допустимость текста внутри элемента</li>
+		<li>обязательность присутствия элемента</li>
+		<li>обязательность присутствия конкретных атрибутов элемента</li>
+		<li>расшифровки строковых сущностей ( &amp;rarr; = &amp;#8594; = &#8594; )</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Зачем нужно?</h2>
+	<p class="next">Во-первых, это красиво! <img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></p>
+	<p>Чтобы отсечь ошибки, связанные с невалидностью</p>
+	<h2>Как проверить?</h2>
+	<p>По формальным правилам — DTD</p>
+	<p>Правила подключаются в &lt;!DOCTYPE&gt;</p>
+	<p><a href="http://validator.w3.org/" target="_blank">validator.w3.org</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кусочек DTD (Document Type Definition)</h2>
+	<pre>
+		<code>&lt;!ELEMENT IMG - O EMPTY -- Embedded image --&gt;</code>
+		<code>&lt;!ATTLIST IMG</code>
+		<code>  %attrs;                   -- %coreattrs, %i18n, %events --</code>
+		<code>  src    %URI;    #REQUIRED -- URI of image to embed --</code>
+		<code>  alt    %Text;   #REQUIRED -- short description --</code>
+		<code>  name   CDATA    #IMPLIED  -- name of image for scripting --</code>
+		<code>  height %Length; #IMPLIED  -- override height --</code>
+		<code>  width  %Length; #IMPLIED  -- override width --</code>
+		<code>  ...&gt;</code>
+	 </pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>DOCTYPE может влиять на отображение</h2>
+	<p>Различные модели вычисления размеров (box-sizing) и типов отображения элементов</p>
+	<pre>
+		<code>&lt;table cellspacing="0"&gt;&lt;tr&gt;&lt;td&gt;</code>
+		<code>	Лев — &lt;img src="lion.jpg" alt="" /&gt;</code>
+		<code>&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Стандартный режим (strict.dtd)</h2>
+	<table style="border: 2px solid black"><tr><td><u>Лев — </u><img src="pictures/lion.jpg" alt="" width="50%"></td></tr></table>
+	<p>для изображений свойство display="inline"</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Почти стандартный режим (loose.dtd)</h2>
+	<table style="border: 2px solid black"><tr><td><u>Лев — </u><img src="pictures/lion.jpg" alt="" width="50%" style="vertical-align:bottom"></td></tr></table>
+	<h2>Режим совместимости (quirks mode)</h2>
+	<p>Для IE (devil), надо убрать DOCTYPE или указать неправильный</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>

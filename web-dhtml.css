@@ -1,0 +1,53 @@
+#Cover {
+  background-color: white;
+}
+#Cover h2 {
+  position: absolute;
+  top: 210px;
+  left: 70px;
+  font-size: 100px;
+  color: black;
+}
+#Cover h3#h31 {
+  position: absolute;
+  top: 440px;
+  left: 70px;
+  color: black;
+  font-size: 40px;
+}
+#Cover h3#h32 {
+  position: absolute;
+  top: 500px;
+  left: 70px;
+  color: black;
+  font-size: 40px;
+}
+#Cover h3#h33 {
+  position: absolute;
+  top: 570px;
+  left: 70px;
+  color: black;
+  font-size: 30px;
+}
+#Cover img {
+  position: absolute;
+  width: 250px;
+  top: 50px;
+  left: 50px;
+}
+#Cover .arrow {
+  width: 452px;
+  height: 452px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 93px;
+  left: 450px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+.slide p {
+  margin: 0 0 16px;
+}
+.slide small {
+  font-size: smaller;
+}
