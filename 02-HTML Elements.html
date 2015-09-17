@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Элементы HTML</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		table.demo { border-collapse:separate; border-spacing:5px }
+		table.demo th { background:dodgerblue; text-align:center}
+		table.demo td { background:lightblue; text-align:center}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Элементы HTML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Элементы HTML</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Вспоминаем...</h2>
+	<pre>
+	<code>&lt;!DOCTYPE html&gt;</code>
+	<code>&lt;html&gt;</code>
+	<code>&lt;head&gt; &lt;meta charset="utf-8" /&gt; &lt;title&gt;...&lt;/title&gt; &lt;/head&gt;</code>
+	<code>&lt;body&gt;</code>
+	<code>	&lt;p&gt;&lt;b&gt;Этот текст будет полужирным,</code>
+	<code>		&lt;i&gt;а этот - ещё и курсивным&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;</code>
+	<code>	&lt;p&gt; &amp;copy; 2015 &lt;!-- комментарий --&gt; &lt;/p&gt;</code>
+	<code>&lt;/body&gt; &lt;/html&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>«Текстовые» элементы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Слова и пробелы</h2>
+	<p>Слово — последовательность символов, не являющихся пробелами</p>
+	<p>Пробелами считаются:</p>
+	<ul>
+		<li>символ пробела (&amp;#x20;)</li>
+		<li>символ табуляции (&amp;#x09;)</li>
+		<li>символ перевода формата (&amp;#x0C;)</li>
+		<li>пробел нулевой ширины (&amp;#x200B;)</li>
+		<li>разрывы строк</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Слова и пробелы</h2>
+	<p>Обозреватель заменяет последовательность пробелов на один пробел</p>
+	<p>Неразрывный пробел (<code>&amp;nbsp;</code>), если надо несколько подряд</p>
+	<p>Перенос  текст на следующую строку — по пробельным символам (но&nbsp;не <code>&amp;nbsp;</code>), запрет переноса — <code>&lt;nobr&gt;...&lt;/nobr&gt;</code><sup>*</sup></p> 
+	<p class="next" style="font-size:small; text-align:right">* <code>&lt;span style="white-space: nowrap"&gt;</code></p>
+	<p>Исключение — элемент <code>&lt;pre&gt;</code> (сохраняет пробелы в содержимом)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Переносы</h2>
+	<p>Дефис («-», <code>&amp;#x2D;</code>) отображается как обычный символ («без пол-литры не разберешься»)</p>
+	<p>Мягкий перенос (<code>&amp;shy;</code>) указывает, где возможен разрыв строки:</p>
+	<ul>
+		<li>если по мягкому переносу производится разрыв строки, должен отоб&shy;ра&shy;жать&shy;ся символом дефис</li>
+		<li>если не производится разрыв строки, не должен отображаться</li>
+		<li>при операциях поиска и сортировки должен игнорироваться</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>«Текстовые» элементы</h2>
+	<ul>
+		<li><code>&lt;h1&gt;..&lt;h6&gt;</code>, header — заголовок <span style="font-size:2em">h1</span>, <span style="font-size:1.5em">h2</span>, <span style="font-size:1.17em">h3</span>, <span style="font-size:1em">h4</span>, <span style="font-size:.83em">h5</span>, <span style="font-size:.75em">h6</span></li>
+		<!-- http://www.w3.org/TR/CSS21/sample.html -->
+		<li><code>&lt;p&gt;</code>, paragraph — абзац, по умолчанию отступы сверху и снизу</li>
+		<li><code>&lt;pre&gt;</code>, preformatted — сохраняет пробелы и разрывы</li>
+		<li><code>&lt;br /&gt;</code>, break — разрыв строки</li>
+		<li><code>&lt;hr /&gt;</code>, horizontal rule</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Разделы документа в HTML5</h2>
+	<p>Логическое деление !</p>
+	<ul>
+		<li><code>&lt;body&gt;</code></li>
+		<li><code>&lt;section&gt;</code></li>
+		<li><code>&lt;nav&gt;</code></li>
+		<li><code>&lt;article&gt;</code></li>
+		<li><code>&lt;aside&gt;</code></li>
+		<li><code>&lt;header&gt;, &lt;footer&gt;</code></li>
+		<li><code>&lt;address&gt;</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фразовые элементы (Text-level semantics)</h2>
+	<p>Ссылки и определения</p>
+	<ul>
+		<li><code>&lt;a href=".." target=".." ping=".." rel=".." media=".." hreflang=".." type=".."&gt;</code> — для <a href="#">гиперссылок</a></li>
+		<li><code>&lt;q&gt;</code> — для <q>коротких цитат</q></li>
+		<li><code>&lt;cite&gt;</code> — для ссылок на <cite>названия книг и других источников</cite></li>
+		<li><code>&lt;dfn&gt;</code> — для <dfn>определений термина</dfn></li>
+		<li><code>&lt;abbr&gt;</code> — для сокращений (<abbr>УрФУ</abbr>)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фразовые элементы (Text-level semantics)</h2>
+	<p>в HTML есть всё для технического писателя</p>
+	<ul>
+		<li><code>&lt;code&gt;</code> — фрагмент <code>программного кода</code></li>
+		<li><code>&lt;var&gt;</code> — переменные</li>
+		<li><code>&lt;kbd&gt;</code> — <kbd>ввод с клавиатуры</kbd></li>
+		<li><code>&lt;samp&gt;</code> — примеры вывода</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фразовые элементы (Text-level semantics)</h2>
+	<p>Задание шрифта <img class="next" src="pictures/computers-install-satan-pc-devil-sell_your_soul-dden24_low.jpg" alt="computers-install-satan-pc-devil-sell_your_soul-dden24" style="position:absolute;" onclick="this.style.display='none'"/></p>
+	<ul>
+		<li><code>&lt;em&gt;</code> — <em>выделение текста</em></li>
+		<li><code>&lt;strong&gt;</code> — <strong>сильное выделение текста</strong></li>
+		<li><code>&lt;small&gt;</code> — <small>Нажмите «Принять», чтобы продолжить работу</small> </li>
+		<li><code>&lt;sub and sup&gt;</code> — A<sub>i</sub> + x<sup>2</sup> = C<sup>i</sup><sub>k</sub></li>
+		<hr>
+		<li><code>&lt;i&gt;</code> — <i>курсив</i></li>
+		<li><code>&lt;b&gt;</code> — <b>полужирный</b></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фразовые элементы (Text-level semantics)</h2>
+	<p>Можно логически выделить процесс <del>копи-пасты</del> <ins>редактирования</ins> — <code>&lt;del&gt;</code> и <code>&lt;ins&gt;</code></p>
+	<p>И ещё — языки в мире бывают разные...</p>
+	<ul>
+		<li><code>&lt;bdo dir="rtl|ltr"&gt;</code> — <bdo dir="rtl" onclick="dir='ltr'">Unicode bidi (bidirectional) override<bdo></li>
+		<li><code>&lt;ruby&gt;</code>, <code>&lt;rt&gt;</code>, <code>&lt;rp&gt;</code>:<br>
+		<span lang="zh-CN"><ruby>汉<rt>hàn</rt>字<rt>zì</rt></ruby></span></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фразовые элементы (Text-level semantics)</h2>
+	<p>Остатки в кучу</p>
+	<ul>
+		<li><code>&lt;span&gt;</code> — абстрактный строчный элемент</li>
+		<li><code>&lt;mark&gt;</code> — выделить и <mark>обратить внимание</mark></li>
+		<li><code>&lt;time datetime="<small>2015-09-17 14:30</small>"&gt;</code> — машинно-читаемая дата</li>
+		<li><code>&lt;progress value="9" max="10"&gt;</code> — <progress value="90" max="100"></li>
+		<li><code>&lt;meter value="7" min="2" low="5" high="9" max="10" optimum="6"&gt;</code> — <meter value=7 min=2 low=5 high=9 max=10 optimum=6></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Логическая группировка</h2>
+	<p>Упорядоченные списки (Ordered list)</p>
+	<ol>
+		<li><code>&lt;ol <span style="color:darkgrey">start="1" reversed</span>&gt;</code></li>
+		<li><code>&lt;li <span style="color:darkgrey">value="2"</span>&gt;</code> содержимое <code style="color:darkgrey">&lt;/li&gt;</code></li>
+		<li><code>&lt;/ol&gt;</code></li>
+		<li>в HTML 4 был атрибут <code>type="A | a | I | i | 1"</code>, сейчас вид номера управляется стилевой настройкой <code><small>list-style-type: armenian | decimal | georgian | lower-alpha | lower-greek | lower-latin | lower-roman | upper-alpha | upper-latin | upper-roman</small></code></li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Логическая группировка</h2>
+	<p>Неупорядоченные списки (Unordered list)</p>
+	<ul>
+		<li><code>&lt;ul&gt;</code></li>
+		<li><code>&lt;li&gt;</code> содержимое <code style="color:darkgrey">&lt;/li&gt;</code></li>
+		<li><code>&lt;/ul&gt;</code></li>
+		<li>в HTML 4 был атрибут <code>type="disc | circle | square"</code>, сейчас вид маркера управляется стилевой настройкой <code><small>list-style-type: circle | disc | square</small></code> или <code><small>list-style-image</small></code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Логическая группировка</h2>
+	<p>Списки определений, диалоги</p>
+	<ul>
+		<li><code>&lt;dl&gt;&lt;dt&gt;Captain Obvious&lt;/dt&gt;<br><span style="margin-left:4em"></span>&lt;dd&gt;уникальный супергерой&lt;/dd&gt;&lt;/dl&gt;</code></li>
+		<li><code>&lt;dialog&gt;&lt;dt&gt;Гамлет&lt;/dt&gt;<br><span style="margin-left:4em"></span>&lt;dd&gt;Быть или не быть, вот в чем вопрос&lt;/dd&gt;&lt;/dialog&gt;</code></li>
+	</ul>
+	<blockquote>И большие цитаты - <code>&lt;blockquote&gt;</code></blockquote>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Замещаемые элементы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Картинки</h2>
+	<p><code>&lt;img width="100" height="200" src="/cat.png" alt="котик" /&gt;</code></p>
+	<ul>
+		<li>width, height — ширина и высота, в пикселах</li>
+		<li>src — url картинки</li>
+		<li>alt — альтернативный текст, если изображение не загрузилось</li>
+		<li>usemap — клиентская карта ссылок</li>
+		<li>ismap — серверная карта ссылок</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Картинки векторные — <code><small>&lt;canvas/&gt;</small></code></h2>
+	<iframe src="http://madebyevan.com/webgl-water/" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Аудио и видео</h2>
+	<p><code>&lt;audio&gt;&lt;source src="music.mp3"&gt;&lt;/audio&gt;</code></p>
+	<p><code>&lt;audio&gt;</code> — это визуальный элемент</p>
+	<ul>
+		<li>autoplay — проигрывание при загрузке страницы</li>
+		<li>controls — панель управления плеером</li>
+		<li>loop — автоповтор</li>
+		<li>preload — загрузка файла вместе с загрузкой страницы</li>
+		<li>src — путь до трека</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Аудио и видео</h2>
+	<p><code>&lt;video height="300" poster="pictures/poster.jpg"&gt;&lt;source src="movie.mp4"&gt;&lt;/video&gt;</code></p>
+	<p>к тем же атрибутам добавляются</p>
+	<ul>
+		<li>poster</li>
+		<li>width, height</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Аудио и видео</h2>
+	<p><code>&lt;audio&gt;&lt;source src="music.mp3"&gt;&lt;/audio&gt;</code></p>
+	<p><code>&lt;source&gt;</code> может быть несколько — это источники</p>
+	<ul>
+		<li>src — путь до трека</li>
+		<li>type<span style="color:darkgray">='video/ogg; codecs="theora, vorbis"'</span> — тип и кодеки</li>
+		<li>media — устройство (про них - позже)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Произвольный объект</h2>
+	<pre>
+		<code>&lt;object type=&quot;application/x-shockwave-flash&quot;</code>
+		<code>	data=&quot;mouse.swf&quot; width=&quot;400&quot; height=&quot;300&quot;&gt;</code>
+		<code>	&lt;param name=&quot;quality&quot; value=&quot;high&quot;&gt;</code>
+		<code>	&lt;param name=&quot;wmode&quot; value=&quot;opaque&quot;&gt;</code>
+		<code>&lt;/object&gt;</code>
+   </pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Внешняя страница</h2>
+	<p><code>&lt;iframe src="URL"&gt;</code> — про него позже</p>
+	<iframe src="http://time100.ru/Ekaterinburg" width="100%" height="100%" style="border:1px solid black"></iframe>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Таблицы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Таблицы</h2>
+	<table>
+	<tr>
+		<th>&lt;thead&gt;<mark>&lt;tr&gt;</mark>&lt;th&gt;1&lt;/th&gt;</th>
+		<th>&lt;th&gt;2&lt;/th&gt;</th>
+		<th>&lt;th&gt;3&lt;/th&gt;<mark>&lt;/tr&gt;</mark>&lt;/thead&gt;</th>
+	</tr>
+	<tr>
+		<td>&lt;tbody&gt;<mark>&lt;tr&gt;</mark>&lt;td&gt;4&lt;/td&gt;</td>
+		<td>&lt;td&gt;5&lt;/td&gt;</td>
+		<td>&lt;td&gt;6&lt;/td&gt;<mark>&lt;/tr&gt;</mark></td>
+	</tr>
+	<tr>
+		<td><mark>&lt;tr&gt;</mark>&lt;td&gt;7&lt;/td&gt;</td>
+		<td>&lt;td&gt;8&lt;/td&gt;</td>
+		<td>&lt;td&gt;9&lt;/td&gt;<mark>&lt;/tr&gt;</mark>&lt;/tbody&gt;</td>
+	</tr>
+	<tr>
+		<th>&lt;tfoot&gt;&lt;tr&gt;&lt;th&gt;10&lt;/th&gt;</th>
+		<th>&lt;th&gt;11&lt;/th&gt;</th>
+		<th>&lt;th&gt;12&lt;/th&gt;&lt;/tr&gt;&lt;/tfoot&gt;</th>
+	</tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Таблицы</h2>
+	<table class="demo">
+	<tr>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>5</td>
+		<td>6</mark></td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<th>10</th>
+		<th>11</th>
+		<th>12</th>
+	</tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Объединение ячеек</h2>
+	<table class="demo">
+	<tr>
+		<th colspan="2">1</th>
+		<th>2</th>
+	</tr>
+	<tr>
+		<td rowspan="2">4</td>
+		<td>5</td>
+		<td>6</mark></td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>9</td>
+	</tr>
+	<tr>
+		<th>10</th>
+		<th>11</th>
+		<th>12</th>
+	</tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Объединение ячеек</h2>
+	<table>
+	<tr>
+		<th>&lt;thead&gt;&lt;tr <mark>colspan="2"</mark>&gt;&lt;th&gt;1&lt;/th&gt;</th>
+		<th>&lt;th&gt;2&lt;/th&gt;</th>
+		<th><span style="color:darkgrey">&lt;th&gt;3&lt;/th&gt;</span>&lt;/tr&gt;&lt;/thead&gt;</th>
+	</tr>
+	<tr>
+		<td>&lt;tbody&gt;&lt;tr&gt;&lt;td <mark>rowspan="2"</mark>&gt;4&lt;/td&gt;</td>
+		<td>&lt;td&gt;5&lt;/td&gt;</td>
+		<td>&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;</td>
+	</tr>
+	<tr>
+		<td>&lt;tr&gt;<span style="color:darkgrey">&lt;td&gt;7&lt;/td&gt;</span></td>
+		<td>&lt;td&gt;8&lt;/td&gt;</td>
+		<td>&lt;td&gt;9&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;</td>
+	</tr>
+	<tr>
+		<th>&lt;tfoot&gt;&lt;tr&gt;&lt;th&gt;10&lt;/th&gt;</th>
+		<th>&lt;th&gt;11&lt;/th&gt;</th>
+		<th>&lt;th&gt;12&lt;/th&gt;&lt;/tr&gt;&lt;/tfoot&gt;</th>
+	</tr>
+	</table>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Фреймы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фреймы</h2>
+	<p>HTML 4 позволял авторам разбить окно обозревателя на несколько независимых подокон (фреймов)</p>
+	<p><code>&lt;body&gt;</code> целиком заменяется на <code>&lt;frameset&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фреймы</h2>
+	<pre>
+	<code>&lt;<small>!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" <span style="font-size:50%">"http://www.w3.org/TR/html4/frameset.dtd"</span></small>&gt;</code>
+	<code>&lt;html&gt;&lt;head&gt;...&lt;/head&gt;</code>
+	<code>&lt;<mark>frameset cols="20%, 80%"</mark>&gt;</code>
+	<code>	&lt;<mark>frameset rows="100, *"</mark>&gt;</code>
+	<code>		&lt;frame src="logo.html"&gt; &lt;frame src="menu.html"&gt;</code>
+	<code>	&lt;/frameset&gt;</code>
+	<code>	&lt;frame src="main.html"&gt;</code>
+	<code>&lt;/frameset&gt; &lt;/html&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фреймы</h2>
+	<p><img src="pictures/frames.png" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фреймы</h2>
+	<p><code>&lt;iframe&gt;</code> — используется и в HTML5</p>
+	<ul>
+		<li>src — URL документа</li>
+		<li>name — имя окна, используется с атрибутом target</li>
+		<li>sandbox<span style="color:darkgrey; font-size:90%">="allow-same-origin | allow-top-navigation | allow-forms | allow-scripts</span></li>
+		<li>width, height</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Именованые окна и переходы</h2>
+	<p>Обычно при переходе по ссылке текущий документ заменяется новым</p>
+	<p><code>&lta href="..." <mark>target="имя окна"</mark></code></p>
+	<ul>
+		<li>_blank</li>
+		<li>_self</li>
+		<li>_parent</li>
+		<li>_top</li>
+	</ul>
+	<p><code>if (window.self != window.top) { <small>нас открыли во фрейме</small> }</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
