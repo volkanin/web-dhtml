@@ -350,9 +350,11 @@
 
 <section class="slide"><div>
 	<h2>HEAD &gt; LINK</h2>
-	<p><code>&lt;link rel="stylesheet" href="style.css" type="text/css"&gt;</code></p>
-	<p><code>&lt;link rel="shortcut icon" href="favicon.ico"&gt;</code></p>
-	<p><code>&lt;link rel="alternate" media="print" href="invoice.pdf" type="application/pdf"&gt;</code></p>
+	<pre>
+		<code>&lt;link rel="<mark>stylesheet</mark>" href="style.css" type="text/css"&gt;</code>
+		<code>&lt;link rel="<mark>shortcut icon</mark>" href="favicon.ico"&gt;</code>
+		<code>&lt;link rel="<mark>alternate</mark>" media="print" href="invoice.pdf"<br>type="application/pdf"&gt;</code>
+	</pre>
 </div></section>
 
 <section class="slide"><div>
@@ -367,6 +369,17 @@
 		<li>icon, shortcut icon — ссылка на значок документа</li>
 		<li>...</li>
 	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример: ускорение загрузки страницы</h2>
+	<p><a href="https://w3c.github.io/resource-hints/" target="_blank">w3c.github.io/resource-hints</a></p>
+	<pre>
+		<code>&lt;link rel="<mark>dns-prefetch</mark>" href="//google-analytics.com/"&gt;</code>
+		<code>&lt;link rel="<mark>preconnect</mark>" href="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/"&gt;</code>
+		<code>&lt;link rel="<mark>prefetch</mark>" href="/190/Using-link-rel-to-preload-web-content-and-aid-accessibility"&gt;</code>
+		<code>&lt;link rel="<mark>preload</mark>" href="libertad.woff2" as="font"&gt;</code>
+	</pre>
 </div></section>
 
 <section class="slide shout"><div>
