@@ -133,7 +133,7 @@
 		<li><code>&lt;em&gt;</code> — <em>выделение текста</em></li>
 		<li><code>&lt;strong&gt;</code> — <strong>сильное выделение текста</strong></li>
 		<li><code>&lt;small&gt;</code> — <small>Нажмите «Принять», чтобы продолжить работу</small> </li>
-		<li><code>&lt;sub and sup&gt;</code> — A<sub>i</sub> + x<sup>2</sup> = C<sup>i</sup><sub>k</sub></li>
+		<li><code>&lt;sub&gt;</code> и <code>&lt;sup&gt;</code> — A<sub>i</sub> + x<sup>2</sup> = C<sup>i</sup><sub>k</sub></li>
 		<hr>
 		<li><code>&lt;i&gt;</code> — <i>курсив</i></li>
 		<li><code>&lt;b&gt;</code> — <b>полужирный</b></li>
@@ -213,7 +213,7 @@
 
 <section class="slide"><div>
 	<h2>Картинки векторные — <code><small>&lt;canvas/&gt;</small></code></h2>
-	<iframe src="http://madebyevan.com/webgl-water/" width="100%" height="100%"></iframe>
+	<!-- iframe src="http://madebyevan.com/webgl-water/" width="100%" height="100%"></iframe-->
 </div></section>
 
 <section class="slide"><div>
@@ -424,6 +424,182 @@
 		<li>_top</li>
 	</ul>
 	<p><code>if (window.self != window.top) { <small>нас открыли во фрейме</small> }</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Формы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Формы</h2>
+	<p><img src="pictures/form_intro.png" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Создание формы</h2>
+	<p><code>&lt;form&gt; ... &lt;/form&gt;</code> (блочный элемент)</p>
+	<ul>
+		<li>id, class, style, title, lang, dir, события</li>
+		<li>action = URI (URI обработчика формы)</li>
+		<li>method = get | post (метод HTTP пересылки формы)</li>
+		<li>enctype = тип файла (тип файла для пересылки формы)</li>
+		<li>accept-charset = кодировки (список допустимых кодировок символов)</li>
+		<li>name = CDATA (название формы для сценариев)</li>
+		<li>target = фрейм (фрейм для отображения результатов)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пересылка формы</h2>
+	<p><code>action = URI</code>, в том числе экзотика <samp>mailto:имя@домен.рф</samp></p>
+	<ul>
+		<li>набор данных формы — пары имя-элемента/текущее-значение</li>
+		<li>кодируется в соответствии с <code>enctype</code></li>
+		<ul>
+			<li>application/x-www-form-urlencoded — <samp>%D0%90%D0%BD%D1%8F</samp></li>
+			<li>multipart/form-data — передача файлов, не кодируется</li>
+			<li>text/plain — <samp>+</samp> вместо пробелов</li>
+		</ul>
+		<li><code>method=get</code> — HTTP GET-запрос, <samp><mark>?</mark>кодированная строка</samp></li>
+		<li><code>method=post</code> — HTTP POST-запрос, кодированная строка в теле</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Универсальный солдат</h2>
+	<p><code>&lt;input type="..." name="..." value="..." ...&gt;</code></p>
+	<p>Атрибуты <code>accept, action, alt, autocomplete, autofocus, checked, disabled, enctype, form, height, list, max, maxlength, method, min, multiple, name, novalidate, pattern, placeholder, readonly, required, size, src, step, target, type, value, width</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Элементы формы</h2>
+	<p><code>&lt;input type="..."</code></p>
+	<ul>
+		<li><code>button</code> — <input type="button" value="кнопка"></li>
+		<li><code>checkbox</code> — <input type="checkbox" checked>чай, <input type="checkbox"> кофе, <input type="checkbox"> покрепче / <code>radio</code> — <input type="radio" checked>чай, <input type="radio"> кофе</li>
+		<li><code>file</code> — <input type="file"></li>
+		<li><code>hidden</code> — скрытые <code><small>type="hidden" name="sitesearch" value="urfu.ru"</small></code></li>
+		<li><code>image</code> — кнопка-изображение, при нажатии - submit</li>
+		<li><code>password</code> — <input type="password" value="password"></li>
+		<li><code>reset</code> — сброс формы / <code>submit</code> — отправка формы</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Элементы формы</h2>
+	HTML5 добавил
+	<ul>
+		<li><code>color</code> — выбор цвета <input type="color"></li>
+		<li><code>date</code> — выбор даты <input type="date"> / <code>time</code> — времени <input type="time"></li>
+		<li><code>email</code> — ввод адреса почты <input type="email"></li>
+		<li><code>number</code> — ввод чисел <input type="number"> / <code>range</code> — <input type="range" min="0" max="5"></li>
+		<li><code>search</code> — поле поиска <input type="search"> / <code>url</code> — <input type="url"></li>
+		<li><code>tel</code> — ввод телефонных номеров <input type="time"></li>
+		<li><code>month</code> — выбор месяца <input type="month"> / <code>week</code> — недели <input type="week"></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Элементы формы</h2>
+	<p>Незнаком тип элемента <code>input</code>? <mark>Считаем текстовым полем</code></p>
+	<p>Поддержка:</p>
+	<ol>
+		<li><a href="http://caniuse.com/#feat=input-datetime" target="_blank">http://caniuse.com/</a></li>
+		<li><a href="https://github.com/phiggins42/has.js" target="_blank">https://github.com/phiggins42/has.js</a></li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Ввод текста</h2>
+	<p>Однострочного — <code>&lt;input type="<mark>text</mark>" name="..." value="..." placeholder="..." autocomplete="on|off"&gt;</code></p>
+	<p>Многострочного — <code>&lt;textarea&gt; ... &lt;/textarea&gt;</code></p>
+	<textarea>&lt;textarea&gt; ... &lt;/textarea&gt;</textarea>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Особенности переключателей</h2>
+	<ol>
+		<li>если не выбраны — на сервер ничего не отправляется</li>
+		<li>если выбраны — отправляется пара name=value</li>
+		<li>включить изначально  <input type="checkbox" checked> — <code><small>&lt;input type="checkbox|radio" checked&gt;</small></code></li>
+		<li><a href="https://www.google.ru/search?q=винтаж+трехпрограммный+радиоприемник&tbm=isch" target="_blank" style="color:black">радиокнопки</a>: 
+		<ul>
+			<li>несвязанные — <input type="radio" checked>чай, <input type="radio"> кофе</li>
+			<li>связанные — <input type="radio" name="r1" checked> чай, <input type="radio" name="r1"> кофе <span class="next">(с одним <code>name</code>)</span></li>
+		</ul>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кнопки</h2>
+	<ul>
+		<li><code>&lt;input type="button" value="..."&gt;</code> — <input type="button" value="Нажми меня" onclick="alert('Спасибо!')"> + JavaScript</li>
+		<li><code>&lt;button&gt; текст, картинка &lt;/button&gt;</code> — <button><img src="pictures/UrFULogo_Russian.png" height="40"> ИМКН УрФУ</button>
+		<li><code>&lt;input type="submit" value="..."&gt;</code> — <input type="submit" value="Отправить форму"></li>
+		<li><code>&lt;input type="image" src="..."&gt;</code> — <input type="image" src="pictures/UrFULogo_Russian.png" style="height:40px; border: 1px dotted gray"></li>
+		<li><code>&lt;input type="reset" value="..."&gt;</code> — <input type="reset" value="Сбросить форму"></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Меню / списки выбора</h2>
+	<pre>
+	<code>&lt;select size=&quot;3&quot; multiple name=&quot;hero[]&quot;&gt;</code>
+	<code>&lt;option disabled&gt;Выберите героя&lt;/option&gt;</code>
+	<code>&lt;option value=&quot;Cheburashka&quot;&gt;Чебурашка&lt;/option&gt;</code>
+	<code>&lt;option selected value=&quot;Gena&quot;&gt;Крокодил Гена&lt;/option&gt;</code>
+	<code>&lt;option value=&quot;Crushhat&quot;&gt;Шапокляк&lt;/option&gt;</code>
+	<code>&lt;option value=&quot;Rat&quot;&gt;Крыса Лариса&lt;/option&gt;</code>
+	<code>&lt;/select&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Меню / списки выбора</h2>
+	<form action="#" target="blank">
+		<select size="5" multiple name="hero">
+		<option disabled>Выберите героя</option>
+		<option value="Cheburashka">Чебурашка</option>
+		<option selected value="Gena">Крокодил Гена</option>
+		<option value="Crushhat">Шапокляк</option>
+		<option value="Rat">Крыса Лариса</option>
+		</select>
+		<input type="submit" value="Я только посмотрю">
+	</form>
+	<p class="next">Сколько элементов выберем, столько пар <samp>name=value</samp> отправится</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Управление с клавиатуры</h2>
+	<p><a href="pictures/form_kbsample.png" alt="" target="_blank"><img src="pictures/form_kbsample.png" width="200"></a></p>
+	<ul>
+		<li><code>&lt;input accesskey="x"&gt;</code> — активизация элемента по Alt+x</li>
+		<li><code>&lt;input tabindex="n"&gt;</code> — порядок перехода по Tab</li>
+		<li>Ctrl+Enter — отправка формы</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Приятности и красивости</h2>
+	<p><code><small>&lt;input type="checkbox" id="c1"&gt;&lt;<mark>label for</mark>="c1"&gt;...&lt;/label&gt;</small></code><br>
+	<input type="checkbox" id="c1"><label for="c1">Коньяк</label></p>
+	<hr>
+	<pre>
+		<code>&lt;fieldset&gt; &lt;legend&gt; подпись &lt;/legend&gt;</code>
+		<code>	набор полей &lt;/fieldset&gt;</code>
+	</pre>
+	<p><a href="pictures/form_fieldsetsample.png" alt="" target="_blank"><img src="pictures/form_fieldsetsample.png" width="300"></a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Валидация формы</h2>
+	<p>Обычно — JavaScript на клиенте + проверка на сервере</p>
+	<p>в HTML5 <code>&lt;input pattern="regexp" &gt;</code></p>
+	<p><code>&lt;input pattern="2-[0-9]{3}-[0-9]{3}"&gt;</code> — <input pattern="2-[0-9]{3}-[0-9]{3}"></p>
+	<p>или так — <code>&lt;input required&gt;</code></p>
+	<p>или так — <code>&lt;input maxlength=10&gt;</code>, <code>&lt;input min=2 max=8&gt;</code></p>
+	<p>а если не надо — <code>&lt;... novalidate&gt;</code> 
+	</ul>
 </div></section>
 
 <section class="slide shout"><div>
