@@ -1,0 +1,500 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Синтаксис CSS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		table.demo { border-collapse:separate; border-spacing:5px }
+		table.demo th { background:dodgerblue; text-align:center}
+		table.demo td { background:lightblue; text-align:center}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Синтаксис CSS</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Синтаксис CSS</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что такое CSS</h2>
+	<blockquote>CSS (англ. Cascading Style Sheets — каскадные таблицы стилей) — формальный язык описания внешнего вида документа, написанного с использованием языка разметки</blockquote>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Тёмное время веб-дизайна</h2>
+	<p><img src="pictures/css_retro_geocities.png" alt="" width="600"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Тёмное время веб-дизайна</h2>
+	<p>Каша из тегов, «распорки» из прозрачных 1x1.gif</p>
+	<p><img src="pictures/css_retro_tagsoup.png" alt="" width="500"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Бизнесу надо красивых веб-страниц!</h2>
+	<p>Как задать цвет текста в «чистом» HTML?</p>
+	<ul>
+		<li><code>&lt;body text="black" link="blue" vlink="..."&gt;</code></li>
+		<li><code>&lt;font color="red"&gt;</code></li>
+	</ul>
+	<p>Как сделать отступ?</p>
+	<ul>
+		<li><code>&lt;img src="1x1.gif" width="7" height="1"&gt;</code><br>
+		даже http://nginx.org/ru/docs/http/ngx_http_empty_gif_module.html</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>История CSS</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Появление CSS</h2>
+	<p>Термин «каскадные таблицы стилей» был предложен Хокон Виум Ли в 1994 году</p>
+	<p>В середине 1990-х Консорциум Всемирной паутины стал проявлять интерес к CSS</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>W3C и CSS</h2>
+	<ol>
+		<li>CSS уровень 1 (1996, 1999) — параметры шрифтов, цвета, ...</li>
+		<li>CSS уровень 2 (12 мая 1998), CSS 2.1 (07 июня 2011) — блочная вёрстка, селекторы, ...</li>
+		<li>CSS уровня 3 находится в стадии разработки — трансформации, анимация, ...</li>
+		<li>CSS уровня 4 разрабатывается с 29 сентября 2011 года</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<p><img src="pictures/CSS3_taxonomy_and_status_by_Sergey_Mavrody_svg.png" alt="" width="700"></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Синтаксис</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Подключение</h2>
+	<ol>
+		<li>внешняя таблица стилей <code>&lt;link rel="stylesheet" href="styles/screen.css" type="text/css"&gt;</code></li>
+		<li><code>&lt;style&gt; @import url(styles/screen.css) &lt;/style&gt;</code> — это вообще не наша таблица</li>
+		<li>таблица в документе — <code>&lt;style&gt; ... &lt;/style&gt;</code></li>
+		<li>у конкретного элемента — <code>&lt;div style="color: red"&gt; &lt;/div&gt;</code></li>
+	</ol>
+	<p> html &gt; head &gt; style </p> 
+</div></section>
+
+<section class="slide"><div>
+	<h2>Синтаксис</h2>
+	<pre>
+		<code>@директивы</code>
+		<code>/* и правила */</code>
+		<code>селектор [, селекторы]</code>
+		<code>{</code>
+		<code>	свойство: значение ;</code>
+		<code>	свойство: значение <mark class="comment">;</mark></code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример</h2>
+	<p>&lt;span&gt;Красный&lt;/span&gt;</p>
+	<pre>
+		<code>span { color: blue }</code>
+		<code>span { color: red }</code>
+	</pre>
+	<p>Последнее значение здесь перезаписывает предыдущее</p>
+	<p>Пример: <span style="color: red">Красный</span><sup>*</sup> <span class="next">все элементы span в документе будут красными!</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример</h2>
+	<p>https://pattle.github.io/simpsons-in-css/</p>
+	<iframe src="https://pattle.github.io/simpsons-in-css/" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSS animations</h2>
+	<p>http://daneden.github.io/animate.css/</p>
+	<iframe src="http://daneden.github.io/animate.css/" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Директивы CSS</h2>
+	<ol>
+		<li>@charset — Задает кодировку символов</li>
+		<li>@font-face — Задает описания шрифтов</li> 
+		<li>@import — Включает другую таблицу стилей в текущую</li>
+		<li>@media — Задает имена устройств отображения</li>
+		<li>@page — Задает свойства страницы для печати</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы устройств отображения</h2>
+	<p>Для каждого свойства CSS определяет те устройства отображения, к которым это свойство применимо</p>
+	<ul>
+		<li>визуальные, звуковые и тактильные</li>
+		<li>непрерывные и страничные</li>
+		<li>символьные и графические</li>
+		<li>интерактивные и статические</li>
+		<li>all — все устройства</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>@media</h2>
+	<table style="font-size:90%">
+		<tr><th>aural</th><td>звуковое</td><td>непрерывное</td><td>-</td></tr>
+		<tr><th>braille</th><td>тактильное</td><td>непрерывное</td><td>символьное</td></tr>
+		<tr><th>emboss</th><td>тактильное</td><td>страничное</td><td>символьное</td></tr>
+		<tr><th>handheld</th><td>визуальное</td><td>и то, и другое</td><td>и то, и другое</td></tr>
+		<tr><th>print</th><td>визуальное</td><td>страничное</td><td>графическое</td></tr>
+		<tr><th>projection</th><td>визуальное</td><td>страничное</td><td>графическое</td></tr>
+		<tr><th>screen</th><td>визуальное</td><td>непрерывное</td><td>графическое</td></tr>
+		<tr><th>tty</th><td>визуальное</td><td>непрерывное</td><td>символьное</td></tr>
+		<tr><th>tv</th><td>визуальное, звуковое</td><td>и то, и другое</td><td>графическое</td></tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример</h2>
+	<pre>
+		<code><mark class="comment">@media all</mark> {</code>
+		<code>	BODY { font-size: 10pt }</code>
+		<code>}</code>
+		<code>@media screen {</code>
+  		<code>	BODY { font-size: 12pt }</code>
+		<code>}</code>
+		<code>@media screen, print {</code>
+		<code>	BODY { line-height: 1.2 }</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>Целые (100500, -21) и действительные числа (1.25, -.999)</p>
+	<p>Размеры абсолютные</p>
+	<ul>
+		<li><b>in</b> дюймы (1 дюйм = 2.54 см = 25.4 мм = 72 точки = 6 пик)</li>
+		<li><b>cm</b> сантиметры (1 см = 10 мм = 0.39 дюйма = 2.36 пики = 28.35 точки)</li>
+		<li><b>mm</b> миллиметры (1 мм = 0.1 см = 0.039 дюйма = 0.24 пики = 2.84 точки</li>
+		<li><b>pt</b> точки (1 точка = 1/12 пики = 1/72 дюйма = 0.035 см = 0.35 мм)</li>
+		<li><b>pc</b> пики (1 пика = 12 точек = 1/6 дюйма = 0.423 см = 4.23 мм)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>Размеры относительные</p>
+	<ul>
+		<li><b>em</b> размер (font-size) соответствующего шрифта</li>
+		<li><b>ex</b> высота строчных букв (x-height) соответствующего шрифта</li>
+		<li><b>px</b> пиксели (размер зависит от устройства отображения)</li>
+	</ul>
+	<p>Процентные значения</p>
+	<p><code>h1 { font-size: 120% }</code>, в документации всегда указано, что является базовой величиной</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>Строки</p>
+	<pre>
+		<code>"это 'строка'"</code>
+		<code>'это \'строка\''</code>
+		<code>'это "строка"'</code>
+		<code>"это \"строка\""</code>
+		<code>"это строка,\A состоящая из двух строк"</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>Ссылки (URI)</p>
+	<p><code>body { background: url(bg.gif) }</code></p>
+	<p>или <code>background: url("<mark>data:</mark>image/gif;base64,КОД"); }</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>Цвета </p>
+	<ul>
+		<li>ключевое слово — <span style="color:red">red</span>, <span style="color:blue">blue</span>, <span style="color:magenta">magenta</span>, ...</li>
+		<li>в том числе — <span style="color:highlighttext; background:highlight">highlighttext</span>, <span style="color:highlight">highlight</span>, <span style="color:scrollbar">scrollbar</span> ...</li>
+		<li>шестнадцатиричный код — #f00, #0000ff, #666, ...</li>
+		<li>rgb/rgba — rgb(255,0,0), rgb(0%,0%,100%), rgba(0, 0, 0, .5), ...</li>
+		<li>hsl/hsla — hsl(0,100%,50%), hsl(250,100%,50%), hsla(0, 0%, 0%, .5), ... </li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы данных CSS</h2>
+	<p>hsla (Hue, Saturation, Lightness, Alpha)</p>
+	<p><img src="pictures/css_hsl.jpg" ></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Селекторы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Базовые селекторы</h2>
+	<ul>
+		<li><code>*</code> — универсальный селектор, все элементы документа</li>
+		<li><i>селекторы элементов</i> (<code>h1</code>) — все элементы с данным именем</li>
+		<li><i>простые селекторы</i> — селектор элемента (и *) уточняется селекторами атрибутов, идентификаторов или классов (в любом порядке)</li>
+		<li><i>сложные селекторы</i> — простые селекторы + иерархия в документе (дети, потомки, соседи)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Оптимизация</h2>
+	<pre>
+		<code>H1 { font-family: sans-serif }</code>
+		<code>H2 { font-family: sans-serif }</code>
+		<code>H3 { font-family: sans-serif }</code>
+	</pre>
+	<p>эквиваленты одному правилу</p>
+	<code>H1<mark>,</mark> H2, H3 { font-family: sans-serif }</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы классов</h2>
+	<p><code>&lt;p class="warning"&gt; один &lt;/p&gt;</code></p>
+	<p><code>&lt;p class="warning red"&gt; два  &lt;/p&gt;</code></p>
+	<p><code>&lt;p class="warning blue"&gt; три &lt;/p&gt;</code></p>
+	<p>В таблице стилей:</p>
+	<pre>
+		<code>p.warning { font-style: italic }</code>
+		<code><mark class="comment">*</mark>.red { color: red }</code>
+		<code>.warning.red { font-weight: bold }</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы идентификаторов</h2>
+	<p><code>&lt;div id="navigation"&gt;  ... &lt;/div&gt;</code></p>
+	<p>В таблице стилей:</p>
+	<pre>
+		<code><mark class="comment">@media print {</mark> #navigation { display: none  } <mark class="comment">}</mark></code>
+	</pre>
+	<p>Обычно идентификатор уникален :)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы атрибутов</h2>
+	<p><code>&lt;a href="logo.png" target="_blank"&gt;  ... &lt;/a&gt;</code></p>
+	<p>В таблице стилей:</p>
+	<ul>
+		<li><code>[href]</code> — есть атрибут? хорошо, значение не важно</li>
+		<li><code>[target="_blank"]</code> — атрибут с конкретным значением</li>
+		<li><code>[href^="http://"]</code> — начинается с ...</li>
+		<li><code>[href$=".png"]</code> — или заканчивается ...</li>
+		<li><code>[href*="github"]</code> — или где-то внутри</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы атрибутов</h2>
+	<p><code>&lt;p class="block-menu-therm red" lang="en-us"&gt;  ... </code></p>
+	<p>В таблице стилей:</p>
+	<ul>
+		<li><code>[class~="red"]</code> — одно значение из списка с пробелами</li>
+		<li><code>[target|="en"]</code> — с начала и до дефиса (напр., для групп языков)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы <i>потомков</i> (составные)</h2>
+	<pre>
+		<code>div { color: black }</code>
+		<code>a { color: navy }</code>
+		<code>.menu <mark class="comment">*</mark> a { color: blue }</code>
+	</pre>
+	<pre>
+		<code>&lt;div class="<mark>menu</mark>"&gt;</code>
+		<code>	&lt;<mark>a</mark> href="1.html"&gt;Русская кухня&lt;/a&gt;</code>
+		<code>	&lt;ol&gt;&lt;li&gt;&lt;<mark>a</mark> href="2.html"&gt;Японская кухня&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы <i>детей</i> (составные)</h2>
+	<pre>
+		<code>div { color: black }</code>
+		<code>a { color: navy }</code>
+		<code>.menu <mark>&gt;</mark> a { color: blue }</code>
+	</pre>
+	<pre>
+		<code>&lt;div class="<mark>menu</mark>"&gt;</code>
+		<code>	&lt;<mark>a</mark> href="1.html"&gt;Русская кухня&lt;/a&gt;</code>
+		<code>	&lt;ol&gt;&lt;li&gt;&lt;a href="2.html"&gt;Японская кухня&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Селекторы <i>соседей</i> (составные)</h2>
+	<pre>
+		<code>h2 <mark>+</mark> p { font-style: italic  }</code>
+	</pre>
+	<pre>
+		<code>&lt;h1&gt;Методы ловли льва в пустыне&lt;/h1&gt;</code>
+		<code>&lt;h2&gt;Метод последовательного перебора&lt;/h2&gt;</code>
+		<code><small>&lt;<mark>p</mark>&gt;Для упрощения расчетов хвост можно отбросить и не принимать во внимание&lt;/p&gt;</small></code>
+		<code><small>&lt;p&gt;Пусть лев имеет габаритные размеры L x W x H ...&lt;/p&gt;</small></code>
+		<code><small>&lt;p&gt;Пустыню разбиваем на ряд элементарных прямоугольников ...&lt;/p&gt;</small></code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Псевдоклассы</h2>
+	<ul>
+		<li><code>:active</code></li>
+		<li><code>:link</code></li>
+		<li><code>:focus</code></li>
+		<li><code>:hover</code></li>
+		<li><code>:visited</code></li>
+		<hr>
+		<li><code>:first-child</code></li>
+		<li><code>:lang(ru)</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Псевдоэлементы</h2>
+	<ul>
+		<li><code>:after</code></li>
+		<li><code>:before</code></li>
+		<li><code>:first-letter</code></li>
+		<li><code>:first-line</code></li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Наследование и каскадирование</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Наследование</h2>
+	<p>Дочерние элементы наследуют некоторые стилевые свойства своих родителей</p>
+	<p>Смотрите в спецификацию, интуиция может подвести!</p>
+	<p><code>body { font-family: Arial; color: navy }</code></p>
+	<pre>
+		<code>&lt;body&gt;</code>
+		<code>	&lt;p&gt;Цвет текста этого абзаца синий.&lt;/p&gt;</code>
+		<code>&lt;/body&gt;</code>
+	</pre>
+	
+</div></section>
+
+<section class="slide"><div>
+	<h2>Наследование</h2>
+	<p>Изменение наследуемых свойств</p>
+	<p><code>body { font-family: Arial; color: navy }</code></p>
+	<p><code>.red { color: red }</code></p>
+	<pre>
+		<code>&lt;body&gt;</code>
+		<code>	&lt;p&gt;Цвет текста этого абзаца синий&lt;/p&gt;</code>
+		<code>	&lt;p class="red"&gt;цвет этого — красный, шрифт Arial&lt;/p&gt;</code>
+		<code>&lt;/body&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Каскадность</h2>
+	<p>У стилей есть приоритеты в зависимости от источника</p>
+	<ol>
+		<li>Стиль браузера</li>
+		<li>Стиль автора</li>
+		<li>Стиль пользователя</li>
+		<li>Стиль автора с добавлением !important</li>
+		<li>Стиль пользователя с добавлением !important</li>
+	</ol>
+	<p>сортировка по возрастанию приоритета</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Специфичность</h2>
+	<pre>
+		<code>&lt;div id=&quot;menu&quot;&gt;</code>
+		<code>	&lt;ul&gt;</code>
+		<code>		&lt;li  id="red"&gt;Первый&lt;/li&gt;</code>
+		<code>		&lt;li class=&quot;green&quot;&gt;Второй&lt;/li&gt;</code>
+		<code>		&lt;li&gt;Третий&lt;/li&gt;</code>
+		<code>	&lt;/ul&gt;</code>
+		<code>&lt;/div&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Специфичность</h2>
+	<pre style="font-size: 50%">
+		<code>&lt;div id=&quot;menu&quot;&gt;</code>
+		<code>	&lt;ul&gt;</code>
+		<code>		&lt;li id="red"&gt;Первый&lt;/li&gt;</code>
+		<code>		&lt;li class=&quot;green&quot;&gt;Второй&lt;/li&gt;</code> 
+		<code>		&lt;li&gt;Третий&lt;/li&gt;</code>
+		<code>	&lt;/ul&gt;</code>
+		<code>&lt;/div&gt;</code>
+	</pre>
+	<pre>
+		<code>#red { color: red } <a class="next" href="sample/03-CSS-sample.htm" target="_blank">посмотреть ответ</a></code>
+		<code>div > ul > li  { color: blue }</code>
+		<code>.green { color: green }</code>
+		<code>li { color: yellow }</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Специфичность</h2>
+	<ol>
+		<li>подсчитать количество атрибутов id в селекторе</li>
+		<li>подсчитать количество атрибутов class в селекторе</li>
+		<li>подсчитать количество названий тегов и псевдоклассов в селекторе (псевдоэлементы игнорируются)</li>
+	</ol>
+	<p>Записать 3 числа подряд, приведя к максимальному основанию</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Специфичность</h2>
+	<pre>
+		<code>*              {} /* a=0 b=0 c=0 -> специфичность = 0   */</code>
+		<code>li             {} /* a=0 b=0 c=1 -> специфичность = 1   */</code>
+		<code>li:first-line  {} /* a=0 b=0 c=2 -> специфичность = 2   */</code>
+		<code>ul li          {} /* a=0 b=0 c=2 -> специфичность = 2   */</code>
+		<code>ul ol+li       {} /* a=0 b=0 c=3 -> специфичность = 3   */</code>
+		<code>ul li.red      {} /* a=0 b=1 c=2 -> специфичность = 12  */</code>
+		<code>li.red.level   {} /* a=0 b=2 c=1 -> специфичность = 21  */</code>
+		<code>#t34           {} /* a=1 b=0 c=0 -> специфичность = 100 */</code>
+		<code>#content #wrap {} /* a=2 b=0 c=0 -> специфичность = 200 */</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>!important</h2>
+	<code>Свойство: значение !important</code>
+	<p>позволяет повысить приоритет стиля</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
