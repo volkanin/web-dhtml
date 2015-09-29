@@ -490,6 +490,144 @@
 </div></section>
 
 <section class="slide shout"><div>
+	<h2>Возможные ошибки и их обработка</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неизвестные свойства</h2>
+	<p>Неизвестные свойства должны игнорироваться. Например,</p>
+	<code>h1 { color: red; <mark>rotation: 70minutes</mark> }</code>
+	<p>браузер будет рассматривать это, как если бы в таблице было</p>
+	<code>h1 { color: red }</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неправильные значения</h2>
+	<pre style="margin: 0px">
+		<code>img { float: left }       /* правильный CSS */</code>
+		<code>img { float: left here }  /* "here" — нет у float */</code>
+		<code>img { background: "red" } /* в кавычки не заключаем */</code>
+		<code>img { border-width: 3 }   /* единицы измерения указываем */</code>
+	</pre>
+	<p>Парсер CSS примет первое правило, и будет считать, что написано</p>
+	<pre>
+		<code>img { float: left }</code>
+		<code>img { }</code>
+		<code>img { }</code>
+		<code>img { }</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неправильное оформление</h2>
+	<p>Например, может быть пропущено имя свойства, двоеточие, значение</p>
+	<p>Браузер обработает неизвестные элементы при разборе правила CSS таким образом — <em>продолжит чтение</em> до нахождения конца правила, обращая внимание на парность скобок (), [], {}, и кавычек "", ''</p>
+	<p style="color:darkgray">User agents must handle unexpected tokens encountered while parsing a declaration by reading until the end of the declaration, while observing the rules for matching pairs of (), [], {}, "", and '', and correctly handling escapes</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неправильное оформление</h2>
+	<p>Результат всех следующих определений будет одинаковый</p>
+	<pre style="font-size: smaller">
+		<code>p { color:green }</code>
+		<code>p { color:green; color }  /* malformed declaration missing ':', value */</code>
+		<code>p { color:red;   color; color:green }  /* same with expected recovery */</code>
+		<code>p { color:green; color: } /* malformed declaration missing value */</code>
+		<code>p { color:red;   color:; color:green } /* same with expected recovery */</code>
+		<code>p { color:green; color{;color:maroon} } /* unexpected tokens { } */</code>
+		<code>p { color:red;   color{;color:maroon}; color:green } /* same with recovery */</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неожиданное окончание CSS</h2>
+	<pre>
+		<code>@media screen {</code>
+		<code>	p:before { content: 'Hello</code>
+	</pre>
+	<p>Закрываем все строки, правила и другие открытые конструкции</p>
+	<pre>
+		<code>@media screen {</code>
+		<code>	p:before { content: 'Hello'; }</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Неожиданное окончание строки</h2>
+	<pre style="margin: 0px">
+		<code>p {</code>
+		<code>	color: green;</code>
+		<code>	font-family: 'Courier New Times</code>
+		<code>	color: red;</code>
+		<code>	color: green;</code>
+		<code>}</code>
+	</pre>
+	<p>Строка закрывается при "end of line", но само правило игнорируется:</p> 
+	<code>p { color: green; color: green; }</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как такое вообще возможно-то?</h2>
+	<pre>
+		<code>div {</code>
+		<code>	color: green;</code>
+		<code><mark></mark></code>
+		<code>p {</code>
+		<code>	color: red;</code>
+		<code>}</code>
+		<code>span {</code>
+		<code>	font-style: italic;</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>И что же получится?</h2>
+	<pre>
+		<code>div { <a class="next" href="sample/03-CSS-error1.htm" target="_blank">посмотреть ответ</a></code>
+		<code>	color: green;</code>
+		<code><mark></mark></code>
+		<code><mark>p {</mark></code>
+		<code><mark>	color: red;</mark></code>
+		<code><mark>}</mark></code>
+		<code><mark>span {</mark></code>
+		<code><mark>	font-style: italic;</mark></code>
+		<code><mark>}</mark></code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Ошибка номер два</h2>
+	<pre>
+		<code>div <mark></mark></code>
+		<code>	color: green;</code>
+		<code>}</code>
+		<code>p {</code>
+		<code>	color: red;</code>
+		<code>}</code>
+		<code>span {</code>
+		<code>	font-style: italic;</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>И что же получится?</h2>
+	<pre>
+		<code><mark>div <mark></mark> <a class="next" href="sample/03-CSS-error2.htm" target="_blank">посмотреть ответ</a></code>
+		<code><mark>	color: green;</mark></code>
+		<code><mark>}</mark></code>
+		<code><mark>p {</mark></code>
+		<code><mark>	color: red;</mark></code>
+		<code><mark>}</mark></code>
+		<code>span {</code>
+		<code>	font-style: italic;</mark></code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
 	<h2>Вопросы?</h2>
 </div></section>
 
