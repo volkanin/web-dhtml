@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Свойства и значения CSS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Свойства и значения CSS</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Свойства  CSS</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Группы свойств</h2>
+	<ul>
+		<li>Позиционирование (position, top, ...)</li>
+		<li>Отображение (display, visibility, ...)</li>
+		<li>Размеры (width, padding, ...)</li>
+		<li>Шрифты (font)</li>
+		<li>Таблицы и списки (list-style, border-collapse, ...)</li>
+		<li>Текст (text-transform, text-indent, ...)</li>
+		<li>Цвета и эффекты (color, box-shadow, ...)</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Границы, заполнители и рамки</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Объемлющий прямоугольник</h2>
+	<p><img src="pictures/boxdim.png" alt=""></p>
+	<p>Размеры <em>области содержимого</em> в прямоугольнике зависят от того, что именно является содержимым элемента (текст, таблица или другие элементы), заданы ли свойства элемента width и height и т. д.</p>
+</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фон прямоугольника</h2>
+	<ul style="margin: 0px">
+		<li>Содержимое: свойство background генерирующего элемента</li>
+		<li>Заполнитель: свойство background генерирующего элемента</li>
+		<li>Рамка: свойства рамки генерирующего элемента</li>
+		<li>Граница: прозрачна, т.е. background родительского элемента</li>
+	</ul>
+	<p style="background: yellow; color: blue; margin: 20px 25%; padding: 10px; border: thick solid green">Текст абзаца</p>
+	<code><small>&lt;p style=&quot;background: yellow; color: blue; margin: 20px 25%; padding: 10px; border: thick solid green&quot;&gt;Текст абзаца&lt;/p&gt;</small></code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Размеры внешней границы элемента</h2>
+	<code>размер-границы = размер | процент | auto | inherit</code>
+	<ul>
+		<li><code>размер</code> — задает фиксированный размер</li>
+		<li><code>процент</code> — вычисляется относительно <em>ширины</em> вмещающего блока, даже для вертикальных границ</li>
+		<li><code>auto</code> — вычисляется в зависимости от типа и позиционирования</li>
+		<li><code>inherit</code> — включить наследование (по умолчанию нет)</li>
+	</ul>
+	<p>По умолчанию значение — 0, допускаются отрицательные значения</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Внешняя граница элемента</h2>
+	<p>Свойство <code>margin</code> — сокращение для <code>margin-top</code>, <code>margin-bottom</code>, <code>margin-left</code> и <code>margin-right</code></p>
+	<pre style="font-size:smaller">
+		<code>body { margin: 1em }             /* все границы равны 1em */</code>
+		<code>body { margin: 1em 2em }         /* top & bottom = 1em, right & left = 2em */</code>
+		<code>body { margin: 1em 2em 3em }     /* top=1em, right=2em, bottom=3em, left=2em */</code>
+		<code>body { margin: 1em 2em 3em 4em } /* top=1em, right=2em, bottom=3em, left=4em */</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Допускается слияние границ</h2>
+	<p>Соседние границы объединяются в одну, новой ширины</p>
+	<p>Вертикальные границы могут сливаться:</p>
+	<ul style="margin: 0px">
+		<li>сливаются соседние границы блочных элементов, у новой границы ширина берётся наибольшей из того, что было</li>
+		<li>не сливаются границы между плавающим элементом и любым другим</li>
+		<li>не сливаются границы между абсолютно и относительно позиционированным элементами</li>
+	</ul>
+	<p>Горизонтальные границы не сливаются никогда</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Размеры заполнителя</h2>
+	<code>размер-заполнителя = размер | процент | inherit</code>
+	<ul>
+		<li><code>размер</code> — задает фиксированный размер</li>
+		<li><code>процент</code> — вычисляется относительно <em>ширины</em> вмещающего блока, даже для вертикальных границ</li>
+		<li><code>inherit</code> — включить наследование (по умолчанию нет)</li>
+	</ul>
+	<p>По умолчанию значение — 0, отрицательные значения не допускаются</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Заполнитель</h2>
+	<p>Свойство <code>padding</code> — сокращение для <code>padding-top</code>, <code>padding-bottom</code>, <code>padding-left</code> и <code>padding-right</code></p>
+	<pre style="font-size:smaller">
+		<code>body { padding: 1em }             /* все границы равны 1em */</code>
+		<code>body { padding: 1em 2em }         /* top & bottom = 1em, right & left = 2em */</code>
+		<code>body { padding: 1em 2em 3em }     /* top=1em, right=2em, bottom=3em, left=2em */</code>
+		<code>body { padding: 1em 2em 3em 4em } /* top=1em, right=2em, bottom=3em, left=4em */</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Свойства рамки</h2>
+	<p>Универсальное сокращение — <code>border</code></p>
+	<ul>
+		<li>Размер рамки: border-top-width, border-bottom-width, border-left-width, border-right-width и border-width</li>
+		<li>Цвет рамки: border-top-color, border-bottom-color, border-left-color, border-right-color и border-color</li>
+		<li>Стиль рамки: border-top-style, border-bottom-style, border-left-style, border-right-style и border-style</li>
+		<li>Сокращения: border-top, border-bottom, border-left, border-right</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Размеры рамки</h2>
+	<code>размер-рамки = thin | medium | thick | размер</code>
+	<ul>
+		<li><code>thin</code>, <code>medium</code>, <code>thick</code> — размер зависит от обозревателя</li>
+		<li><code>размер</code> — фиксированный размер</li>
+	</ul>
+	<p>По умолчанию — medium ( 0, если border-style 'none' или 'hidden'), отрицательные значения не допускаются</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Свойства рамки</h2>
+	<p><code>стиль-рамки = none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset</code></p>
+	<p>
+	<span style="border: 5px dotted black; padding:5px">dotted</span>, 
+	<span style="border: 5px dashed black; padding:5px">dashed</span>, 
+	<span style="border: 5px solid black; padding:5px">solid</span>, 
+	<span style="border: 5px double black; padding:5px">double</span>, 
+	<span style="border: 5px groove black; padding:5px">groove</span>, 
+	<span style="border: 5px ridge black; padding:5px">ridge</span>, 
+	<span style="border: 5px inset black; padding:5px">inset</span>, 
+	<span style="border: 5px outset black; padding:5px">outset</span>
+	</p>
+	<p>Размер рамки <code>border-width</code> и цвет <code>border-color</code> задаются по тем же правилам, что и для заполнителя, от 1 до 4 значений</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Ещё рамка</h2>
+	<p>Для справки — кроме <code>border</code> есть ещё <code>outline</code></p>
+	<p>Не влияет на положение блока и его ширину</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Позиционирование и визуализация</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Общие положения</h2>
+	<p>Для каждого элемента генерируется нуль или более прямоугольников</p>
+	<p>Внешний вид и расположение этих прямоугольников определяется:</p>
+	<ul>
+		<li>размерами прямоугольника (границей, заполнителем и рамкой)</li>
+		<li>типом прямоугольника, задается свойством <code>display</code></li>
+		<li>схемой позиционирования элемента, задается свойством <code>position</code></li>
+		<li>взаимоотношениями элементов в дереве документа</li>
+		<li>внешней информацией (размером окна, размерами картинок)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типы объемлющих прямоугольников</h2>
+	<p>Свойство <code>display</code></p>
+	<ul>
+		<li><code>block</code> — блочный элемент</li>
+		<li><code>inline</code> — текстовый элемент</li>
+		<li><code>list-item</code> — элемент списка (как текстовый, плюс маркер)</li>
+		<li><code>marker</code> — маркер списка</li>
+		<li><code>run-in</code> — присоединяемый элемент (<small>если следующий за данным элемент — блочный, то форматируется как его первый текстовый элемент</small>)</li>
+	</ul>
+</div></section>
+		
+<section class="slide"><div>
+	<h2>Типы объемлющих прямоугольников</h2>
+	<p>Свойство <code>display</code></p>
+	<ul>
+		<li><code>compact</code> — компактный элемент (<small>если следующий за данным элемент — блочный, то форматируется как однострочный текст и помещается на границе блока</small>)</li>
+		<li><code>none</code> — элемент и все его потомки игнорируются при отображении.</li>
+		<li><code>table</code>, <code>inline-table</code> — блочная или текстовая таблица</li>
+		<li><code>table-row-group</code>, <code>table-header-group</code>, <code>table-footer-group</code>, <code>table-row</code>, <code>table-column-group</code>, <code>table-column</code>, <code>table-cell</code>, <code>table-caption</code> — внутренности таблицы</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Схема позиционирования</h2>
+	<p>Свойство <code>position</code></p>
+	<ul>
+		<li><code>static</code> — отображается в обычном потоке</li>
+		<li><code>relative</code> — сначала генерируется прямоугольник в обычном потоке, затем смещается на величины, заданные <code>left</code> и <code>top</code></li>
+		<li><code>absolute</code> — позиция элемента вычисляется относительно позиции его ближайшего позиционированного предка</li>
+		<li><code>fixed</code> — абсолютно позиционирован, дополнительно зафиксирован относительно окна/страницы, т.е. неподвижен при прокрутке</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Абсолютно позиционированные элементы</h2>
+	<ul style="margin: 0px">
+		<li>Выпадают из обычного потока отображения</li>
+		<li>Если заданная позиция уже занята, то оба элемента будут отображаться в одном месте, перекрывая друг друга (см. <code>z-index</code>)</li>
+		<li>Не имеют границ, но имеют заполнители и рамки</li>
+	</ul>
+	<pre style="font-size:smaller; margin: 0px">
+		<code>&lt;div style=&quot;position: relative; left: 0; top: 0; height: 50px&quot;&gt;</code>
+		<code>	&lt;img src=&quot;leaf.png&quot; style=&quot;position: absolute; left: 300px; top: 0&quot;&gt;</code>
+		<code>&lt;/div&gt;</code>
+	</pre>
+	<div style="position: relative; left: 0; top: 0; height: 50px">
+		<p>Часть текста будет скрыта рисунком, потому что он позиционирован поверх текста</p>
+		<img src="pictures/leaf.png" style="position: absolute; left: 300px; top: 0">
+	</div>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Относительно позиционированные</h2>
+	<p>Отображаются в обычном потоке, но с заданным смещением</p>
+	<pre style="font-size:smaller; margin: 0px">
+		<code>&lt;p&gt;Пример вывода текста в верхнем индексе:</code>
+		<code>	&lt;span style=&quot;position: relative; top: -1ex&quot;&gt;abc&lt;/span&gt;.</code>
+		<code>&lt;/p&gt;</code>
+	</pre>
+	<p>Пример вывода текста в верхнем индексе:
+		<span style="position: relative; top: -1ex">abc</span>.
+	</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Задание позиции элемента</h2>
+	<p>Свойства <code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code></p>
+	<ul>
+		<li><code>размер</code> — задаёт фиксированное смещение</li>
+		<li><code>процент</code> — вычисляется относительно <em>высоты</em> или <em>ширины</em> вмещающего блока</li>
+		<li><code>auto</code> — положение элемента по умолчанию в обычном потоке</li>
+		<li><code>inherit</code> — включить наследование (по умолчанию нет)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Плавающие элементы</h2>
+	<ul>
+		<li>Свойство <code>float</code> со значением left или right указывает, что элемент является плавающим и задает его выравнивание влево или вправо</li>
+		<li>По умолчанию имеет значение none, т.е. что элемент не плавающий</li>
+		<li>Всегда считается блочным (display игнорируется)</li>
+		<li><img src="pictures/leaf.png" alt="" style="float: right">Смещается влево или вправо, пока не встретит рамку, заполнитель или границу другого блочного элемента</li>
+		<li>Следующие элементы сдвигаются и как бы обтекают плавающий элемент соответственно справа или слева</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Плавающие элементы</h2>
+	<p><code>clear</code> — как данный элемент <em>не может</em> обтекать плавающий</p>
+	<p>Запрет означает, что данный элемент должен отображаться ниже предыдущего плавающего элемента</p>
+	<ul>
+		<li><code>none</code> — по умолчанию, нет запрета</li>
+		<li><code>left </code></li>
+		<li><code>right </code></li>
+		<li><code>both </code></li>
+		<li><code>inherit</code> — включить наследование (по умолчанию нет)</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Визуализация элементов</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Ширина и высота</h2>
+	<p><code>width: размер | процент | auto | inherit</code></p>
+	<p><code>height: размер | процент | auto | inherit</code></p>
+	<p>Применимо к элементам кроме текстовых, строк таблиц и групп строк</p>
+	<p>Дополнительно — <code>min-width</code> и <code>max-width</code>, <code>min-height</code> и <code>max-height</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что будет на самом деле?</h2>
+	<p><a href="http://www.w3.org/TR/css3-box/#Calculating" target="_blank">http://www.w3.org/TR/css3-box/#Calculating</a></p>
+	<p>Вычисленные значения свойств width / height, margin-*, left, right, top и bottom зависят от типа прямоугольника</p>
+	<p>Как правило, вычисленное значение совпадает с заданным (кроме auto), но есть и исключения</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Вопрос...</h2>
+	<p>width и height — это размеры чего?</p>
+	<p><img src="pictures/boxdim.png" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Изменение алгоритма расчета</h2>
+	<p>Свойство <code>box-sizing:</code> (CSS 3)</p>
+	<ul>
+		<li><code>content-box</code> — width и height задают ширину и высоту контента</li>
+		<li><code>border-box</code> — width и height включают в себя padding и border, но не margin (так работает IE в quirks mode)</li>
+		<li><code>padding-box</code> — width и height включают в себя padding, но не border и margin</li>
+		<li><code>inherit</code> — включить наследование</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Переполнение и обрезка</h2>
+	<p><img src="pictures/cat-overflow.jpg" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Переполнение и обрезка</h2>
+	<p>Иногда часть содержимого оказывается за пределами прямоугольника</p>
+	<ul>
+		<li>Строка текста не может быть разорвана, и строчный блок становится шире блочного прямоугольника</li>
+		<li>Блочный прямоугольник слишком широк для вмещающего блока</li>
+		<li>Высота элемента больше, чем значение height вмещающего блока</li>
+		<li>Элемент абсолютно позиционирован</li>
+		<li>Объемлющий прямоугольник имеет отрицательные границы</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Реакция на переполнение</h2>
+	<p>Свойство <code>overflow</code> определяет правила обрезки содержимого</p>
+	<ul style="margin: 0px">
+		<li><code>visible</code> — по умолчанию, не обрезаем, вылезаем за пределы</li>
+		<li><code>hidden</code> — обрезаем, размер и форма задается свойством <code>clip</code></li>
+		<li><code>scroll</code> — обрезаем и даём прокрутку (но печатаем всё)</li>
+		<li><code>auto</code> — пусть браузер сам решает</li>
+	</ul>
+	<div style="width: 600px; height: 160px; border: thin solid red; overflow: scroll">
+	<p>Если бы строители строили здания так же, как программисты пишут программы, первый залетевший дятел разрушил бы цивилизацию.</p>
+	<p style="text-align: right">Второй закон Вейнберга</p>
+	</div>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Область обрезки</h2>
+	<p>Свойство <code>clip</code> определяет область обрезки содержимого</p>
+	<ul>
+		<li><code>auto</code> — по умолчанию, область совпадает с объемлющим  прямоугольником</li>
+		<li><code>rect(top,right,bottom,left)</code> — область является прямоугольником с координатами, заданными смещениями от сторон объемлющего прямоугольника, отрицательные смещения допускаются</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Самое главное-то забыли!</h2>
+	<p>Свойство <code>visibility</code> задает видимость элемента при отображении</p>
+	<ul>
+		<li><code>visible</code></li>
+		<li><code>hidden</code></li>
+		<li><code>collapse</code> (в таблицах)</li>
+	</ul>
+	<p>Невидимость элемента означает, что его область становится прозрачным, но продолжает занимать свое место</p>
+	<p>Сравните с <code>display: none</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Цвет и фон</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Цвет текста</h2>
+	<p>свойство <code>color</code> автоматически наследуется </p>
+	<ul>
+		<li>ключевое слово — <span style="color:red">red</span>, <span style="color:blue">blue</span>, <span style="color:magenta">magenta</span>, ...</li>
+		<li>в том числе — <span style="color:highlighttext; background:highlight">highlighttext</span>, <span style="color:highlight">highlight</span>, <span style="color:scrollbar">scrollbar</span> ...</li>
+		<li>шестнадцатиричный код — #f00, #0000ff, #666, ...</li>
+		<li>rgb/rgba — rgb(255,0,0), rgb(0%,0%,100%), rgba(0, 0, 0, .5), ...</li>
+		<li>hsl/hsla — hsl(0,100%,50%), hsl(250,100%,50%), hsla(0, 0%, 0%, .5), ... </li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Задание фона</h2>
+	<p>Фон распространяется на содержимое и заполнитель (padding)</p>
+	<ul>
+		<li><code>background-color</code></li>
+		<li><code>background-image: url(...)</code>, <code>background-repeat</code>, <code>background-attachment</code> и <code>background-position</code></li>
+	</ul>
+	<p>Сокращение — <code>background</code></p>
+	<p><code>p { background: url('b.gif') gray 50% repeat fixed}</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Шрифты</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font</h2>
+	<pre>
+		<code>h2 {</code>
+		<code>font: italic small-caps 700 36px/1.2 Arial, sans-serif;</code>
+		<code>}</code>
+	</pre>
+	<p>Результат: <span style="font: italic small-caps 700 36px / 1.2 Arial, sans-serif;">Наш текст</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-family</h2>
+	<p>Устанавливает семейство шрифта</p>
+	<pre>
+		<code>h2 {</code>
+		<code>	font-family: "Textbook New", Robot, sans-serif;</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-family</h2>
+	<ul>
+		<li style="font-family: serif">Serif — шрифты с засечками (антиквенные), типа Times New Roman</li>
+		<li style="font-family: sans-serif">Sans-serif — рубленые шрифты (без засечек или гротески), Arial</li>
+		<li style="font-family: cursive">Cursive — курсивные (рукописные) шрифты, Caflisch Script</li>
+		<li style="font-family: fantasy">Fantasy — декоративные шрифты, Critter, Cottonwood;</li>
+		<li style="font-family: monospace">Monospace — моноширинные шрифты, Courier New</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Serif и Sans-Serif</h2>
+	<p><img src="pictures/css-font-serif-vs-sans.jpg" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-size</h2>
+	<p>Размер шрифта (от базовой линии до верхней границы кегля)</p>
+	<pre>
+		<code>h2 {</code>
+		<code>	font-size: 100px</code>
+		<code>}</code>
+	</pre>
+	<p><img src="pictures/css-font-size.jpg" width="100%" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Размеры абсолютные и относительные</h2>
+	<ul>
+		<li><b>in</b> дюймы (1 дюйм = 2.54 см = 25.4 мм = 72 точки = 6 пик)</li>
+		<li><b>cm</b> сантиметры (1 см = 10 мм = 0.39 дюйма = 2.36 пики = 28.35 точки)</li>
+		<li><b>mm</b> миллиметры (1 мм = 0.1 см = 0.039 дюйма = 0.24 пики = 2.84 точки</li>
+		<li><b>pt</b> точки (1 точка = 1/12 пики = 1/72 дюйма = 0.035 см = 0.35 мм)</li>
+		<li><b>pc</b> пики (1 пика = 12 точек = 1/6 дюйма = 0.423 см = 4.23 мм)</li>
+		<hr>
+		<li><b>em</b> размер (font-size) соответствующего шрифта</li>
+		<li><b>ex</b> высота строчных букв (x-height) соответствующего шрифта</li>
+		<li><b>px</b> пиксели (размер зависит от устройства отображения)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | line-height</h2>
+	<p>Устанавливает интерлиньяж (межстрочный интервал) текста</p>
+	<p><img src="pictures/css-line-height.jpg" width="50%" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-weight</h2>
+	<p>Устанавливает насыщенность шрифта</p>
+	<pre>
+		<code>h2 {</code>
+		<code>	font-weight: normal | <mark>bold</mark> | 700 (100-900) | ...</code>
+		<code>}</code>
+	</pre>
+	<p>Результат: <span style="font-weight: bold">Наш текст</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-variant</h2>
+	<p>Как нужно представлять строчные буквы</p>
+	<pre>
+		<code>h2 {</code>
+		<code>	font-variant: normal | small-caps</code>
+		<code>}</code>
+	</pre>
+	<p><span style="font-variant: small-caps; font-size: 200%">Я small-caps текст</span>, <span style="font-size: 200%">Я обычный текст</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Шрифты | font-style</h2>
+	<p>Определяет начертание шрифта</p>
+	<pre>
+		<code>h2 {</code>
+		<code>	font-style: normal | italic | oblique;</code>
+		<code>}</code>
+	</pre>
+	<p><span style="font-style: italic; font-size: 150%">Я курсивный текст</span>, <span style="font-style: oblique; font-size: 150%">Я наклонный текст</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пользовательские шрифты</h2>
+	<pre>
+		<code>@font-face {</code>
+		<code>	font-family: 'Textbook New';</code>
+		<code>	font-style: normal;</code>
+		<code>	font-weight: 400;</code>
+		<code>	src: url('//curl.com/2T_f.woff') format('woff');</code>
+		<code>}</code>
+	</pre>
+	<p>Яндекс.Субботник — <a href="http://download.yandex.ru/company/experience/subbotnik/minsk_sidortsova.pdf" target="_blank">Использование пользовательских шрифтов</a></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Текст</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Текст | text-indent</h2>
+	<p>Устанавливает величину отступа первой строки блока текста</p>
+	<pre>
+		<code>p {</code>
+		<code>	text-indent: -1em</code>
+		<code>}</code>
+	</pre>
+	<p style="text-indent: -1em"><mark>«</mark>После детального ознакомления с ТЗ, мне кажется, что наш проект очень сильно походит на велосипед на костылях...</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Текст | text-align</h2>
+	<p>Устанавливает выравнивание текста</p>
+	<pre>
+		<code>p {</code>
+		<code>	text-align: center | right | justify | left ;</code>
+		<code>}</code>
+	</pre>
+	<p style="text-align: right">xxx: Как поиск так гугл, а как пинговать так Яндекс.</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Текст | vertical-align</h2>
+	<p>Вертикальное выравнивание (не только текста)</p>
+	<pre>
+		<code>p {</code>
+		<code style="white-space:normal">vertical-align: baseline | bottom | middle | sub | super | text-bottom | text-top | top | inherit | значение | проценты</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
