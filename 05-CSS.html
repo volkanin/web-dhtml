@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Свойства и значения CSS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+	a[href$=".pdf"]:before {content:url("data:image/gif;base64,R0lGODlhEAAQAPeUAP80ATQ0NPf3911dXf/pg01NTV5eXv/mgTg4OFtbW//shlNTU0xMTFZWVkhISENDQ05OTq+vr//Ub8HBwf/MAQE0mf/1j//ifUdHR1JSUv//mf/eeWNjY1lZWUFBQT8/P//zjf/RbP/Yc1dXV//bdlFRUbi4uHR0dHNzcz09PVxcXP/wiklJSf/2kKurq3p6em1tbca2cV9fX0pKSnVyW6SkpPPz80Fns7s2Ff/5k0JCQvz8/Dw8PGJiYnBwcP/qhFRUVJycnNLIfLu7u0tLS//7lcPDwzo6OrOzs//////3kf/xi8jIyJOTk4qKipCQkGFOgVpaWvLy8nFxcf/6lFVVVdPQhMbGxv/feu/y+d/m8v/jfmlpaWGBv9PMgHE+Mf/Pas5mEKlAGq+cMf+5AUQ3NGVlZdnZ2bmpa185MO7u7uw6DT4+PtHDeP/ge4ODg//uiP/rhUFadKyaYc2pXdLS0kBAQP+TAVhYWGBgYL+mJ97e3nGMxufn5//4kv/9l5SUbv/+mNTShrW1tUREROzs7L23eP/yjEZGRl5UQdDQ0Pn5+f7+/oE0Tqmpqb29vVw2LPv7+3FoTujOdgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAJQALAAAAAAQABAAAAhvACkJ/EewoMF/AhP+Y5SkYRKGDP89SkhpIcOHDSMSVAjxYsaHB0OKBECypEmTBAE0JLlSZcuUSVTKjBmzJMyZM2sCgFmTpkyb/366ZIky6MmjJEUq3ThwkQ2PiwQwcopwICOIDXfsuMqoasWlBQMCADs=")!important;}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Свойства и значения CSS</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Свойства  CSS</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Нумерация и списки</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Генерация содержимого</h2>
+	<p>В некоторых случаях CSS позволяет отображать содержание, которого нет в дереве документа:</p>
+	<ul>
+		<li>генерация содержимого с помощью псевдоэлементов :before и :after</li>
+		<li>автоматическая нумерация с использованием счетчиков</li>
+		<li>создание маркеров и отображение списков</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Задание содержимого: свойство content</h2>
+	<p><code>content</code> с псевдоэлементами <code>:before</code> и <code>:after</code> для генерации</p>
+	<ul>
+		<li><code>"строка"</code> — текст</li>
+		<li><code>url(...)</code> — содержимое ресурса (напр., картинка)</li>
+		<li><code>counter(имя,стиль)</code> — значение счетчика</li>
+		<li><code>attr(...)</code> — значение атрибута элемента</li>
+		<li><code>open-quote</code>, <code>close-quote</code> — кавычка, определяемая <code>quotes</code></li>
+		<li><code>no-open-quote</code>, <code>no-close-quote</code> — ничего, но счетчик вложения кавычек изменяется на 1</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Задание содержимого: свойство content</h2>
+	<pre>
+		<code>a[href^="mailto:"]:before {content:url("data:image/gif;base64,R0lGODlhEAAQAJECAJ2ip52hp////wAAACH5BAEAAAIALAAAAAAQABAAAAIqlI+py+0fopwR1XVNEDvtbgAhIgrliJ6nOQJiub6KfLiMXbv6jj/+7ysAADs=")!important;}</code>
+		<code>a[href$=".pdf"]:before {content:url("data:image/gif;base64,R0lGODlhEAAQAPeUAP80ATQ0NPf3911dXf/pg01NTV5eXv/mgTg4OFtbW//shlNTU0xMTFZWVkhISENDQ05OTq+vr//Ub8HBwf/MAQE0mf/1j//ifUdHR1JSUv//mf/eeWNjY1lZWUFBQT8/P//zjf/RbP/Yc1dXV//bdlFRUbi4uHR0dHNzcz09PVxcXP/wiklJSf/2kKurq3p6em1tbca2cV9fX0pKSnVyW6SkpPPz80Fns7s2Ff/5k0JCQvz8/Dw8PGJiYnBwcP/qhFRUVJycnNLIfLu7u0tLS//7lcPDwzo6OrOzs//////3kf/xi8jIyJOTk4qKipCQkGFOgVpaWvLy8nFxcf/6lFVVVdPQhMbGxv/feu/y+d/m8v/jfmlpaWGBv9PMgHE+Mf/Pas5mEKlAGq+cMf+5AUQ3NGVlZdnZ2bmpa185MO7u7uw6DT4+PtHDeP/ge4ODg//uiP/rhUFadKyaYc2pXdLS0kBAQP+TAVhYWGBgYL+mJ97e3nGMxufn5//4kv/9l5SUbv/+mNTShrW1tUREROzs7L23eP/yjEZGRl5UQdDQ0Pn5+f7+/oE0Tqmpqb29vVw2LPv7+3FoTujOdgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAJQALAAAAAAQABAAAAhvACkJ/EewoMF/AhP+Y5SkYRKGDP89SkhpIcOHDSMSVAjxYsaHB0OKBECypEmTBAE0JLlSZcuUSVTKjBmzJMyZM2sCgFmTpkyb/366ZIky6MmjJEUq3ThwkQ2PiwQwcopwICOIDXfsuMqoasWlBQMCADs=")!important;}</code>
+	</pre>
+	<p>Например, <code>&lt;a href="invoice.pdf"&gt;...&lt;/a&gt;</code> — <a href=".pdf" target="_blank">Счёт</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кавычки: свойство quotes</h2>
+	<p>Свойство <code>quotes</code> задает пары символов кавычек, возможно для нескольких уровней вложенности</p>
+	<ul>
+		<li>0022 " двойная кавычка</li>
+		<li>0027 ' одинарная кавычка (апостроф)</li>
+		<li>2039 ‹ открывающая одинарная угловая кавычка</li>
+		<li>203A › закрывающая одинарная угловая кавычка</li>
+		<li>00AB « открывающая двойная угловая кавычка</li>
+		<li>00BB » закрывающая двойная угловая кавычка</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кавычки: свойство quotes</h2>
+	<ul>
+		<li>2018 ‘ открывающая одинарная кавычка</li>
+		<li>2019 ’ закрывающая одинарная кавычка</li>
+		<li>201A ‚ закрывающая нижняя одинарная кавычка</li>
+		<li>201C “ открывающая двойная кавычка</li>
+		<li>201D ” закрывающая двойная кавычка</li>
+		<li>201E „ закрывающая нижняя двойная кавычка</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кавычки: свойство quotes</h2>
+	<pre>
+		<code>Q { quotes: "\00AB" "\00BB" "\201C" "\201D" }</code>
+		<code>Q:before ( content: open-quote }</code>
+		<code>Q:after ( content: close-quote }</code>
+	</pre>
+	<p>Например, <code style="font-size:smaller">&lt;q&gt;&lt;q&gt;Уважение к минувшему — вот черта, отличающая образованность от дикости&lt;/q&gt;, — сказал когда-то Пушкин&lt;/q&gt;</code></p>
+	«“Уважение к минувшему — вот черта, отличающая образованность от дикости”, — сказал когда-то Пушкин»
+</div></section>
+
+<section class="slide"><div>
+	<h2>Автоматическая нумерация</h2>
+	<p>Счетчик — это идентификатор, которому присваиваются целые значения с помощью  <code>counter-reset</code> и <code>counter-increment</code></p>
+	<p>Текущее значение счетчика может использоваться при генерации содержимого свойством <code>content:counter(имя,стиль)</code></p>
+	<p>Элементы с display:none не изменяют значения счетчиков</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Автоматическая нумерация</h2>
+	<pre>
+		<code>body { counter-reset: chapter -1}</code>
+		<code>h1:before {</code>
+		<code>	counter-increment: chapter;  /* Увеличить chapter на 1 */</code>
+		<code>	counter-reset: section;      /* Обнулить section */</code>
+		<code>	content: "Глава " counter(chapter,upper-roman) ". ";</code>
+		<code>}</code>
+		<code>h2:before {</code>
+		<code>	counter-increment: section;  /* Увеличить section на 1 */</code>
+		<code>	content: counter(chapter) "." counter(section) " ";</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Маркеры</h2>
+	<p><code>display:marker</code> в :before и :after — однострочный прямоугольник вне главного прямоугольника элемента</p>
+	<p>Создается только когда свойство content генерирует содержание</p>
+	<p>Прямоугольник маркера имеет рамку и заполнитель, не имеет границ</p>
+	<p><code>marker-offset</code> — расстояние между ближайшими краями рамок маркера и главного прямоугольника по горизонтали</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Маркеры обычно бывают у списков</h2>
+	<p>Элементы списков создаются присваиванием <code>display:list-item</code></p>
+	<p>Вид номера — <code><small>list-style-type: armenian | decimal | georgian | lower-alpha | lower-greek | lower-latin | lower-roman | upper-alpha | upper-latin | upper-roman</small></code></p>
+	<p>Или картинка — <code>list-style-image:url(...)</code></p>
+	<p>Позиция — <code>list-style-position: inside | outside</code>
+	<p>Всё вместе — <code>&lt;ul style="<mark>list-style</mark>: square inside"&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Списки как навигация</h2>
+	<pre style="font-size:smaller">
+		<code>&lt;ul&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Hidden Cameras&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;CCTV Cameras&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Employee Theft&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Helpful Hints&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;F.A.Q&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;About Us&lt;/a&gt;&lt;/li&gt;</code>
+		<code>	&lt;li&gt;&lt;a href=&quot;#&quot;&gt;Contact Us&lt;/a&gt;&lt;/li&gt;</code>
+		<code>&lt;/ul&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Списки как навигация</h2>
+	<p><a href="sample/05-CSS-sample-nav1.html" target="_blank">Исходник</a></p>
+	<iframe src="sample/05-CSS-sample-nav1.html" width="100%" height="100%"></iframe>	
+</div></section>
+
+<section class="slide"><div>
+	<h2>Списки как навигация</h2>
+	<p><a href="sample/05-CSS-sample-nav2.html" target="_blank">Исходник</a></p>
+	<iframe src="sample/05-CSS-sample-nav2.html" width="100%" height="100%"></iframe>	
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Страничные устройства вывода</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Страничные устройства вывода</h2>
+	<p>Синтаксис <code>@page [селектор-страницы] { правила; ... }</code></p>
+	<p>Селектор-страницы — это псевдоклассы <code>:first</code>, <code>:left</code>, <code>:right</code> или имя:</p>
+	<pre>
+		<code>@page rotated { size: landscape }</code>
+		<code>table { page: rotated; ... }</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Размер страницы</h2>
+	<p>Свойство <code>size: размеры | auto | portait | landscape </code></p>
+	<p>Для задания границ прямоугольника страницы — <code>margin</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Управление разрывами страниц</h2>
+	<p>Разрыв страницы перед элементом: свойство <br><code>page-break-before: auto|always|avoid|left|right</code></p>
+	<p>После элемента: свойство <code>page-break-after</code></p>
+	<p>Разрыв страницы внутри элемента: свойство <code>page-break-inside: auto | avoid</code></p>
+	<p>Количество строк в конце страницы: свойство <code>orphans:число</code></p>
+	<p>Количество строк в начале страницы: свойство <code>widows:число</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Методологии. CSS&nbsp;фреймфорки</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Проблемы CSS</h2>
+	<ul style="margin: 0px">
+		<li>Дублированный код</li>
+		<li>Запутанная структура</li>
+		<li>Сложность поддержки</li>
+	</ul>
+	<p>А если вы работаете в команде ...</p>
+	<ul>
+		<li>Разный стиль кода</li>
+		<li>Разные подходы к организации вёрстки</li>
+		<li>Множество повторных реализаций</li>
+		<li>Трудности рефакторинга</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как с этим бороться?</h2>
+	<ul>
+		<li>Единый стиль - Google style guide, Github s.g.</li>
+		<li>Ресеты стилей - reset.css, normаlize.css</li>
+		<li>Фреймворки - Twitter Bootstrap, 960gs</li>
+		<li>CSS препроцессоры - Less, Sass и др.</li>
+		<li>CSS постпроцессоры - Autoprefixer, PostCSS, rework</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Чек-листы</h2>
+	<p><a href="https://github.com/delka/html5checklist" target="_blank">html5checklist.com</a></p>
+	<p class="next">pull-реквесты приветствуются</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Методологии</h2>
+	<ul>
+		<li>БЭМ</li>
+		<li>OOCSS</li>
+		<li>SMACSS</li>
+		<li>Atomic CSS</li>
+		<li>MCSS</li>
+		<li>AMCSS</li>
+		<li>FUN</li>
+		<li>и другие</li>
+	<ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>БЭМ от Яндекса</h2>
+	<p><img src="pictures/css_method_bem.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>БЭМ от Яндекса</h2>
+	<p>ru.bem.info</p>
+	<p>Одна из самых популярных в мире для крупных проектов</p>
+	<ul>
+		<li>блоки могут использоваться в нескольких местах сайта</li>
+		<li>элементы — часть блока и не имеют функционального смысла вне его</li>
+		<li>модификаторы — свойства блока или элемента, которые меняют его внешний вид или поведение</li>
+	</ul>
+	<p>Священные войны приветствуются!</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>БЭМ от Яндекса</h2>
+	<pre>
+		<code>.block_element {...}</code>
+		<code>.block_element-modifier {...}</code>
+	</pre>
+	<p>Хорошо: изолированность модулей друг от друга и отсутствие непредсказуемых каскадов селекторов</p>
+	<p>Плохо: не всегда длинные названия классов удобны для использования (для крупных проектов есть смысл использовать инструменты, автоматизирующие работу с БЭМ-разметкой)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Object-Oriented CSS</h2>
+	<p><a href="http://www.slideshare.net/stubbornella/object-oriented-css" target="_blank">www.slideshare.net/stubbornella/object-oriented-css</a> — рекомендации</p>
+	<ul style="margin: 0px">
+		<li>Разделение структуры и оформления</li>
+		<li>Разделение контейнера и контента (содержимого)</li>
+	</ul>
+	<p><img src="pictures/css_method_oocss.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Scalable and Modular Architecture for CSS</h2>
+	<p>smacss.com</p>
+	<p><img src="pictures/css_method_smacss.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Scalable and Modular Architecture for CSS</h2>
+	<ul style="font-size:90%">
+		<li>Base rules — стили основных элементов сайта: body, input, button, ul, ol и т.п., в этой секции используются в основном селекторы тэгов и атрибутов</li>
+		<li>Layout rules — стили макета, глобальных элементов шапки, футера, сайдбара и т.п., здесь id в селекторах, т.к. эти элементы встречаются 1 раз на странице</li>
+		<li>Modules rules — стили модулей, то есть блоков, которые могут использоваться несколько раз на одной странице, здесь нет id и селекторов тэгов</li>
+		<li>State rules — стили состояния</li>
+		<li>Theme rules — стили оформлений, которые со временем, возможно, нужно будет заменить (например, новогоднее оформление или для продажи макета)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Multilayer CSS от "Одноклассников"</h2>
+	<p><a href="http://operatino.github.io/MCSS/" target="_blank">operatino.github.io/MCSS/</a>,  презентация — <a href="http://rhr.me/pres/mcss/" target="_blank">rhr.me/pres/mcss/</a></p>
+	<p><img src="pictures/css_method_mcss.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Multilayer CSS от "Одноклассников"</h2>
+	<ul style="font-size:95%">
+		<li>Слой фундамента задает нейтральные стили и не влияет на другие слои. Тут может быть любой фреймфорк</li>
+		<li>Элементы базового слоя могут влиять только на классы своего же слоя. Пример: иконки на сайте размером 25x25, но иконки в кнопках — 16x16</li>
+		<li>Элементы проектного слоя могут влиять на базовый и проектный слой. Примеры: иконки в форме логина имеют особый размер 20x20, но модуль «Покупка» имеет форму логина, стили которой модифицированы</li>
+		<li>Косметический слой — в виде OOCSS-классов («атомарные» классы) и не влияет на другой CSS-код, избирательно применяясь в разметке</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSS-фреймворки</h2>
+	<ul>
+		<li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> и тонны дополнений к нему</li>
+		<li><a href="http://foundation.zurb.com/" target="_blank">Foundation</a></li>
+		<li><a href="http://semantic-ui.com/" target="_blank">Semantic UI</a></li>
+		<li><a href="http://www.blueprintcss.org" target="_blank">Blueprint CSS</a></li>
+		<li><a href="http://960.gs/" target="_blank">960 Grid System</a></li>
+		<li>список можно продолжать бесконечно</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSS-фреймворки</h2>
+	<p>Какой самый правильный?</p>
+	<blockquote>Каждый квартал отдел front-end разработки переходит на новую систему, приводя целый список доводов "за"</blockquote>
+	<p>&copy; один из разработчиков Яндекс</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
