@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Объектная модель документа HTML</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Объектная модель документа HTML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>События в DOM</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Стандарты W3C</h2>
+	<p><a href="www.w3.org/TR/#tr_DOM_events" target="_blank">w3.org/TR/#tr_DOM_events</a></p>
+	<p><a href="http://www.w3.org/TR/DOM-Level-2-Events/" target="_blank">DOM Level 2 Events</a> — W3C Recommendation, 13.11.2000</p>
+	<p><a href="http://www.w3.org/TR/uievents/" target="_blank">UI Events (бывш. DOM Level 3 Events)</a> — W3C Draft, апрель 2015</p>
+	<h2>Разработчики</h2>
+	<p><a href="https://developer.mozilla.org/docs/Web/Events" target="_blank">developer.mozilla.org/docs/Web/Events</a> и др.</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Генерация событий</h2>
+	<p>Типы событий:</p>
+	<ul>
+		<li>Аппаратные события пользовательского интерфейса — нажатие клавиши, движение мыши, ...</li>
+		<li>Логические события пользовательского интерфейса — смена фокуса, отправка формы ... </li>
+		<li>Изменение структуры документа — добавление нового элемента, ...</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Распространение событий (Propagation)</h2>
+	<p>Любое событие связано с конкретным узлом (цель события с интерфейсом <code>EventTarget</code>)<p>
+	<p>Цель доступна через свойство <code>target</code> объекта <code>Event</code>, описывающего данное событие</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Фазы распространения</h2>
+	<ul style="margin: 0px">
+		<li>спуск по дереву к цели, возможен <em>перехват</em> (capturing phase)</li>
+		<li>вызов обработчика у цели (target phase)</li>
+		<li><em>просачивание</em> или всплытие (bubble phase) <sup>*</sup><span class="next" style="font-size: smaller">если <code>Event.bubbles == true</code></li>
+	</ul>
+	<p><code>Event.currentTarget</code> и <code>Event.eventPhase</code></p>
+	<p>Ошибка? Исключение? Просто вызови следующий обработчик!</p>
+	<p>Цепочка распространения фиксируется, даже если переместить элементы в дереве</p>
+</div></section>
+
+<section class="slide"><div>
+	<p><img src="pictures/dom_event_flow.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Типовая обработка</h2>
+	<p>Например, переход по гиперссылке для <code>&lt;A&gt;</code></p>
+	<p>Событие может быть <em>отменяемым</em> (<small><code>Event.cancellable == true</code></small>)</p>
+	<p><code>Event.preventDefault()</code> — отменить типовую обработку</p>
+	<p><code>Event.stopPropagation()</code> — прекратить распространение</p>
+	<p><code>Event.stopImmediatePropagation()</code> — точно прекратить :)</p>
+	<p onclick="alert('обработчик у абзаца')">Почти все реализации отменяют событие и так — <code>&lt;a href="#" onclick="return(false)"&gt;</code>. <a href="#" onclick="return(false)">Верите или нет?</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Историческая справка</h2>
+	<p>В IE «собственно-стандартовой» эпохи</p>
+	<p><code>Event.returnValue = false</code> — отменить типовую обработку</p>
+	<p><code>Event.cancelBubble = true</code> — прекратить распространение</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Регистрация обработчиков событий</h2>
+	<p>программно — интерфейс <code>EventTarget</code></p>
+	<ul>
+		<li><code>узел.addEventListener(type, listener, useCapture)</code></li>
+		<li><code>узел.dispatchEvent(evt)</code></li>
+		<li style="white-space: nowrap"><code>узел.removeEventListener(type, listener, useCapture)</code></li>
+	</ul>
+	<p>При копировании узлов <code>cloneNode()</code> обработчики не копируются</p>
+	<p id="addEventTest" onclick="alert('статический')">Сколько обработчиков может быть у элемента?</p>
+	<script>
+		document.getElementById("addEventTest").addEventListener("click", function(event) {alert('динамический раз ...')});
+		document.getElementById("addEventTest").addEventListener("click", function(event) {alert('динамический два ...')});
+	</script>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Регистрация обработчиков событий</h2>
+	<pre>
+		<code>function mouseClick(event) {</code>
+		<code>	console.log(event.target.tagName);</code>
+		<code>	event.stopPropagation();</code>
+		<code>}</code>
+		<code>document.addEventListener("click", mouseClick, true);</code>
+		<code>var evt = new Event("click",{"bubbles":true,"cancelable":false});</code>
+		<code>document.body.dispatchEvent(evt);</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Историческая справка</h2>
+	<p>В IE «собственно-стандартовой» эпохи</p>
+	<ul>
+		<li><code>узел.attachEvent(type, function)</code></li>
+		<li><code>узел.fireEvent(type, evt)</code></li>
+		<li><code>узел.detachEvent(type, function)</code></li>
+		<li><code>узел.setCapture(globalCapture)</code> — только для мыши</li>
+		<li><code>узел.releaseCapture()</code> — только для мыши</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Статические обработчики</h2>
+	<code>&lt;body on<mark>click</mark>="код"&gt;</code>
+	<p>Только неперерехватывающие обработчики, 1 штука на событие</p>
+	<p>Перечень событий фиксирован</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Порядок генерации событий</h2>
+	<ul>
+		<li>Синхронный — очередной обработчик ожидает полной обработки или отмены текущего события<br>
+			Например, пользователь выделяет слово двойным кликом и жмёт Del: mousedown, mouseup, click, mousedown, mouseup, click, dblclick, select, keydown, beforeinput, input, keyup</li>
+		<li>Асинхронный — как бог на душу положит, например, события load</li>
+	</ul>
+	<p>Как узнать? <a href="http://www.w3.org/TR/uievents/#event-types" target="_blank">w3.org/TR/uievents/#event-types</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Доверенные (trusted) события</h2>
+	<code>Event.isTrusted</code>
+	<ul>
+		<li>true для «настоящих» событий</li>
+		<li>false если создано через <code>document.createEvent(...)</code>, <code>new Event(...)</code>, или отправлено: <code>узел.dispatchEvent()</code></li>
+	</ul>
+	<p>у недоверенных событий всегда предварительно вызван <code>preventDefault()</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Триггеры активации</h2>
+	<p>Событие может активировать другое, связанное</p>
+	<code>&lt;a href="#" onclick="alert(event.isTrusted)"&gt; &lt;/a&gt;</code>
+	<p><span onclick="document.getElementById('activationTest').focus()">Установите фокус</span> <a id="activationTest" href="#" onclick="alert(event.isTrusted);return(false)"> и нажмите Enter</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Итого — интерфейс Event</h2>
+	<ul>
+		<li><code>type</code></li>
+		<li><code>target</code>, алиас <code>srcElement</code> (IE)</li>
+		<li><code>currentTarget</code></li>
+		<li><code>eventPhase</code></li>
+		<li><code>bubbles</code></li>
+		<li><code>cancelable</code></li>
+		<li><code>timeStamp</code></li>
+		<li><code>defaultPrevented</code></li>
+		<li><code>isTrusted</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Итого — интерфейс Event</h2>
+	<ul>
+		<li><code>stopPropagation()</code></li>
+		<li><code>stopImmediatePropagation()</code></li>
+		<li><code>preventDefault()</code></li>
+		<li><code>initEvent()</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Наследование программных интерфейсов</h2>
+	<p><img src="pictures/dom_event_inheritance.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События документа</h2>
+	<ul>
+		<li><code>load</code> (async, не всплывает, не отменяется)</li>
+		<li><code>unload</code> (sync, не всплывает, не отменяется)</li>
+		<li><code>abort</code> (sync, не всплывает, не отменяется)</li>
+		<li><code>error</code> (async, не всплывает, не отменяется)</li>
+		<li><code>select</code> (sync, всплывает, не отменяется)</li>
+		<li><code>resize</code> (sync, не всплывает, не отменяется)</li>
+		<li><code>scroll</code> (async, всплывает, не отменяется)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События документа</h2>
+	<ul>
+		<li><code>focus</code> (sync, не всплывает, не отменяется)</li>
+		<li><code>blur</code> (sync, не всплывает, не отменяется)</li>
+	</ul>
+	<p>у события появляется свойство <code>relatedTarget</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События мыши</h2>
+	<p onclick="alert(''+event.button+' / '+event.buttons)" oncontextmenu="alert(''+event.button+' / '+event.buttons); return(false)">Что нового в объекте-событии?</p>
+	<ul>
+		<li><code>screenX</code> / <code>screenY</code></li>
+		<li><code>clientX</code> / <code>clientY</code></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/pageX" target="_blank">нестандартные</a> <code>pageX</code> / <code>pageY</code></li>
+		<li><code>button</code> — кнопка-инициатор, 0 (левая), 1 (колесо), 2 (правая)</li>
+		<li><code>buttons</code> — текущее состояние всех кнопок, степени двойки</li>
+		<li><code>ctrlKey</code> / <code>shiftKey</code> / <code>altKey</code> / <code>metaKey</code> — клавиатура</li>
+		<li><code>relatedTarget</code></li>
+		<li><code>detail</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События мыши</h2>
+	<ul>
+		<li><code>click</code> — только левая кнопка</li>
+		<li><code>dblclick</code> — только левая кнопка</li>
+		<li><code>contextmenu</code> — только правая кнопка</li>
+		<li><code>mousedown</code> + перетаскивание, выделение, масштаб / <code>mouseup</code></li>
+		<li><code>mouseenter</code> / <code>mouseleave</code></li>
+		<li><code>mousemove</code> / <code>mouseout</code> / <code>mouseover</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Проводим мышью над A внутри P</h2>
+	<ul>
+		<li><code>mousemove</code> (P) — серия событий</li>
+		<li><code>mouseout</code> (P)</li>
+		<li><code>mouseover</code> (A)</li>
+		<li><code>mouseenter</code> (A) — мышь внутри абзаца, <code>mouseleave</code> (P) нет</li>
+		<li><code>mousemove</code> (A) — серия событий</li>
+		<li><code>mouseout</code> (A)</li>
+		<li><code>mouseleave</code> (A)</li>
+		<li><code>mouseover</code> (P)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>А если стопка элементов?</h2>
+	<p><img src="pictures/dom_event_mouse_dispatch.png"></p>
+	<p>Тут элемент C — самый верхний</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>А если стопка элементов?</h2>
+	<ul>
+		<li><code>mouseover</code> C</li>
+		<li><code>mouseenter</code> A</li>
+		<li><code>mouseenter</code> B</li>
+		<li><code>mouseenter</code> C</li>
+		<li><code>mousemove</code> C — серия событий</li>
+		<li><code>mouseout</code> C</li>
+		<li><code>mouseleave</code> C</li>
+		<li><code>mouseleave</code> B</li>
+		<li><code>mouseleave</code> A</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События колеса мыши</h2>
+	<p>Что нового в объекте-событии?</p>
+	<code>interface WheelEvent : MouseEvent</code>
+	<ul>
+		<li><code>deltaX</code> / <code>deltaY</code> / <code>deltaZ</code></li>
+	</ul>
+	<p>Событие: <code>wheel</code> (async, всплывает, отменяется)</p>
+	<p>Активирует <code>scroll</code> / zoom</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Перетаскивание (HTML5)</h2>
+	<p><code>drag</code>, <code>dragdrop</code>, <code>dragend</code>, <code>dragenter</code>, <code>dragexit</code>, <code>draggesture</code>, <code>dragleave</code>, <code>dragover</code>, <code>dragstart</code>, <code>drop</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События клавиатуры</h2>
+	<p>Что нового в объекте-событии?</p>
+	<ul style="margin: 0px">
+		<li><code>code</code>+<code>location</code> — какую физическую кнопку нажали</li>
+		<li><code>key</code> — значение нажатой клавиши:</li>
+		<li>устаревшие — <code>keyCode</code> / <code>charCode</code> / <code>which</code></li>
+		<li><code>ctrlKey</code> / <code>shiftKey</code> / <code>altKey</code> / <code>metaKey</code> — модификаторы</li>
+		<li><code>repeat</code></li>
+	</ul>
+	<p id="keyTest" style="font-family:monospace"></p>
+	<p>Тест: <input onkeydown="document.getElementById('keyTest').innerHTML='code:'+event.code+' key:'+event.key+' location:'+event.location"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События клавиатуры</h2>
+	<ul>
+		<li><code>keydown</code> / <code>keyup</code></li>
+		<li>Активирует <code>input</code> (в текстовом поле) и другие</li>
+		<li><code>keypress</code> — устарел</li>
+	</ul>
+	<p id="keyRepeatTest" style="font-family:monospace" onclick="this.innerHTML=''"></p>
+	<p>Тест событий: 
+		<input
+		onkeydown="document.getElementById('keyRepeatTest').innerHTML=document.getElementById('keyRepeatTest').innerHTML+' down'"
+		onkeypress="document.getElementById('keyRepeatTest').innerHTML=document.getElementById('keyRepeatTest').innerHTML+' press'"
+		oninput="document.getElementById('keyRepeatTest').innerHTML=document.getElementById('keyRepeatTest').innerHTML+' input'"
+		onkeyup="document.getElementById('keyRepeatTest').innerHTML=document.getElementById('keyRepeatTest').innerHTML+' up'"
+		></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События текстовых элементов</h2>
+	<p><code>compositionstart</code>, <code>compositionend</code>, <code>compositionupdate</code>, <code>copy</code>, <code>cut</code>, <code>paste</code>, <code>select</code></p>
+	<h2>События форм</h2>
+	<ul>
+		<li><code>input</code> / <code>change</code></li>
+		<li><code>submit</code> / <code>reset</code></li>
+	</ul>
+	<form onsubmit="alert('submit');return(false)"><input></form>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События мультимедиа (HTML5)</h2>
+	<p><code>audioprocess</code>, <code>canplay</code>, <code>canplaythrough</code>, <code>durationchange</code>, <code>emptied</code>, <code>ended</code>, <code>loadeddata</code>, <code>loadedmetadata</code>, <code>pause</code>, <code>play</code>, <code>playing</code>, <code>ratechange</code>, <code>seeked</code>, <code>seeking</code>, <code>stalled</code>, <code>suspend</code>, <code>timeupdate</code>, <code>volumechange</code>, <code>waiting</code>, <code>complete</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События печати (HTML5)</h2>
+	<p><code>beforeprint</code>, <code>afterprint</code></p>
+	<h2>и даже WebSocket</h2>
+	<p><code>open</code>, <code>close</code>, <code>error</code>, <code>message</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Устранение помех</h2>
+	<p>Некоторые события могут генерироваться быстро и много раз подряд</p>
+	<p>Не делайте в обработчике ничего «тяжёлого» !</p>
+	<textarea>Напишите тут что-нибудь...</textarea>
+	<script>
+		var textarea = document.querySelector("textarea");
+		var timeout;
+		textarea.addEventListener("keydown", function() {
+			clearTimeout(timeout);
+			timeout = setTimeout(function() {
+				alert("Вы остановились.");
+				console.log("Вы остановились.");
+			}, 500);
+		});
+	</script>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Устранение помех</h2>
+	<pre>
+		<code>var textarea = document.querySelector("textarea");</code>
+		<code>var timeout;</code>
+		<code>textarea.addEventListener("keydown", function() {</code>
+		<code>	clearTimeout(timeout);</code>
+		<code>	timeout = setTimeout(function() {</code>
+		<code>		console.log("Вы остановились.");</code>
+		<code>	}, 500);</code>
+		<code>});</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Устранение помех</h2>
+	<pre style="font-size:smaller">
+		<code>function displayCoords(event) {</code>
+		<code>	document.body.textContent = "Мышь на " + event.pageX + ", " + event.pageY;</code>
+		<code>}</code>
+		<code>var scheduled = false, lastEvent;</code>
+		<code>addEventListener("mousemove", function(event) {</code>
+		<code>	lastEvent = event;</code>
+		<code>	if (!scheduled) {</code>
+		<code>		scheduled = true;</code>
+		<code>		setTimeout(function() {</code>
+		<code>			scheduled = false; displayCoords(lastEvent);</code>
+		<code>		}, 250);</code>
+		<code>	}</code>
+		<code>});</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Окна браузера</h2>
+</div></section>
+
+<section class="slide"><div>
+	<p><code>window</code> — глобальный объект</p>
+	<h2>Работа с таймером</h2>
+	<ul>
+		<li><code>clearInterval</code> — Сбрасывает интервал, заданный setInterval</li>
+		<li><code>clearTimeout</code> — Сбрасывает таймаут, заданный setTimeout</li>
+		<li><code>setInterval</code> — Задает периодический вызов функции</li>
+		<li><code>setTimeout</code> — Задает разовый вызов функции</li>
+	</ul>
+	<p>Если задать undefined для clearTimeout, или вызвать его с таймаутом, который уже произошёл, то ничего не произойдёт</p>
+</div></section>
+	
+<section class="slide"><div>
+	<h2>Методы window для общения</h2>
+	<ul>
+		<li><code>alert</code> — Создает диалоговое окно сообщения</li>
+		<li><code>confirm</code> — Создает диалоговое окно подтверждения</li>
+		<li><code>prompt</code> — Создает диалоговое окно для ввода строки</li>
+		<li><code>escape</code> — Преобразует строку в шестнадцатеричную кодировку</li>
+		<li><code>unescape</code> — Преобразует шестнадцатеричную кодировку в строку</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Методы управления историей</h2>
+	<p>Правильнее использовать HTML 5 History API</p>
+	<ul>
+		<li><code>back</code> — возврат по истории просмотра</li>
+		<li><code>forward</code> — переход вперед по истории просмотра</li>
+		<li><code>home</code> — на домашнюю страницу пользователя</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Методы управления окном</h2>
+	<ul>
+		<li><code>close</code> — Закрывает текущее окно обозревателя</li>
+		<li><code>moveBy</code> — Сдвигает окно на заданную величину</li>
+		<li><code>moveTo</code> — Сдвигает окно в заданную позицию</li>
+		<li><code>open</code> — Создает новое окно</li>
+		<li><code>openDialog</code> — Создает новое диалоговое окно</li>
+		<li><code>resizeBy</code> — Изменяет размеры окна на заданную величину</li>
+		<li><code>resizeTo</code> — Задает новые размеры окна</li>
+		<li><code>scroll</code> / <code>scrollBy</code> / <code>scrollTo</code> — Прокручивает окно</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Методы управления окном</h2>
+	<pre>
+		<code>o=<a href="https://developer.mozilla.org/docs/Web/API/Window/open" target="_blank">window.open</a>('about:blank','','toolbar,status=no,width=200,height=200');</code>
+		<code>o.document.write('hello');</code>
+		<code>o.close();		// закроют без вопросов</code>
+	</pre>
+	<p>Примеры имён параметров: height, location, menubar, resizable, screenX, screenY, scrollbars, status, toolbar, width</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Дочерние объекты и коллекции</h2>
+	<ul>
+		<li><code>document</code> — вершина дерева DOM в окне</li>
+		<li><code>frames</code> — коллекция объектов window, определенных документом</li>
+		<li><code>history</code> — история просмотра</li>
+		<li><code>location</code> — информацию об URI документа</li>
+		<li><code>navigator</code> — информация об обозревателе</li>
+		<li><code>screen</code> — сведения о клиентской области отображения</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>window.screen</h2>
+	<ul>
+		<li><code>height</code> / <code>width</code> — размеры экрана в пикселях</li>
+		<li><code>availHeight</code> / <code>availWidth</code> — размеры рабочей области экрана (исключая панель задач)</li>
+		<li><code>left</code> / <code>top</code> — верхний левый угол браузера относительно экрана</li>
+		<li><code>availLeft</code>, <code>availTop</code> — первый доступный пиксель экрана </li>
+		<li><code>pixelDepth</code> — число битов на пиксель при отображении цветов</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>window.location</h2>
+	<ul>
+		<li><code>hash</code> — Закладка, часть URI, следующая за символом "#" (включая)</li>
+		<li><code>host</code> — hostname:port или hostname (если нет порта)</li>
+		<li><code>hostname</code> — Имя хоста и домена или IP-адрес</li>
+		<li><code>href</code> — Полный URI документа</li>
+		<li><code>pathname</code> — Имя файла или пути</li>
+		<li><code>port</code> — Номер порта, указанный в URI документа</li>
+		<li><code>protocol</code> — Протокол, указанный в URI документа</li>
+		<li><code>search</code> — Запрос, часть URI, следующая за символом "?" (включая)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>window.navigator</h2>
+	<ul>
+		<li><code>appCodeName</code> — Кодовое имя обозревателя. Всегда равно "Mozilla"</li>
+		<li><code>appName</code> — Название обозревателя. Всегда равно "Netscape"</li>
+		<li><code>product</code> — Название продукта. Всегда равно "Gecko"</li>
+		<li><code>platform</code> — Платформа клиента. "Win32" и другие</li>
+		<li><code>userAgent</code> — Информация об обозревателе в формате поля User-Agent заголовка запроса HTTP</li>
+	</ul>
+	<p>Не используйте userAgent для определения возможностей браузера!</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>History of the browser user-agent string</h2>
+	<p>А почему <mark>всегда</mark> "Mozilla", "Netscape" и "Gecko" ???</p>
+	<p>Так получилось...</p>
+	<p><a href="http://webaim.org/blog/user-agent-string-history" target="_blank">webaim.org/blog/user-agent-string-history</a></p>
+	<p>Перевод — <a href="http://geektimes.ru/post/84222/" target="_blank">geektimes.ru/post/84222/</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<p>А потом создали Google Chrome и Chrome использовал WebKit, и был он как Safari, и хотел страниц, созданных для Safari, и поэтому сделал вид, что он и есть Safari. И таким образом Chrome использовал WebKit, и притворился, что Safari, и WebKit притворился, что он KHTML, и KHTML притворился Gecko, а все браузеры притворялись Mozilla, и Chrome называл себя Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.2.149.27 Safari/525.13 и user-agent стал полным беспорядком, рядом не лежавшим с удобством, и каждый притворялся другим, и путаница изобиловала. И хаос воцарился на земле.</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
