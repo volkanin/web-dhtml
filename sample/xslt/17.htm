@@ -1,0 +1,350 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 17 &lt;&lt;</b> | <a class="naviBlack" href="16.htm">Назад</a> | <a class="naviBlack" href="18.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id17">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Ось child:: может быть опущена в пути адресации, так как она является осью по умолчанию. Ось attribute:: можно кратко записать в виде @. // является сокращением для /descendant-or-self::, . является синомимом для self::, а .. является сокращением для parent::.<br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;H3>AAA a1&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>child::BBB/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>BBB/@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>b1&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>b1&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE>			<br><br>&lt;H3>AAA a2&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>child::BBB/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>BBB/@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>b3&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>b3&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><H3>AAA a1</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>child::BBB/attribute::id</TD>
+      <TD>BBB/@id</TD>
+   </TR>
+   <TR>
+      <TD>b1</TD>
+      <TD>b1</TD>
+   </TR>
+</TABLE>			
+
+<H3>AAA a2</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>child::BBB/attribute::id</TD>
+      <TD>BBB/@id</TD>
+   </TR>
+   <TR>
+      <TD>b3</TD>
+      <TD>b3</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="AAA"&gt;
+                  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">H3</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="@id"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">H3</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;full&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;abbreviated&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;child::BBB/attribute::id&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;BBB/@id&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="child::BBB/attribute::id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="BBB/@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id3"></a><hr>
+      <h2 style="color:gray">Преобразование 2</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;H3>BBB b1&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>parent::*/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>../@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a1&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a1&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br> &nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>BBB b2&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>parent::*/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>../@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a1&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a1&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br>			<br><br> &nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>BBB b3&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>parent::*/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>../@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br> &nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>BBB b4&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>parent::*/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>../@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br> &nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>BBB b5&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>parent::*/attribute::id&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>../@id&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>a2&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><H3>BBB b1</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>parent::*/attribute::id</TD>
+      <TD>../@id</TD>
+   </TR>
+   <TR>
+      <TD>a1</TD>
+      <TD>a1</TD>
+   </TR>
+</TABLE>
+     
+<H3>BBB b2</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>parent::*/attribute::id</TD>
+      <TD>../@id</TD>
+   </TR>
+   <TR>
+      <TD>a1</TD>
+      <TD>a1</TD>
+   </TR>
+</TABLE>
+			
+
+     
+<H3>BBB b3</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>parent::*/attribute::id</TD>
+      <TD>../@id</TD>
+   </TR>
+   <TR>
+      <TD>a2</TD>
+      <TD>a2</TD>
+   </TR>
+</TABLE>
+     
+<H3>BBB b4</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>parent::*/attribute::id</TD>
+      <TD>../@id</TD>
+   </TR>
+   <TR>
+      <TD>a2</TD>
+      <TD>a2</TD>
+   </TR>
+</TABLE>
+     
+          
+     
+     
+<H3>BBB b5</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>parent::*/attribute::id</TD>
+      <TD>../@id</TD>
+   </TR>
+   <TR>
+      <TD>a2</TD>
+      <TD>a2</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="BBB"&gt;
+                  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">H3</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="@id"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">H3</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;full&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;abbreviated&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;parent::*/attribute::id&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;../@id&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="parent::*/attribute::id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="../@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id4"></a><hr>
+      <h2 style="color:gray">Преобразование 3</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;H3>CCC c1&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(/descendant-or-self::*)&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(//*)&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>CCC c2&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(/descendant-or-self::*)&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(//*)&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br> &nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&lt;H3>CCC c3&lt;/H3><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>full&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>abbreviated&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(/descendant-or-self::*)&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>name(//*)&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>source&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><H3>CCC c1</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>name(/descendant-or-self::*)</TD>
+      <TD>name(//*)</TD>
+   </TR>
+   <TR>
+      <TD>source</TD>
+      <TD>source</TD>
+   </TR>
+</TABLE>
+          
+<H3>CCC c2</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>name(/descendant-or-self::*)</TD>
+      <TD>name(//*)</TD>
+   </TR>
+   <TR>
+      <TD>source</TD>
+      <TD>source</TD>
+   </TR>
+</TABLE>
+     
+     
+          
+<H3>CCC c3</H3>
+<TABLE border="1">
+   <TR>
+      <TH>full</TH>
+      <TH>abbreviated</TH>
+   </TR>
+   <TR>
+      <TD>name(/descendant-or-self::*)</TD>
+      <TD>name(//*)</TD>
+   </TR>
+   <TR>
+      <TD>source</TD>
+      <TD>source</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="CCC"&gt;
+                  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">H3</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="@id"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">H3</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;full&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;abbreviated&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;name(/descendant-or-self::*)&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;name(//*)&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name(/descendant-or-self::*)"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name(//*)"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_apply-templates.html" class="element">xsl:apply-templates</a>/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

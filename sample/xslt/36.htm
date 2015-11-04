@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 36 &lt;&lt;</b> | <a class="naviBlack" href="35.htm">Назад</a> | <a class="naviBlack" href="37.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id36">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Есть тонкий момент при задании значения переменной.<br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA&gt; 
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB&gt; 
+                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC&gt;C1&lt;/CCC&gt;
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC&gt;C2&lt;/CCC&gt; 
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC&gt;C3&lt;/CCC&gt; 
+                  <br>&lt;/AAA&gt; 
+                  <br>&lt;AAA&gt; 
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC&gt; 
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DDD&gt;D1&lt;/DDD&gt; 
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;DDD&gt;D2&lt;/DDD&gt; 
+                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt; 
+                   <br>&lt;/AAA&gt; 
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;P>//AAA/CCC/DDD : D1&lt;/P><br>&lt;P>//AAA/CCC/text() : C2 C3 &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&lt;/P></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><P>//AAA/CCC/DDD : D1</P>
+<P>//AAA/CCC/text() : C2 C3  
+       
+       
+    </P></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable.html" class="element">xsl:variable</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable_name.html" class="attribute">name</a>="var1" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable_select.html" class="attribute">select</a>="//AAA/CCC/text()"/&gt;
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable.html" class="element">xsl:variable</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable_name.html" class="attribute">name</a>="var2"&gt;//AAA/CCC/text()&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_variable.html" class="element">xsl:variable</a>&gt; 
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="function"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param.html" class="element">xsl:with-param</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param_name.html" class="attribute">name</a>="path1" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param_select.html" class="attribute">select</a>="//AAA/CCC/DDD"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param.html" class="element">xsl:with-param</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param_name.html" class="attribute">name</a>="path2"&gt;//AAA/CCC/DDD&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_with-param.html" class="element">xsl:with-param</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="function"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_param.html" class="element">xsl:param</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_param_name.html" class="attribute">name</a>="path1"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_param.html" class="element">xsl:param</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_param_name.html" class="attribute">name</a>="path2"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">P</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="$path2"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; : &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="$path1"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">P</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">P</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="$var2"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; : &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="$var1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">P</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

@@ -1,0 +1,56 @@
+body {
+	background-color:#ffffff;
+	font-family:tahoma,verdana,sans-serif;
+
+}
+a {
+        text-decoration:none;
+        color:#3399cc;
+/*        font-weight:bold;
+        font-family:tahoma,verdana,sans-serif;*/
+}
+
+a.element {
+        font-weight:bold;
+	color:navy
+}
+
+a.attribute {
+        font-weight:bold;
+	color:green
+}
+
+a.naviBlack {
+        color: navy;
+	font-weight:bold;
+}
+
+a:hover { color:red }
+
+table.hangingMenu td { font-size: 80%; }
+
+.xmlSource, .Output, .HTMLview, .XSLT {
+	padding:1em;
+	color:black;
+}
+
+.xmlSource {
+	class:block;
+	border:solid purple;
+}
+.Output {
+	border:solid maroon;
+}
+
+.HTMLview {
+	border:double gray;
+	border-width:thick;
+	font-weight:normal;
+}
+
+.XSLT {
+	border:solid teal;
+}
+span.smallText {
+	font-size: 60%;
+}

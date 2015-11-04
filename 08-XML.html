@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - XML</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		pre.compact code { line-height: 1.5 }
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>XML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>XML</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>История — XML</h2>
+	<p>XML (eXtensible Markup Language), расширяемый язык разметки, предназначен для хранения структурированных данных</p>
+	<p>XML может содержать любые теги, описанные создателями словаря, но XML не даёт указаний, как должны отображаться данные</p>
+	<ol>
+		<li>XML 1.0 — 10 февраля 1998</li>
+		<li>XML 1.0 (Fifth edition) — 26 ноября 2008</li>
+		<li>XML 1.1 (Second edition)— 16 августа 2006</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Приложения XML</h2>
+	<ol>
+		<li>XHTML — семейство языков разметки веб-страниц на основе XML, повторяющих HTML 4</li>
+		<li>MathML — язык математических формул</li>
+		<li>SMIL — язык интеграции и синхронизации мультимедийных средств</li>
+		<li>SVG — язык двумерной векторной графики</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример документа</h2>
+	<pre>
+	<code>&lt;?xml version="1.0" encoding="utf-8" ?&gt;</code>
+	<code>&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;</code>
+	<code>	&lt;apply&gt;&lt;approx/&gt;</code>
+	<code>		&lt;pi/&gt; <span style="color:grey">&lt;!-- greek small letter pi --&gt;</span></code>
+	<code>		&lt;cn type=&quot;rational&quot;&gt;22&lt;sep/&gt;7&lt;/cn&gt;</code>
+	<code>	&lt;/apply&gt;</code>
+	<code>&lt;/math&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>MathML — часть HTML5</h2>
+	<p>В браузере это будет выглядеть так:</p>
+	<math>
+		<mrow>
+			<mi>&#x3c0;<!--GREEK SMALL LETTER PI--></mi>
+			<mo>&#x2243;<!--ASYMPTOTICALLY EQUAL TO--></mo>
+			<mrow><mn>22</mn><mo>/</mo><mn>7</mn></mrow>
+		</mrow>
+	</math>
+	<p>К сожалению, только <em>Presentation Markup</em></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Процесс обработки XML</h2>
+	<p>Текст анализируется <em>XML-процессором</em></p>
+	<p>Он ничего не знает о семантике, производит синтаксический разбор (parsing) и проверяет правильность документа (well-formed)</p>
+	<p>Если всё хорошо, то результаты разбора передаются прикладной программе для содержательной обработки</p>
+	<p>Если же документ оформлен неверно, то XML-процессор должен сообщить о них пользователю</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Составные части XML-документа</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пролог</h2>
+	<p>Набор директив (Processing instructions), «стандартные»</p>
+	<pre>
+		<code>&lt;<mark>?xml</mark> version="1.0" encoding="utf-8" ?&gt;</code>
+		<code>&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;template.xsl&quot;?&gt;</code>
+	</pre>
+	<p>или для конкретного процессора, напр. <a href="http://docbook.sourceforge.net/release/xsl/current/doc/pi/" target="_blank">DocBook</a></p>
+	<pre>
+		<code>&lt;?dbhh topicname=&quot;name&quot; topicid=&quot;id&quot;?&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Элементы и атрибуты</h2>
+	<p>Тег — элемент языка разметки, заключённый между <code>&lt;</code> и <code>&gt;</code></p>
+	<ul>
+		<li>с содержимым (открывающий и закрывающий): <code>&lt;author&gt;Сергей Довлатов&lt;/author&gt;</code></li>
+		<li>без содержимого можно сократить: <code>&lt;author /&gt;</code></li>
+	</ul>
+	<p>Регистр важен: <code>&lt;author&gt;</code> и <code>&lt;Author&gt;</code> — разные теги</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Вложенность тегов</h2>
+	<pre>
+		<code>&lt;title&gt;...&lt;/title&gt; &lt;author&gt;...&lt;/author&gt; — <mark>Правильно</mark></code>
+		<code>&lt;author&gt;...&lt;name&gt;<mark class="important">&lt;/author&gt;</mark>...&lt;/name&gt;   — <mark class="important">Неправильно</mark></code>
+	</pre>
+	<iframe src="sample/08-XML-not-well-formed.xml" width="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Атрибуты тегов</h2>
+	<pre>
+		<code>&lt;div title=&quot;he&apos;s alive&quot;&gt; — в двойных кавычках</code>
+		<code>&lt;div title=&apos;size is 10&quot; more&apos;&gt; — в апострофах</code>
+	</pre>
+	<p>Без кавычек, как в HTML, писать нельзя — &lt;price unit=RUB&gt;</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Комментарии</h2>
+	<p>&lt;!-- Комментарий --&gt;</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Сущности (Entity)</h2>
+	<pre style="margin:0">
+		<code>"	&amp;#34;	&amp;quot;	двойная кавычка</code>
+		<code>'	&amp;#39;	&amp;apos;	апостроф</code>
+		<code>&amp;	&amp;#38;	&amp;amp;	амперсанд</code>
+		<code>&lt;	&amp;#60;	&amp;lt;	меньше</code>
+		<code>&gt;	&amp;#62;	&amp;gt;	больше</code>
+	</pre>
+	<p>В DTD можно определить свои:</p>
+	<pre>
+		<code>&lt;!DOCTYPE root [</code>
+		<code>	&lt;!ENTITY nbsp "&amp;#160;"&gt;</code>
+		<code>]&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Секции CDATA</h2>
+	<p>Так нехорошо — тег <em>данных</em> воспринимается как часть xml:</p>
+	<pre style="margin:0">
+		<code>&lt;layout&gt;</code>
+		<code>	&lt;h1&gt;Заголовок&lt;/h1&gt;</code>
+		<code>&lt;/layout&gt;</code>
+	</pre>
+	<p><code>CDATA</code> — символьные данные</p>
+	<pre>
+		<code>&lt;layout&gt;</code>
+		<code>	<mark>&lt;![CDATA[</mark>&lt;h1&gt;Заголовок&lt;/h1&gt;<mark>]]</mark></code>
+		<code>&lt;/layout&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Well-formed (синтаксически корректный)</h2>
+	<ol>
+		<li>ровно один корневой элемент</li>
+		<li>открытые теги обязаны быть закрыты</li>
+		<li>теги не нарушают вложенность</li>
+		<li>атрибуты тегов заключены в кавычки</li>
+		<li>символы <, >, & и кавычки экранированы</li>
+		<li>все символы в документе соответствуют заявленной кодировке</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Valid (соответствующий правилам)</h2>
+	<p>Проверяется соответствие <em>XML schema</em> (XSD, RELAX NG или даже DTD)</p>
+	<ol>
+		<li>правильный корневой элемент</li>
+		<li>элементы, допустимые внутри какого-то элемента</li>
+		<li>допустимость текста внутри элемента</li>
+		<li>обязательность присутствия элемента</li>
+		<li>правильность типов данных атрибутов элемента</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как связаны HTML и XML ?</h2>
+	<p>Например, XML может «прилететь» с сервера</p>
+	<pre>
+		<code>var xhttp = new XMLHttpRequest();</code>
+		<code>xhttp.open("GET", "catalog.xml", false);	// sync</code>
+		<code>xhttp.send();</code>
+		<code>var xmlDoc = xml.<mark>responseXML</mark>;</code>
+		<code>var musiclist = xmlDoc.getElementsByTagName("track");</code>
+	</pre>
+	<p>Или использоваться как источник данных (xml datasource)</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Пространства имён XML</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Разные наборы элементов вместе</h2>
+	<pre class="compact">
+		<code>&lt;aaa&gt;</code>
+		<code>	&lt;bbb&gt;</code>
+		<code>		&lt;ccc/&gt;</code>
+		<code>	&lt;/bbb&gt;</code>
+		<code>	&lt;BBB&gt;</code>
+		<code>		&lt;CCC/&gt;</code>
+		<code>	&lt;/BBB&gt;</code>
+		<code>	&lt;x111&gt;</code>
+		<code>		&lt;x222/&gt;</code>
+		<code>	&lt;/x111&gt;</code>
+		<code>&lt;/aaa&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Разные наборы элементов вместе</h2>
+	<p>Человек легко распознаёт, к какому из 3 наборов отнести элемент</p>
+	<p>XML-процессору надо объяснить — объявить пространства имён</p>
+	<p>Для объявления пространств имён (XML namespace) используются зарезервированные атрибуты, начинающиеся с <code>xmlns</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Полный вариант объявления</h2>
+	<pre class="compact">
+		<code>&lt;<mark>lower:</mark>aaa <mark>xmlns:lower</mark>=&quot;http://urfu.ru/lowercase&quot;&gt;</code>
+		<code>	&lt;lower:bbb xmlns:lower=&quot;http://urfu.ru/lowercase&quot;&gt;</code>
+		<code>		&lt;lower:ccc xmlns:lower=&quot;http://urfu.ru/lowercase&quot;/&gt;</code>
+		<code>	&lt;/lower:bbb&gt;</code>
+		<code>	&lt;upper:BBB xmlns:upper=&quot;http://urfu.ru/uppercase&quot;&gt;</code>
+		<code>		&lt;upper:CCC xmlns:upper=&quot;http://urfu.ru/uppercase&quot;/&gt;</code>
+		<code>	&lt;/upper:BBB&gt;</code>
+		<code>	&lt;xnumber:x111 xmlns:xnumber=&quot;http://urfu.ru/xnumber&quot;&gt;</code>
+		<code>		&lt;xnumber:x222 xmlns:xnumber=&quot;http://urfu.ru/xnumber&quot;/&gt;</code>
+		<code>	&lt;/xnumber:x111&gt;</code>
+		<code>&lt;/lower:aaa&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>К счастью, xmlns наследуется</h2>
+	<pre class="compact">
+		<code>&lt;<mark>lower:</mark>aaa <mark>xmlns:lower</mark>=&quot;http://urfu.ru/lowercase&quot;&gt;</code>
+		<code>	&lt;lower:bbb&gt;</code>
+		<code>		&lt;lower:ccc/&gt;</code>
+		<code>	&lt;/lower:bbb&gt;</code>
+		<code>	&lt;upper:BBB xmlns:upper=&quot;http://urfu.ru/uppercase&quot;&gt;</code>
+		<code>		&lt;upper:CCC/&gt;</code>
+		<code>	&lt;/upper:BBB&gt;</code>
+		<code>	&lt;xnumber:x111 xmlns:xnumber=&quot;http://urfu.ru/xnumber&quot;&gt;</code>
+		<code>		&lt;xnumber:x222/&gt;</code>
+		<code>	&lt;/xnumber:x111&gt;</code>
+		<code>&lt;/lower:aaa&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Обычно всё пишут в корневом элементе</h2>
+	<pre style="margin:0">
+		<code>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</code>
+		<code>	xmlns:svg=&quot;http://www.w3.org/2000/svg&quot;&gt;</code>
+		<code>	...</code>
+		<code>	&lt;body&gt;</code>
+		<code>		&lt;svg:svg width=&quot;300px&quot; height=&quot;200px&quot;&gt;</code>
+		<code>		&lt;svg:circle cx=&quot;150&quot; cy=&quot;100&quot; r=&quot;50&quot; fill=&quot;#ff0000&quot;/&gt;</code>
+		<code>		&lt;/svg:svg&gt;</code>
+	</pre>
+	<p>В HTML5 языки SVG, MathML уже включены, браузеру svg: не нужен</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Идентификация пространства имён</h2>
+	<p>Пространства имен определяются значением xmlns, а не префиксом</p>
+	<pre class="compact">
+		<code>&lt;lower:aaa xmlns:lower=&quot;http://urfu.ru/lowercase&quot</code>
+		<code>	xmlns:upper=&quot;http://urfu.ru/lowercase&quot;&gt;</code>
+		<code>	&lt;lower:bbb&gt;</code>
+		<code>	&lt;/lower:bbb&gt;</code>
+		<code>	&lt;upper:BBB&gt;</code>
+	</pre>
+	<p>В этом примере пространство имён одно, хотя префиксы разные</p>
+	<p>Часто по «ссылке» лежит описание конкретного диалекта XML</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пространства имён и XML DOM</h2>
+	<p><code>createElement<mark>NS</mark>("http://www.w3.org/2000/svg", "rect")</code></p>
+	<p>У созданного элемента будут заполнены свойства <code>.namespaceURI</code>, <code>.prefix</code></p>
+	<p>Если и другие «парные вызовы» — <code>getElementsByTagNameNS</code>, ...</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>XPath — адресация в XML</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что такое XPath?</h2>
+	<ul>
+		<li>XPath — это синтаксис для адресации частей XML-документа</li>
+		<li>XPath использует пути для адресации элементов XML</li>
+		<li>XPath является важнейшей частью стандарта XSLT</li>
+		<li>XPath не является XML-форматом</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Стандарты</h2>
+	<p><a href="http://www.w3.org/TR/#tr_XPath" target="_blank">w3.org/TR/#tr_XPath</a></p>
+	<ul>
+		<li>XML Path Language (XPath) 3.0 — апрель 2014</li>
+		<li>XPath and XQuery Functions and Operators 3.0 — апрель 2014</li>
+		<li>DOM Level 3 XPath — февраль 2014</li>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример</h2>
+	<pre>
+		<code>var xhttp = new XMLHttpRequest();</code>
+		<code>xhttp.open("GET", "catalog.xml", false);	// sync</code>
+		<code>xhttp.send();</code>
+		<code>var xmlDoc = xml.responseXML;</code>
+		<code>var titles = xmlDoc.<mark>evaluate</mark>("<mark>//book[price>35]/title</mark>");</code>
+	</pre>
+	<p>В XML-документах — <code>узел.selectNodes("XPath-выражение")</code>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Выражения XPath</h2>
+	<p>XPath использует адресные выражения для идентификации узлов в XML-документе</p>
+	<p>Эти адресные выражения очень похожи на пути в файловой системе</p>
+	<p><code>/home/volkanin/wwwroot</code></p>
+	<p><code>bookstore/book/title</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Выражения XPath</h2>
+	<p>Наиболее часто используются</p>
+	<pre style="margin:0">
+		<code>имя	— выбирает все элементы с заданным именем</code>
+		<code>/	— выбирает, начиная с корня</code>
+		<code>//	— выбирает узлы в документе незавимо от иерархии</code>
+		<code>.	— выбирает текущий узел</code>
+		<code>..	— выбирает родителя текущего узла</code>
+		<code>@	— выбирает атрибуты</code>
+	</pre>
+	<p>С помощью <em>осей</em> можно сказать, в какой стороне искать</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Оси XPath</h2>
+	<ul style="font-size:smaller">
+		<li><code>self</code> — сам узел</li>
+		<li><code>child</code> — Дочерние узлы</li>
+		<li><code>parent</code> — Родительский узел</li>
+		<li><code>descendant</code> — Потомки узла</li>
+		<li><code>descendant-or-self</code> — Узел и его потомки</li>
+		<li><code>ancestor</code> — Предки узла</li>
+		<li><code>ancestor-or-self</code> — Сам узел и его предки</li>
+		<li><code>following</code> — Все узлы после данного</li>
+		<li><code>following-sibling</code> — Все узлы этого же уровня после данного</li>
+		<li><code>preceding</code> — Все узлы перед данным</li>
+		<li><code>preceding-sibling</code> — Все узлы этого же уровня перед данным</li>
+		<li><code>attribute</code> — Узлы аттрибутов</li>
+		<li><code>namespace</code> — Узлы пространства имен</li>
+	<ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Оси XPath</h2>
+	<p><img src="pictures/xPath.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Предикаты</h2>
+	<pre>
+		<code>/bookstore/book[1]</code>
+		<code>/bookstore/book[last()]</code>
+		<code>/bookstore/book[last()-1]</code>
+		<code>/bookstore/book[position()&lt;3]</code>
+		<code>//title[@lang]</code>
+		<code>//title[@lang='en']</code>
+		<code>/bookstore/book[price&gt;35.00]</code>
+		<code>/bookstore/book[price&gt;35.00]/title</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Можно даже вычислять и сравнивать</h2>
+	<p><code>+</code>, <code>-</code>, <code>*</code>, <code>div</code>, <code>mod</code></p>
+	<p><code>=</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></p>
+	<p><code>or</code>, <code>and</code></p>
+	<p><code>|</code> — операция над набором узлов (<code>//book | //cd</code>)</p>
+	<p>больше тут — <a href="http://www.w3.org/TR/xpath-functions-30/" target="_blank">w3.org/TR/xpath-functions-30</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Некоторые функции</h2>
+	<p>Числовые: <code>number</code>, <code>abs</code>, <code>round</code>, <code>ceiling</code>, <code>floor</code>, <code>exp</code> ...</p>
+	<p>Аггрегатные: <code>count</code>, <code>sum</code>, <code>avg</code>, <code>min</code>, <code>max</code></p>
+	<p>Строковые: <code>string</code>, <code>string-length</code>, <code>substring</code>, <code>contains</code>, <code>starts-with</code>, <code>concat</code>, <code>normalize-space</code>, <code>translate</code> ...</p>
+	<p>Регулярные выражения: <code>matches</code>, <code>replace</code>, <code>tokenize</code> ...</p>
+	<p>Булевые: <code>boolean</code>, <code>false</code>, <code>true</code>, <code>not</code></p>
+	<p>Дата/время: <code>year-from-date</code>, ... <code>seconds-from-date</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Где попробовать?</h2>
+	<p>Chrome и Firefox (с Firebug и Firepath):<br><img src="pictures/xPath-chrome.gif" width="75%"></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>XSLT</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XSL Transformations</h2>
+	<p>Предназначен для <em>трансформации</em> исходного документа, например</p>
+	<pre style="margin:0">
+		<code>&lt;source&gt;</code>
+		<code>	&lt;title&gt;XSL&lt;/title&gt;</code>
+		<code>	&lt;author&gt;John Smith&lt;/author&gt;</code>
+		<code>&lt;/source&gt;</code>
+	</pre>
+	<p>Можно автоматически преобразовать в</p>
+	<pre style="margin:0">
+		<code>&lt;h1&gt;XSL&lt;/h1&gt;</code>
+		<code>&lt;h2&gt;John Smith&lt;/h2&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример шаблона</h2>
+	<pre style="margin:0">
+		<code>&lt;xsl:stylesheet version = &#39;1.0&#39;</code>
+		<code>	xmlns:xsl=&#39;http://www.w3.org/1999/XSL/Transform&#39;&gt;</code>
+		<code>&lt;xsl:template match=&quot;/&quot;&gt;</code>
+		<code>	&lt;h1&gt;  &lt;xsl:value-of select=&quot;//title&quot;/&gt;  &lt;/h1&gt;</code>
+		<code>	&lt;h2&gt;  &lt;xsl:value-of select=&quot;//author&quot;/&gt;  &lt;/h2&gt;</code>
+		<code>&lt;/xsl:template&gt;</code>
+		<code>&lt;/xsl:stylesheet&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как вызвать трансформацию?</h2>
+	<p>Добавить к XML-документу директиву <code>&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;template.xsl&quot;?&gt;</code></p>
+	<p>Или программно:<p>
+	<pre>
+		<code>// source и stylesheet — объекты XML DOMDocument</code>
+		<code>source.load("books.xml");</code>
+		<code>stylesheet.load("template.xsl");</code>
+		<code>result = source.transformNode(stylesheet));</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Корневой элемент XSLT</h2>
+	<p>Каждое преобразование XSL должно начинаться с элемента <code>&lt;xsl:stylesheet version = '1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;</code></p>
+	<p>XSLT-процессоры анализируют исходный XML и пытаются найти подходящий XSL-шаблон: <code>&lt;xsl:template match=&quot;узел&quot;&gt; ... &lt;/xsl:template</code></p>
+	<p>Если такой шаблон найден, то выполняются инструкции внутри него</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Два способа добыть данные</h2>
+	<p>Содержание элементов извлекается из исходного документа:</p>
+	<ul>
+		<li>Инструкцией <code>&lt;xsl:value-of select="xpath" /&gt;</code></li>
+		<li>Инструкцией <code>&lt;xsl:apply-templates select="xpath" /&gt;</code></li>
+	</ul>
+	<p>Иногда применяют термины «data-driven» и «template-driven» трансформации</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XSLT Tutorial</h2>
+	<p><a href="sample/xslt/contents.htm" target="_blank">XSLT Tutorial</a></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 37 &lt;&lt;</b> | <a class="naviBlack" href="36.htm">Назад</a> | <a class="naviBlack" href="38.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id37">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Функция <code>number</code> явным образом конвертирует свой аргумент в число. <a href="#id2">Преобразование 1</a> является примером конвертации строк, а <a href="#id3">преобразование 2</a> &mdash; примером конвертации булевских переменных <code>true</code> и <code>false</code>.
+      <br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;text&gt;124&lt;/text&gt;
+                  <br>&lt;text&gt;1 2 4&lt;/text&gt;
+                  <br>&lt;text&gt;-16&lt;/text&gt;
+                  <br>&lt;text&gt;- 16&lt;/text&gt;
+                  <br>&lt;text&gt;125.258&lt;/text&gt;
+                  <br>&lt;text&gt;125.&lt;/text&gt;
+                  <br>&lt;text&gt;ASDF&lt;/text&gt;
+                  <br>&lt;text&gt;A123&lt;/text&gt;
+                  <br>&lt;text&gt;true&lt;/text&gt;
+                  <br>&lt;text&gt;false()&lt;/text&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>text&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>number&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>124&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>124&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>1 2 4&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>-16&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>-16&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>- 16&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>125.258&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>125.258&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>125.&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>125&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>ASDF&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>A123&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>true&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>false()&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><TABLE border="1">
+   <TR>
+      <TH>text</TH>
+      <TH>number</TH>
+   </TR>
+   <TR>
+      <TD>124</TD>
+      <TD>124</TD>
+   </TR>
+   <TR>
+      <TD>1 2 4</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>-16</TD>
+      <TD>-16</TD>
+   </TR>
+   <TR>
+      <TD>- 16</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>125.258</TD>
+      <TD>125.258</TD>
+   </TR>
+   <TR>
+      <TD>125.</TD>
+      <TD>125</TD>
+   </TR>
+   <TR>
+      <TD>ASDF</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>A123</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>true</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>false()</TD>
+      <TD>NaN</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;text&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;number&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="//text"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number()"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id3"></a><hr>
+      <h2 style="color:gray">Преобразование 2</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;text&gt;124&lt;/text&gt;
+                  <br>&lt;text&gt;1 2 4&lt;/text&gt;
+                  <br>&lt;text&gt;-16&lt;/text&gt;
+                  <br>&lt;text&gt;- 16&lt;/text&gt;
+                  <br>&lt;text&gt;125.258&lt;/text&gt;
+                  <br>&lt;text&gt;125.&lt;/text&gt;
+                  <br>&lt;text&gt;ASDF&lt;/text&gt;
+                  <br>&lt;text&gt;A123&lt;/text&gt;
+                  <br>&lt;text&gt;true&lt;/text&gt;
+                  <br>&lt;text&gt;false()&lt;/text&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>text&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>number&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>true&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>false()&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>NaN&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE><br>&lt;P>but:&lt;/P><br>&lt;TABLE border="1"><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>function&lt;/TH><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH>number&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>true()&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>1&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>false()&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>0&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>5&amp;gt;7&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>0&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>5&amp;lt;7&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>1&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><TABLE border="1">
+   <TR>
+      <TH>text</TH>
+      <TH>number</TH>
+   </TR>
+   <TR>
+      <TD>true</TD>
+      <TD>NaN</TD>
+   </TR>
+   <TR>
+      <TD>false()</TD>
+      <TD>NaN</TD>
+   </TR>
+</TABLE>
+<P>but:</P>
+<TABLE border="1">
+   <TR>
+      <TH>function</TH>
+      <TH>number</TH>
+   </TR>
+   <TR>
+      <TD>true()</TD>
+      <TD>1</TD>
+   </TR>
+   <TR>
+      <TD>false()</TD>
+      <TD>0</TD>
+   </TR>
+   <TR>
+      <TD>5&gt;7</TD>
+      <TD>0</TD>
+   </TR>
+   <TR>
+      <TD>5&lt;7</TD>
+      <TD>1</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;text&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;number&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="//text[text() = 'true' or text() = 'false()']"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number()"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">P</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;but:&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">P</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span> <span class="attribute">border</span>="1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;function&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span>&gt;number&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;true()&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number(true())"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;false()&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number(false())"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;5&gt;7&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number(5 &gt; 7)"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;5&lt;7&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="number(5&lt;7)"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

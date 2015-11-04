@@ -1,0 +1,93 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 51 &lt;&lt;</b> | <a class="naviBlack" href="50.htm">Назад</a> | <a class="naviBlack" href="52.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id51">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Функция <code>string-length()</code> возвращает количество символов в строке. Функция <code>normalize-space()</code> производит так называемую нормализацию строкового аргумента относительно пробелов. Она удаляет пробелы в начале и в конце строки, а все последовательности пробелов в теле строки заменяются одиночным пробелом.
+      <br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;P&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;text&gt;Normalized text&lt;/text&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;text&gt;Sequences   of      whitespace characters&lt;/text&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;text&gt;    Leading and trailing whitespace.    &lt;/text&gt;
+                  <br>&lt;/P&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;TABLE><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH colspan="4">Normalized text&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Starting length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>15&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Normalized length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>15&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH colspan="4">Sequences &nbsp;&nbsp;of &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whitespace characters&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Starting length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>41&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Normalized length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>34&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TH colspan="4"> &nbsp;&nbsp;&nbsp;Leading and trailing whitespace. &nbsp;&nbsp;&nbsp;&lt;/TH><br> &nbsp;&nbsp;&lt;/TR><br> &nbsp;&nbsp;&lt;TR><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Starting length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>40&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>Normalized length:&lt;/TD><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>32&lt;/TD><br> &nbsp;&nbsp;&lt;/TR><br>&lt;/TABLE></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><TABLE>
+   <TR>
+      <TH colspan="4">Normalized text</TH>
+   </TR>
+   <TR>
+      <TD>Starting length:</TD>
+      <TD>15</TD>
+      <TD>Normalized length:</TD>
+      <TD>15</TD>
+   </TR>
+   <TR>
+      <TH colspan="4">Sequences   of      whitespace characters</TH>
+   </TR>
+   <TR>
+      <TD>Starting length:</TD>
+      <TD>41</TD>
+      <TD>Normalized length:</TD>
+      <TD>34</TD>
+   </TR>
+   <TR>
+      <TH colspan="4">    Leading and trailing whitespace.    </TH>
+   </TR>
+   <TR>
+      <TD>Starting length:</TD>
+      <TD>40</TD>
+      <TD>Normalized length:</TD>
+      <TD>32</TD>
+   </TR>
+</TABLE></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TABLE</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="//text"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TH</span> <span class="attribute">colspan</span>="4"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TH</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;Starting length:&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="string-length(.)"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;Normalized length:&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">TD</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="string-length(normalize-space(.))"/&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TD</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TR</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">TABLE</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

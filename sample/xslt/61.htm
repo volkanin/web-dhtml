@@ -1,0 +1,249 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 61 &lt;&lt;</b> | <a class="naviBlack" href="60.htm">Назад</a> | <a class="naviBlack" href="62.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id61">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Атрибут <code>encoding</code> определяет, какая кодировка предпочтительна для выходящего документа. Метод вывода "html" должен добавить непосредственно за открывающим тэгом элемента <code>HEAD</code> элемент <code>META</code> с определением используемой кодировки. <A href="#id2">Преобразование 1</A> использует для вывода кодировку UTF-8, <A href="#id3">преобразование 2</A> &mdash;  UTF-16, а <A  href="#id4">преобразование 3</A> &mdash; Cp1250. <!-- Обратите внимание на <A href="61.htm#id5">этот преобразование</A>. Исходный xml содержит символы, которые не присутствуют в  ссылающейся таблице символов, поэтому они опускаются.-->
+      <br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;html&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML&lt;/title&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt; HTML output &lt;/h1&gt;
+                  &#381;&iacute;&#382;ala &#353;nek 
+                  ko&#269;ka pa&#345;ez 
+                  be&#269;ka m&#283;&#353;ec v&yacute;r  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;
+                  <br>&lt;/html&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;html><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;head><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-Type" content="text/html;&nbsp;charset=UTF-8"><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title>HTML&lt;/title><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/head><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;body><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1> HTML output &lt;/h1><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;#381;&amp;iacute;&amp;#382;ala &amp;#353;nek <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ko&amp;#269;ka pa&amp;#345;ez <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&amp;#269;ka m&amp;#283;&amp;#353;ec v&amp;yacute;r &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/body><br> &nbsp;&nbsp;<br>&lt;/html></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><html>
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+      
+      <title>HTML</title>
+      
+   </head>
+   
+   <body>
+      
+      <h1> HTML output </h1>
+      &#381;&iacute;&#382;ala &#353;nek 
+      ko&#269;ka pa&#345;ez 
+      be&#269;ka m&#283;&#353;ec v&yacute;r  
+      
+   </body>
+   
+</html></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output.html" class="element">xsl:output</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_method.html" class="attribute">method</a>="html" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_encoding.html" class="attribute">encoding</a>="UTF-8"/&gt;
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of.html" class="element">xsl:copy-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id3"></a><hr>
+      <h2 style="color:gray">Преобразование 2</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;html&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML&lt;/title&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt; HTML output &lt;/h1&gt;
+                  &#381;&iacute;&#382;ala &#353;nek 
+                  ko&#269;ka pa&#345;ez 
+                  be&#269;ka m&#283;&#353;ec v&yacute;r  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;
+                  <br>&lt;/html&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;html&gt;<BR><BR>&lt;head&gt;<BR>&lt;meta 
+      http-equiv="Content-Type" content="text/html; 
+      charset=UTF-16"&gt;<BR><BR><BR>&lt;title&gt;HTML&lt;/title&gt;<BR><BR>&lt;/head&gt;<BR><BR>&lt;body&gt;<BR><BR>&lt;h1&gt; 
+      HTML output &lt;/h1&gt;<BR>&amp;#381;&amp;iacute;&amp;#382;ala 
+      &amp;#353;nek <BR>ko&amp;#269;ka pa&amp;#345;ez <BR>be&amp;#269;ka 
+      m&amp;#283;&amp;#353;ec v&amp;yacute;r 
+      <BR><BR>&lt;/body&gt;<BR><BR>&lt;/html&gt;</code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-16">
+
+
+<title>HTML</title>
+
+</head>
+
+<body>
+
+<h1> HTML output </h1>
+&#381;&iacute;&#382;ala &#353;nek 
+ko&#269;ka pa&#345;ez 
+be&#269;ka m&#283;&#353;ec v&yacute;r 
+
+</body>
+
+</html>
+</div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output.html" class="element">xsl:output</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_method.html" class="attribute">method</a>="html" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_encoding.html" class="attribute">encoding</a>="UTF-16"/&gt;
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of.html" class="element">xsl:copy-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id4"></a><hr>
+      <h2 style="color:gray">Преобразование 3</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;html&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML&lt;/title&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt; HTML output &lt;/h1&gt;
+                  &#381;&iacute;&#382;ala &#353;nek 
+                  ko&#269;ka pa&#345;ez 
+                  be&#269;ka m&#283;&#353;ec v&yacute;r  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;
+                  <br>&lt;/html&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;html><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;head><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-Type" content="text/html;&nbsp;charset=Cp1250"><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title>HTML&lt;/title><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/head><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;body><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1> HTML output &lt;/h1><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;#381;&amp;iacute;&amp;#382;ala &amp;#353;nek <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ko&amp;#269;ka pa&amp;#345;ez <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&amp;#269;ka m&amp;#283;&amp;#353;ec v&amp;yacute;r &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/body><br> &nbsp;&nbsp;<br>&lt;/html></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><html>
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=Cp1250">
+   
+      
+      <title>HTML</title>
+      
+   </head>
+   
+   <body>
+      
+      <h1> HTML output </h1>
+      &#381;&iacute;&#382;ala &#353;nek 
+      ko&#269;ka pa&#345;ez 
+      be&#269;ka m&#283;&#353;ec v&yacute;r  
+      
+   </body>
+   
+</html></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output.html" class="element">xsl:output</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_method.html" class="attribute">method</a>="html" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_encoding.html" class="attribute">encoding</a>="Cp1250"/&gt;
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of.html" class="element">xsl:copy-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id5"></a><hr>
+      <h2 style="color:gray">Преобразование 4</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;html&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML&lt;/title&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt; HTML output &lt;/h1&gt;
+                  &#381;&iacute;&#382;ala &#353;nek 
+                  ko&#269;ka pa&#345;ez 
+                  be&#269;ka m&#283;&#353;ec v&yacute;r  
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;
+                  <br>&lt;/html&gt;
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;html><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;head><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta http-equiv="Content-Type" content="text/html;&nbsp;charset=ISO-8859-1"><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title>HTML&lt;/title><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/head><br> &nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;body><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1> HTML output &lt;/h1><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;#381;&amp;iacute;&amp;#382;ala &amp;#353;nek <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ko&amp;#269;ka pa&amp;#345;ez <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&amp;#269;ka m&amp;#283;&amp;#353;ec v&amp;yacute;r &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> &nbsp;&nbsp;&lt;/body><br> &nbsp;&nbsp;<br>&lt;/html></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><html>
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   
+      
+      <title>HTML</title>
+      
+   </head>
+   
+   <body>
+      
+      <h1> HTML output </h1>
+      &#381;&iacute;&#382;ala &#353;nek 
+      ko&#269;ka pa&#345;ez 
+      be&#269;ka m&#283;&#353;ec v&yacute;r  
+      
+   </body>
+   
+</html></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output.html" class="element">xsl:output</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_method.html" class="attribute">method</a>="html" <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_output_encoding.html" class="attribute">encoding</a>="ISO-8859-1"/&gt;
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of.html" class="element">xsl:copy-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy-of_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

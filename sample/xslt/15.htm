@@ -1,0 +1,1451 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 15 &lt;&lt;</b> | <a class="naviBlack" href="14.htm">Назад</a> | <a class="naviBlack" href="16.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id14">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Оси играют очень важную роль в XSLT. Для более подробной информации читайте <a xmlns:xsl="http://www.w3.org/1999/XSL/Transform" href="http://zvon.org/xxl/XSLTreference/Output/index.html">XSLT reference</a>. Сравните: ось child (<a href="#id2">преобразование 1</a>), ось descendant (<a href="#id3">преобразование 2</a>), ось parent (<a href="#id4">преобразование 3</a>), ось ancestor (<a href="#id5">преобразование 4</a>), ось following-sibling (<a href="#id6">преобразование 5</a>), ось preceding-sibling (<a href="#id7">преобразование 6</a>), ось following (<a href="#id8">преобразование 7</a>), ось preceding (<a href="#id9">преобразование 8</a>), ось attribute (<a href="#id10">преобразование 9</a>), ось namespace (<a href="#id11">преобразование 10</a>), ось self (<a href="#id12">преобразование 11</a>), ось descendant-or-self (<a href="#id13">преобразование 12</a>), ось ancestor-or-self (<a href="#id14">преобразование 13</a>).
+      <br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: child&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 b4 c1 b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: child</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>b1 b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>b3 b4 c1 b5 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>c2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>c3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td/>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: child&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="child::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id3"></a><hr>
+      <h2 style="color:gray">Преобразование 2</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: descendant&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: descendant</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>b1 b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>b3 b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>c2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>c3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td/>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: descendant&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="descendant::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id4"></a><hr>
+      <h2 style="color:gray">Преобразование 3</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: parent&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: parent</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>source </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>a1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>a1 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>source </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>c1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>b5 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: parent&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="parent::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id5"></a><hr>
+      <h2 style="color:gray">Преобразование 4</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: ancestor&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 c1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: ancestor</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>source </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>source a1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>source a1 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>source </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>source a2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>source a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>source a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>source a2 c1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>source a2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>source a2 b5 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: ancestor&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="ancestor::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id6"></a><hr>
+      <h2 style="color:gray">Преобразование 5</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: following-sibling&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b4 c1 b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c1 b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: following-sibling</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>b4 c1 b5 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>c1 b5 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>b5 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td/>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: following-sibling&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="following-sibling::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id7"></a><hr>
+      <h2 style="color:gray">Преобразование 6</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: preceding-sibling&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 b4 c1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: preceding-sibling</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>b1 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>a1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>b3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>b3 b4 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>b3 b4 c1 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td/>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: preceding-sibling&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="preceding-sibling::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id8"></a><hr>
+      <h2 style="color:gray">Преобразование 7</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: following&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 b3 b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b2 a2 b3 b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 b3 b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: following</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>a2 b3 b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>b2 a2 b3 b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>a2 b3 b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>b5 c3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td/>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: following&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="following::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id9"></a><hr>
+      <h2 style="color:gray">Преобразование 8</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: preceding&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td/><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 b3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 b3 b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 b3 b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 b3 b4 c1 c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 b3 b4 c1 c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: preceding</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td/>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>b1 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>a1 b1 b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>a1 b1 b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>a1 b1 b2 b3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>a1 b1 b2 b3 b4 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>a1 b1 b2 b3 b4 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>a1 b1 b2 b3 b4 c1 c2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>a1 b1 b2 b3 b4 c1 c2 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: preceding&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="preceding::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id10"></a><hr>
+      <h2 style="color:gray">Преобразование 9</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: attribute&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id pos &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>id &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: attribute</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>id pos </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>id </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>id </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: attribute&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="attribute::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id11"></a><hr>
+      <h2 style="color:gray">Преобразование 10</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: namespace&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>xml &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: namespace</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>xml </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>xml </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: namespace&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="namespace::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id12"></a><hr>
+      <h2 style="color:gray">Преобразование 11</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: self&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: self</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>a1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>b1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>b2 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>a2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>b3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>b4 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>c1 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>c2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>b5 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>c3 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: self&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="self::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id13"></a><hr>
+      <h2 style="color:gray">Преобразование 12</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: descendant-or-self&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a1 b1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>a2 b3 b4 c1 c2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c1 c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: descendant-or-self</th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>a1 b1 b2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>b1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>b2 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>a2 b3 b4 c1 c2 b5 c3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>b3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>b4 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>c1 c2 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>c2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>b5 c3 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>c3 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: descendant-or-self&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="descendant-or-self::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id14"></a><hr>
+      <h2 style="color:gray">Преобразование 13</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;AAA id="a1" pos="start"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b1"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b2"/&gt;
+                  <br>&lt;/AAA&gt;			
+                  <br>&lt;AAA id="a2"&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b4"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c1"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c2"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/CCC&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;BBB id="b5"&gt;
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CCC id="c3"/&gt;
+                       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/BBB&gt;
+                  <br>&lt;/AAA&gt;
+                  
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;table border="1" cellpadding="6"><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2">Axis: ancestor-or-self &lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Element&lt;/th><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th>Node-set&lt;/th><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a1 b1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a1 b2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>AAA id = a2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 b3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b4&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 b4 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c1&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 c1 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c2&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 c1 c2 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>BBB id = b5&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 b5 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br> &nbsp;&nbsp;&lt;tr><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>CCC id = c3&lt;/td><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>source a2 b5 c3 &lt;/td><br> &nbsp;&nbsp;&lt;/tr><br>&lt;/table></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><table border="1" cellpadding="6">
+   <tr>
+      <th colspan="2">Axis: ancestor-or-self </th>
+   </tr>
+   <tr>
+      <th>Element</th>
+      <th>Node-set</th>
+   </tr>
+   <tr>
+      <td>AAA id = a1</td>
+      <td>source a1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b1</td>
+      <td>source a1 b1 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b2</td>
+      <td>source a1 b2 </td>
+   </tr>
+   <tr>
+      <td>AAA id = a2</td>
+      <td>source a2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b3</td>
+      <td>source a2 b3 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b4</td>
+      <td>source a2 b4 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c1</td>
+      <td>source a2 c1 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c2</td>
+      <td>source a2 c1 c2 </td>
+   </tr>
+   <tr>
+      <td>BBB id = b5</td>
+      <td>source a2 b5 </td>
+   </tr>
+   <tr>
+      <td>CCC id = c3</td>
+      <td>source a2 b5 c3 </td>
+   </tr>
+</table></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">table</span> <span class="attribute">border</span>="1" <span class="attribute">cellpadding</span>="6"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span> <span class="attribute">colspan</span>="2"&gt;Axis: ancestor-or-self &lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Element&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">th</span>&gt;Node-set&lt;/<span class="element">th</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="/source//*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template.html" class="element">xsl:call-template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_call-template_name.html" class="attribute">name</a>="print"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">table</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_name.html" class="attribute">name</a>="print"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">tr</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; id = &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each_select.html" class="attribute">select</a>="ancestor-or-self ::*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if_test.html" class="attribute">test</a>="not(@id)"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="name()"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_if.html" class="element">xsl:if</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="./@id"/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt; &lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_text.html" class="element">xsl:text</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_for-each.html" class="element">xsl:for-each</a>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">td</span>&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="element">tr</span>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>

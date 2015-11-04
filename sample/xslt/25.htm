@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Raleigh.ru - XSLT в примерах</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="main.css" TITLE="Style">
+</head>
+<body>
+<table cellpadding="0" cellspacing="0" width="100%" border="0">
+	<tr><td width="100%" valign="bottom"
+		background="../../Images/menu_grey.gif"><span
+		style="background:url(../../Images/back.gif);
+		color:#ffffff;font-family:courier">
+		&nbsp;<a href="../../" style="color:#ffffff;" onFocus=blur();>Главная</a> -> <a 
+		href="../" style="color:#ffffff;" onFocus=blur();>XML&...</a> -> XSLT в примерах&nbsp;</span>
+		</td>
+	</tr>
+</table>
+<table class="hangingMenu" border="0" cellpadding="1" cellspacing="0" width="100%">
+         <tr>
+            <td width="100%" align="right"><b>&gt;&gt; Страница 25 &lt;&lt;</b> | <a class="naviBlack" href="24.htm">Назад</a> | <a class="naviBlack" href="26.htm">Вперед</a> | <a class="naviBlack" href="contents.htm#id25">Содержание</a> | <a class="naviBlack" href="elementIndex.htm">Указатель</a></td>
+         </tr>
+      </table><br>
+Элемент <code>xsl:copy</code> может иметь атрибут <code>use-attribute-sets</code>. В этом случае можно определить атрибуты для копируемого элемента. <a href="#id3">Преобразование 2</a> не будет выполняться, как ожидалось (установка <code>use-attribute-sets</code> при помощи функции <code>name</code>), так как выражения в атрибутах, относящиеся к именованным XSLT-объектам не могут быть вычислены.<br><a name="id2"></a><hr>
+      <h2 style="color:gray">Преобразование 1</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;h1&gt;GREETING&lt;/h1&gt; 
+                  <br>&lt;p&gt;Hello, world!&lt;/p&gt; 
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>&lt;h1 align="center" style="color:red">GREETING&lt;/h1><br>&lt;p align="left" style="color:blue">Hello, world!&lt;/p></code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview"><h1 align="center" style="color:red">GREETING</h1>
+<p align="left" style="color:blue">Hello, world!</p></div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_apply-templates.html" class="element">xsl:apply-templates</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_apply-templates_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="h1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy_use-attribute-sets.html" class="attribute">use-attribute-sets</a>="H1"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="p"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy_use-attribute-sets.html" class="attribute">use-attribute-sets</a>="P "&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set_name.html" class="attribute">name</a>="H1"&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="align"&gt;center&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="style"&gt;color:red&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a>&gt;
+                   
+                   <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set_name.html" class="attribute">name</a>="P"&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="align"&gt;left&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="style"&gt;color:blue&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a>&gt; 
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr>
+      </table><br><br><a name="id3"></a><hr>
+      <h2 style="color:gray">Преобразование 2</h2>
+      <table cellpadding="10">
+         <tr>
+            <td>
+               <div style="color:purple"><b>Исходный XML</b></div>
+               <div class="xmlSource"><code>&lt;source&gt;<br>
+                  <br>&lt;h1&gt;GREETING&lt;/h1&gt; 
+                  <br>&lt;p&gt;Hello, world!&lt;/p&gt; 
+                  <br><br>&lt;/source&gt;</code>
+               </div><br><div style="color:maroon"><b>Результат</b></div>
+               <div class="Output"><code>Failed to compile stylesheet. 1 error detected.</code></div><br>
+               <div style="color:gray"><b>Представление HTML</b></div>
+               <div class="HTMLview">Failed to compile stylesheet. 1 error detected.</div>
+            </td>
+            <td>
+               <div style="color:teal"><b>Преобразование XSLT</b></div>
+               <div class="XSLT"><code>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet_version.html" class="attribute">version</a> = '1.0' <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;<br>
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="/"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_apply-templates.html" class="element">xsl:apply-templates</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_apply-templates_select.html" class="attribute">select</a>="/source/*"/&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template_match.html" class="attribute">match</a>="*"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy_use-attribute-sets.html" class="attribute">use-attribute-sets</a>="{name(.)}"&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of.html" class="element">xsl:value-of</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_value-of_select.html" class="attribute">select</a>="."/&gt;
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_copy.html" class="element">xsl:copy</a>&gt;
+                  <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_template.html" class="element">xsl:template</a>&gt;<br>
+                  
+                  
+                  <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set_name.html" class="attribute">name</a>="H1"&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="align"&gt;center&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="style"&gt;color:red&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a>&gt;
+                   
+                   <br>&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set_name.html" class="attribute">name</a>="P"&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="align"&gt;left&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a> <a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute_name.html" class="attribute">name</a>="style"&gt;color:blue&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute.html" class="element">xsl:attribute</a>&gt; 
+                   <br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_attribute-set.html" class="element">xsl:attribute-set</a>&gt; 
+                  <br><br>&lt;/<a href="http://zvon.org/xxl/XSLTreference/Output/xslt_stylesheet.html" class="element">xsl:stylesheet</a>&gt;</code>
+               </div>
+            </td>
+         </tr></table>
+<hr><table width="100%"><tr><td valign="bottom"><font face="verdana,arial,helvetica" size="1"><b>Raleigh.ru</b> Copyright &copy; 2002 </font></td><td align="right">
+</td></tr></table>
+</body></html>
