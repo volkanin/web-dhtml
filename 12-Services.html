@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Веб-сервисы</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+	<style>
+		ul.compact li { line-height: 1.5 }
+		pre.compact code { line-height: 1.5 }
+		table.demo { border-collapse:separate; border-spacing:2px; font-size:smaller }
+		table.demo th { background:dodgerblue; text-align:center}
+		table.demo td { background:lightblue; text-align:center}
+	</style>
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Веб-сервисы</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Веб-сервисы</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Введение</h2>
+	<p>Какой язык программирования самый правильный?</p>
+	<p>Let the holy war begin!</p>
+	<ul>
+	<li>Статистика по Github — <a href="http://githut.info/" target="_blank">githut.info</a>, <a href="http://redmonk.com/sogrady/2015/07/01/language-rankings-6-15/" target="_blank">redmonk.com</a></li>
+	<li>Статистика по поиску — <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/" target="_blank">TIOBE Index</a></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Введение</h2>
+	<p>Написано? Успешно работает? Не трогай!</p>
+	<p>Зачем нужно взаимодействие приложений написанных на разных платформах?</p>
+	<p>Все программисты банка всегда писали на JAVA, у банка есть сервис, который уже 10 лет прекрасно работает. Есть даже <a href="https://bco.vtb24.ru" target="_blank">сайт с апплетом</a></p>
+	<p>А теперь надо универсальное приложение для Windows 10 (Metro / Modern UI). Как организовать общение платформ?</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Времена динозавров</h2>
+	<p>Есть соединение между двумя приложениями. Читаем/пишем байты</p>
+	<p>Приложения договариваются, что «1» значит «вышли список всех клиентов», «2|36782» — «вышли список транзакций клиента 36782»</p>
+	<p>Расцвет Мезозойской Эры! Изобретаем новый велосипед для каждого взаимодействия приложений</p>
+	<p class="next"><a href="http://roskazna.ru/gis/dokumenty/" target="_blank">Требования к форматам файлов ФК</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Интеграция приложений «вообще»</h2>
+	<p><img src="pictures/ws-integration.png" width="90%" style="margin-top:-3ex"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Service-Oriented Computing (Architecture)</h2>
+	<p>Контекст: распределённые информационные системы (работают на нескольких компьютерах, общаются по сети)<p>
+	<ul>
+	<li>Presentation layer</li>
+		<ul>
+		<li>API для программ</li>
+		<li>Графический интерфейс пользователя</li>
+		</ul>
+	<li>Application logic layer</li>
+		<ul>
+		<li>Реализация операций в предметной области</li>
+		</ul>
+	<li>Resource management layer</li>
+		<ul>
+		<li>Работает с источниками данных</li>
+		</ul>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOA — взаимодействие «машина-машина»</h2>
+	<p><img src="pictures/ws-machine-communications.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Service-Oriented Computing (Architecture)</h2>
+	<p>Неоднородность — основное препятствие для бесшовной коммуникации распределенных информационных систем</p>
+	<p>Несовпадение в операционных системах, языках, платформах и др.</p>
+	<p>Сервис-ориентированное программирование — это парадигма (стиль написания программ)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Service и Web Service</h2>
+	<p>Сервисы — функции, которые предприятие предлагает бизнес-партнерам</p>
+	<p>Возможная реализация — веб-сервисы</p>
+	<p>Для предоставления сервисов могут также использоваться ebXML, документ-ориентированные подходы (сообщения <a href="https://ru.wikipedia.org/wiki/EDI" target="_blank">EDI</a>) и пр.</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что такое «сервис» ?</h2>
+	<ul>
+	<li>логическое представление повторяемой деятельности с конкретным результатом</li>
+	<li>специальное внешнее API (можно иметь API, но не показывать его)</li>
+	<li>представление вашей внутренней логики, которое доступно внешнему миру (аналогия "views" в СУБД)</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Характеристики веб-сервисов</h2>
+	<ul>
+	<li>Инкапсулируют отдельную функциональность — автономный программный модуль, выполняет одну задачу</li>
+	<li>Контрактное программирование — формальные, точные и верифицируемые спецификации интерфейсов</li>
+	<li>Абстракция от внутренней логики программы</li>
+	<li>Cлабая связанность вызовов</li>
+		<ul>
+		<li>Интерфейс определяется нейтрально от платформы, ОС или языка</li>
+		<li>Нет жёсткой прошивки вызовов</li>
+		</ul>
+	<li>Повторное использование</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Характеристики веб-сервисов</h2>
+	<ul>
+	<li>Могут быть динамически найдены и подключены к приложению</li>
+	<li>Описываются терминами языка разметки — Web Service Description Language (WSDL) и Web Application Description Language (WADL)</li>
+		<ul>
+		<li>функциональные требования: методы, данные, поведение и т.д.</li>
+		<li>нефункциональные требования: надежность, производительность</li>
+		</ul>
+	<li>Распространяются через интернет</li>
+		<ul>
+		<li>существующий транспорт (HTTP)</li>
+		<li>проходят через корпоративный firewall</li>
+		</ul>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Жесткая и слабая связанность</h2>
+	<p><img src="pictures/ws-coupling.png" width="100%" style="margin-top:-3ex"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Модели построения веб-сервисов</h2>
+	<ul>
+	<li>Изобрести велосипед</li>
+	<li>XML RPC — XML–Remote Procedure Call Protocol</li>
+	<li>SOAP/WSDL — Simple Object Access Protocol</li>
+	<li>REST — REpresentational State Transfer</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XML RPC</h2>
+	<p>Пожалуй самый старый подход — данные в виде XML передаются посредством RPC</p>
+	<p>Возник с появлением XML, который стали использовать как формат для передаваемых параметров удалённых функций</p>
+	<p>HTTP часто вообще ни при чём, хотя может быть транспортом</p>
+	<p>RPC как правило требует постоянного соединения между клиентом и сервером</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XML RPC</h2>
+	<p>Стандарт — <a href="http://xmlrpc.scripting.com/" target="_blank">xmlrpc.scripting.com</a></p>
+	<ul>
+	<li>Типы данных: массивы, строки, числа, булевые</li>
+	<li>Структура запроса и ответа</li>
+	<li>Транспорт</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XML RPC: запрос и ответ</h2>
+	<pre class="compact" style="margin:0;font-size:smaller">
+	<code>&lt;?xml version=&quot;1.0&quot;?&gt;</code>
+	<code>&lt;methodCall&gt;</code>
+	<code>	&lt;methodName&gt;examples.getStateName&lt;/methodName&gt;</code>
+	<code>	&lt;params&gt;</code>
+	<code>		&lt;param&gt; &lt;value&gt;&lt;i4&gt;40&lt;/i4&gt;&lt;/value&gt; &lt;/param&gt;</code>
+	<code>	&lt;/params&gt;</code>
+	<code>&lt;/methodCall&gt;</code>
+	</pre>
+	<hr>
+	<pre class="compact" style="margin:0;font-size:smaller">
+	<code>&lt;?xml version=&quot;1.0&quot;?&gt;</code>
+	<code>&lt;methodResponse&gt;</code>
+	<code>	&lt;params&gt;</code>
+	<code>		&lt;param&gt; &lt;value&gt;&lt;string&gt;South Dakota&lt;/string&gt;&lt;/value&gt; &lt;/param&gt;</code>
+	<code>	&lt;/params&gt;</code>
+	<code>&lt;/methodResponse&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XML RPC: за и против</h2>
+	<p>+ Просто использовать и разрабатывать (портировать)</p>
+	<p>+ Простой XML</p>
+	<p>+ Легче SOAP</p>
+	<p>- Нет машинно-читаемого описания сервиса (WSDL)</p>
+	<p>- Плохо с интернационализацией (i18n)</p>
+	<p>- Только один способ сериализации</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP</h2>
+	<p>Изначально — развитие XML RPC. Стандарт —  <a href="http://www.w3.org/TR/soap/" target="_blank">www.w3.org/TR/soap</a></p>
+	<p>Тот же XML, но с предварительно описанными в XSD типами (прямо в WSDL), сообщениями, binding-ом сообщений на методы, структурированием методов в группы и описанием сервиса</p>
+	<p>Машинно-читаемое описание — WSDL (<span style="font-size:85%">Web Services Description Language</span>)</p>
+	<p>Поиск — UDDI (Universal Description Discovery and Integration)</p>
+	<p>SOAP ходит по какому-нибудь протоколу — HTTP, SMTP и куча других</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP</h2>
+	<p>XML-пародия на ставшую в своё время черезчур сложной Corba</p>
+	<p>В Corba у нас IIOP — в вебсервисах SOAP</p>
+	<p>В Corba есть IDL — в вебсервисах WSDL</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP: технологии</h2>
+	<p><img src="pictures/ws-technology-stack.png" width="100%"></p>
+</div></section>
+
+
+<section class="slide"><div>
+	<h2>SOAP: схема обмена</h2>
+	<p><img src="pictures/ws-soap-flow.gif" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP: конверт</h2>
+	<p><img src="pictures/ws-soap-envelope.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP: использование</h2>
+	<p>Это что же, ради передачи 10 байт мне надо всю эту лабуду писать?</p>
+	<p>Эти ребята правильно понимают смысл слова «Simple»?</p>
+	<p><img src="pictures/karlson.jpg" style="float:right">Спокойствие, только спокойствие!</p>
+	<p>SOAP не для человека, а для программ</p>
+	<p>Правильно писать SOAP-сервис на JAVA, который будет использоваться из .Net и Flex</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>WSDL <a href="http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?wsdl" target="_blank" style="font-size:smaller">пример</a></h2>
+	<p><img src="pictures/ws-soap-wsdl.png" width="100%"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP+WSDL: использование</h2>
+	<pre>
+	<code>from SOAPpy import SOAPProxy</code>
+	<code>from datetime import datetime</code>
+	<code>input = datetime.now()</code>
+	<code>namespace = "http://web.cbr.ru/"</code>
+	<code>url = "<a href="http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx" target="_blank">http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx</a>"</code>
+	<code>soapaction = "http://web.cbr.ru/GetCursOnDate"</code>
+	<code>proxy = SOAPProxy(url, namespace = namespace, soapaction = soapaction)</code>
+	<code>proxy.GetCursOnDate(On_date = input)</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>WSDL: автогенерация</a></h2>
+	<p><img src="pictures/ws-soap-wsdlgen.png" width="75%" style="margin-top:-3ex"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>SOAP: использование</h2>
+	<p>Веб-сервисы на базе SOAP предполагают <b>вызов методов</b></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST (REpresentational State Transfer)</h2>
+	<p>Рой Филдинг — Architectural Styles and the Design of Network-based Software Architectures</p>
+	<p>Надо не процедуру вызывать и передавать ей объект, а обращаться к объекту и изменять его состояние</p>
+	<p>REST – не протокол и не стандарт, а архитектурный стиль, описывает использование методов HTTP для операций (CRUD) и рекомендации по построению URI</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST: методы HTTP</h2>
+	<table>
+	<tr><th>CRUD</td><th>SQL</th><th>REST</th></tr>
+	<tr><td>CREATE</td><td>INSERT</td><td>POST</td></tr>
+	<tr><td>READ</td><td>SELECT</td><td>GET</td></tr>
+	<tr><td>UPDATE</td><td>UPDATE</td><td>PUT</td></tr>
+	<tr><td>DELETE</td><td>DELETE</td><td>DELETE</td></tr>
+	</table>
+	<p>HEAD — получить метаданные, OPTIONS — что можно делать, TRACE — отладка</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST: дизайн URI</h2>
+	<table>
+	<tr><th>URI</th><th>метод HTTP</th><th>действие</th></tr>
+	<tr><td>/books/</td><td>GET</td><td>получить все книги</td></tr>
+	<tr><td>/books/3</td><td>GET</td><td>данные о книге с id=3</td></tr>
+	<tr><td>/books/</td><td>POST</td><td>добавить книгу</td></tr>
+	<tr><td>/books/4</td><td>PUT</td><td>отредактировать книгу с id=4</td></tr>
+	<tr><td>/books/5</td><td>DELETE</td><td>удалить книгу*</td></tr>
+	</table>
+	<p>* Иногда — PUT с пометкой удаления</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST: коды ответов HTTP </h2>
+	<ul>
+	<li>200	OK</li>
+	<li>201	Resource created</li>
+	<li>204	No content</li>
+	<li>400	Bad Request</li>
+	<li>401	Unauthorised</li>
+	<li>404	Not found</li>
+	<li>405	Method Not allowed</li>
+	<li>500	Internal Server Error</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST: запрос/ответ</h2>
+	<pre class="compact">
+	<code>POST /books/ HTTP/1.1</code>
+	<code>Content-Type: application/json</code>
+	<code>&nbsp;</code>
+	<code>{ "title": "RESTful Web Services"; "author": "Leonard Richardson, Sam Ruby"}</code>
+	</pre>
+	<hr>
+	<pre class="compact">
+	<code>HTTP/1.1 201 Created</code>
+	<code>Location: /books/100500</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>RESTful веб-сервисы: Принципы</h2>
+	<ul>
+	<li>Give every "thing" an ID</li>
+	<li>Uniform Interface (для всех методов HTTP)</li>
+	<li>Resources can have multiple representations — одни и те же данные можно вернуть в XML / JSON / HTML для человека. MIME-типы.</li>
+	<li>Link things together</li>
+	<li>Communicate statelessly</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>REST vs. SOAP</h2>
+	<a href="http://www.slideshare.net/cesare.pautasso/rest-vs-soap-making-the-right-architectural-decision-1st-international-soa-symposium-amsterdam-october-2008-presentation" target="_blank">Making the Right Architectural Decision</a></p>
+	<p>У них чаще побеждает REST, но</p>
+	<p>REST simplicity = freedom from choice</p>
+	<p>WS-* complexity = freedom of choice</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Использование REST: OData</h2>
+	<p>Open Data Protocol — odata.org, даже в <a href="http://v8.1c.ru/o7/201508odata/" target="_blank">1С</a></p>
+	<p>«Трансляция» SQL на REST</p>
+	<p><code>http://services.odata.org/V4/OData/OData.svc/Products ?$filter=Rating+eq+3&$select=Rating,+Name</code></p>
+	<p>Что интересно — можно определять и вызывать функции</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>«Трансляция» SQL на REST</h2>
+	<table style="font-size:90%">
+	<tr><th>SQL</th><th>OData</th></tr>
+	<tr><td>select * from products where id = 1</td><td>/Products(1)</td></tr>
+	<tr><td>select * from products where name = "Milk"</td><td>/Products?$filter=name eq "Milk"</td></tr>
+	<tr><td>select name from products</td><td>/Products?$select=name</td></tr>
+	<tr><td>select * from products order by name</td><td>/Products?$orderby=name</td></tr>
+	<tr><td>select * from products offset 10 limit 10</td><td>/Products?$top=10&$skip=10</td></tr>
+	<tr><td>select * from prices r, products p<br>where r.id = p.id and p.id = 1</td><td>/Products(1)?$expand=Prices</td></tr>
+	</table>
+</div></section>
+
+<section class="slide"><div>
+	<h2>OData</h2>
+	<p>HTTP транспорт — GET, POST, PUT/PATCH/MERGE, DELETE</p>
+	<pre>
+	<code>GET /V4/OData/OData.svc/Products(1) HTTP/1.1</code>
+	<code>Host: services.odata.org</code>
+	</pre>
+	<p>Фильтры: <code>$search</code> <code>$filter</code> <code>$count</code> <code>$orderby</code> <code>$skip</code> <code>$top</code> <code>$expand</code> <code>$select</code> <code>$format</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Функции OData</h2>
+	<p>Логические операции: <code>eq</code> <code>ne</code> <code>gt</code> <code>ge</code> <code>lt</code> <code>le</code> <code>or</code> <code>and</code></p>
+	<p>Арифметические операции: <code>add</code> <code>sub</code> <code>mul</code> <code>div</code> <code>mod</code></p>
+	<p>Функции: <code>substrof</code> <code>endswith</code> <code>startswith</code> <code>length</code> <code>indexof</code> <code>replace</code> <code>substring</code> <code>tolower</code> <code>toupper</code> <code>trim</code> <code>concat</code> <code>year</code> <code>month</code> <code>day</code> <code>hour</code> <code>minute</code> <code>second</code> <code>round</code> <code>floor</code> <code>ceiling</code> <code>isof</code> <code>cast</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>OData или нет?</h2>
+	<table style="font-size:90%">
+	<tr><th>OData</th><th>RESTful</th></tr>
+	<tr><td>/Products(1)</td><td>/Products/1</td></tr>
+	<tr><td>/Products?$filter=name eq "Milk"</td><td>/Products?name=Milk</td></tr>
+	<tr><td>/Products?$select=name</td><td>/Products/1/name</td></tr>
+	<tr><td>/Products?$orderby=name</td><td>/Products?$orderby=name</td></tr>
+	<tr><td>/Products?$top=10&amp;$skip=10</td><td>/Products?offset=10&amp;limit=10</td></tr>
+	</table>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>

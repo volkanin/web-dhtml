@@ -1,0 +1,9 @@
+curl "http://services.odata.org/V4/OData/OData.svc/" | py -m json.tool
+
+curl "http://services.odata.org/V4/OData/OData.svc/?$format=xml"
+
+curl "http://services.odata.org/V4/OData/OData.svc/Products" | py -m json.tool
+
+curl "http://services.odata.org/V4/OData/OData.svc/Products(1)" | py -m json.tool
+
+curl "http://services.odata.org/V4/OData/OData.svc/Products?$filter=Rating+eq+3&$select=Rating,Name" | py -m json.tool
