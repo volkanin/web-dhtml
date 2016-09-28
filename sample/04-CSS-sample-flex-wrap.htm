@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>flex-wrap</title>
+		<style>
+			.flex {
+				background: #a55;
+				margin: 20px 0;
+				padding: 5px;
+				
+				display: flex;
+			}
+			#nowrap:checked ~ .flex {
+				flex-wrap: nowrap;
+			}
+			#wrap:checked ~ .flex {
+				flex-wrap: wrap;
+			}
+			#wrap-reverse:checked ~ .flex {
+				flex-wrap: wrap-reverse;
+			}
+			.flex-itm {
+				background: #5a5;
+				font-size: 2.5rem;
+				color: #eee;
+				margin: 5px;
+				padding: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<input type="radio" name="flex" id="nowrap" checked>
+			<label for="nowrap">Nowrap</label>
+			<input type="radio" name="flex" id="wrap">
+			<label for="wrap">wrap</label>
+			<input type="radio" name="flex" id="wrap-reverse">
+			<label for="wrap-reverse">wrap-reverse</label>
+				
+			<div class="flex">
+				<div class="flex-itm">1</div>
+				<div class="flex-itm">2</div>
+				<div class="flex-itm">3</div>
+				<div class="flex-itm">4</div>
+				<div class="flex-itm">5</div>
+				<div class="flex-itm">6</div>
+				<div class="flex-itm">7</div>
+				<div class="flex-itm">8</div>
+			</div>
+		</form>
+	</body> 
+</html>

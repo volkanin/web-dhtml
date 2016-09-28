@@ -277,6 +277,58 @@
 </div></section>
 
 <section class="slide shout"><div>
+	<h2>Flexible Box</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Flexible Box Layout</h2>
+	<p><a href="http://www.w3.org/TR/css3-flexbox/" target="_blank">w3.org/TR/css3-flexbox</a> — относительно новая спецификация</p>
+	<ul>
+		<li>авто-«резиновость»</li>
+		<li>выравнивание по вертикали и горизонтали, базовой линии текста</li>
+		<li>автоматическое расположение в несколько строк/столбцов</li>
+		<li>расположение элементов в html не имеет решающего значения</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>flex контейнер</h2>
+	<p><code>display:flex</code> или <code>display:inline-flex</code></p>
+	<p><img src="pictures/flex-direction-terms.png"></p>
+	<p>Возникает 2 оси: основная и поперечная</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>flex-direction</h2>
+	<ul style="margin: 0px">
+		<li><code>row</code> (по умолчанию) — слева направо (в rtl справа налево)</li>
+		<li><code>row-reverse</code> — справа налево</li>
+		<li><code>column</code> —  сверху вниз</li>
+		<li><code>column-reverse</code> —  снизу вверх</li>
+	</ul>
+	<p><img src="pictures/flexbox-main-column-300x300.png"><img src="pictures/flexbox-main-row-300x300.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>flex-wrap</h2>
+	<p>Гибкие элементы в контейнере укладываются в одну строку, даже если не помещаются в контейнер (выходят за границы)</p>
+	<ul style="margin: 0px">
+		<li><code>nowrap</code> (по умолчанию) — в одну строку слева направо</li>
+		<li><code>wrap</code> — гибкие элементы строятся в многострочном режиме, перенос по направлению кросс оси, сверху вниз</li>
+		<li><code>wrap-reverse</code> —  как wrap, но перенос происходит снизу вверх</li>
+	</ul>
+	<p>Есть сокращение: <code>flex-flow: flex-direction flex-wrap</code></p>
+	<p><a href="sample/04-CSS-sample-flex-wrap.htm" target="_blank">пример</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Выравнивание внутри контейнера</h2>
+	<p><code>justify-content</code> — выравнивание по главной оси</p>
+	<p><code>align-items</code> — выравнивание по поперечной оси</p>
+	<p onclick="style.display='flex'; style.alignItems='flex-start'; "><img src="pictures/flex-justify-content-300x200.png" title="justify-content"> и <img src="pictures/flex-align-items-300x300.png" title="align-items"></p>
+</div></section>
+
+<section class="slide shout"><div>
 	<h2>Визуализация элементов</h2>
 </div></section>
 
