@@ -6,6 +6,7 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
 	<link rel="stylesheet" href="web-dhtml.css">
+	<link rel="stylesheet" href="lib/css/animate.css">
 	<style>
 	a[href$=".pdf"]:before {content:url("data:image/gif;base64,R0lGODlhEAAQAPeUAP80ATQ0NPf3911dXf/pg01NTV5eXv/mgTg4OFtbW//shlNTU0xMTFZWVkhISENDQ05OTq+vr//Ub8HBwf/MAQE0mf/1j//ifUdHR1JSUv//mf/eeWNjY1lZWUFBQT8/P//zjf/RbP/Yc1dXV//bdlFRUbi4uHR0dHNzcz09PVxcXP/wiklJSf/2kKurq3p6em1tbca2cV9fX0pKSnVyW6SkpPPz80Fns7s2Ff/5k0JCQvz8/Dw8PGJiYnBwcP/qhFRUVJycnNLIfLu7u0tLS//7lcPDwzo6OrOzs//////3kf/xi8jIyJOTk4qKipCQkGFOgVpaWvLy8nFxcf/6lFVVVdPQhMbGxv/feu/y+d/m8v/jfmlpaWGBv9PMgHE+Mf/Pas5mEKlAGq+cMf+5AUQ3NGVlZdnZ2bmpa185MO7u7uw6DT4+PtHDeP/ge4ODg//uiP/rhUFadKyaYc2pXdLS0kBAQP+TAVhYWGBgYL+mJ97e3nGMxufn5//4kv/9l5SUbv/+mNTShrW1tUREROzs7L23eP/yjEZGRl5UQdDQ0Pn5+f7+/oE0Tqmpqb29vVw2LPv7+3FoTujOdgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAJQALAAAAAAQABAAAAhvACkJ/EewoMF/AhP+Y5SkYRKGDP89SkhpIcOHDSMSVAjxYsaHB0OKBECypEmTBAE0JLlSZcuUSVTKjBmzJMyZM2sCgFmTpkyb/366ZIky6MmjJEUq3ThwkQ2PiwQwcopwICOIDXfsuMqoasWlBQMCADs=")!important;}
 	</style>
@@ -191,6 +192,58 @@
 	<p>Разрыв страницы внутри элемента: свойство <code>page-break-inside: auto | avoid</code></p>
 	<p>Количество строк в конце страницы: свойство <code>orphans:число</code></p>
 	<p>Количество строк в начале страницы: свойство <code>widows:число</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2><span class="animated flash">Анимации</span></h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Сначала был GIF</h2>
+	<p>Который сейчас переживает «второе рождение»</p>
+	<p><img src="pictures/animation_sample.gif" alt=""></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Затем JavaScript</h2>
+            <div id="leaf" style="position:relative" onclick="init()"><img src="pictures/leaf.png"></div>
+            <script>
+                var foo = null; // object
+
+                function doMove() {
+                    foo.style.left = parseInt(foo.style.left) + 1 + 'px';
+                    setTimeout(doMove, 20); // call doMove in 20msec
+                }
+
+                function init() {
+                    foo = document.getElementById('leaf'); // get the object
+                    foo.style.left = '0px'; // set its initial position to 0px
+                    doMove(); // start animating
+                }
+            </script>
+<pre style="font-size:smaller"><code>var foo = null; // object
+    function doMove() {
+		foo.style.left = parseInt(foo.style.left) + 1 + 'px';
+		setTimeout(doMove, 20); // call doMove in 20msec
+    }
+    function init() {
+		foo = document.getElementById('leaf'); // get the object
+		foo.style.left = '0px'; // set its initial position to 0px
+		doMove(); // start animating
+    }
+	window.onload = init;</code></pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>CSS Animation</h2>
+	<p>Вспомним пример — http://daneden.github.io/animate.css/</p>
+	<iframe src="http://daneden.github.io/animate.css/" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Спецификация</h2>
+	<p><a href="http://www.w3.org/TR/css3-animations/" target="_blank">w3.org/TR/css3-animations/</a></p>
+	<p><a href=".tmp\08-animation\index.html" target="_blank">Примеры</a></p>
 </div></section>
 
 <section class="slide shout"><div>
