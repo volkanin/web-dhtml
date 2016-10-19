@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+<pre>
+&lt;div&gt;Привет, Мир!&lt;/div&gt;
+
+&lt;script&gt;
+  var div = document.getElementsByTagName(&#39;div&#39;)[0];
+
+  // заменяем div.outerHTML на &lt;p&gt;...&lt;/p&gt;
+  div.outerHTML = &#39;&lt;p&gt;Новый элемент!&lt;/p&gt;&#39;;
+
+  // ... но содержимое div.outerHTML осталось тем же, несмотря на &quot;перезапись&quot;
+  alert( div.outerHTML ); // &lt;div&gt;Привет, Мир!&lt;/div&gt;
+&lt;/script&gt;
+</pre>
+
+<hr>
+
+<div>Привет, Мир!</div>
+
+<script>
+  var div = document.getElementsByTagName('div')[0];
+
+  // заменяем div.outerHTML на <p>...</p>
+  div.outerHTML = '<p>Новый элемент!</p>';
+
+  // ... но содержимое div.outerHTML осталось тем же, несмотря на "перезапись"
+  alert( div.outerHTML ); // <div>Привет, Мир!</div>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>DOM tree</title>
+		<!--https://github.com/mathiasbynens/jsesc -->
+	</head>
+	<body>
+		<h1>DOM tree</h1>
+		<p>F12 > Console</p>
+	</body> 
+</html>
+
+<script src="js\fromcodepoint.js"></script>
+<script src="js\jsesc.js"></script>
+<script>
+var nodeTypes={1:'ELEMENT_NODE',3:'TEXT_NODE',7:'PROCESSING_INSTRUCTION_NODE',8:'COMMENT_NODE',9:'DOCUMENT_NODE',10:'DOCUMENT_TYPE_NODE',11:'DOCUMENT_FRAGMENT_NODE'};
+
+function align(s1,s2,pos){
+  return s1+Array(Math.max(pos+1-s1.length,0)).join(" ")+s2;
+}
+
+function tree(el,tab){
+  var s=align(align(align('',el.nodeName,tab),nodeTypes[el.nodeType],25),jsesc(el.nodeValue),45)+"\n";
+	var c=el.childNodes;
+        for (var i=0; i<c.length; i++){
+        	s+=tree(c[i],tab+4);
+        }
+        return(s);
+};
+
+console.log(align(align(align('nodeName','',0),'nodeType',25),'nodeValue',45));
+console.log(tree(document,0))
+</script>

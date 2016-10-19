@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Объектная модель документа HTML</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>Объектная модель документа HTML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Объектная модель</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Окружение</h2>
+	<p>window — в браузере глобальный объект JavaScript</p>
+	<p><img src="pictures/dom_window_objects.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Document Object Model</h2>
+	<p>DOM –  представление документа в виде дерева объектов, доступное для изменения через JavaScript</p>
+	<p>Октябрь 1998 — «DOM Level 1»</p>
+	<p>Затем придумали ещё свойства и методы, и появился «DOM Level 2»</p>
+	<p>Поверх них добавили ещё «DOM Level 3» и готовится DOM 4</p>
+	<p>Некоторые старые возможности, не включенные в стандарт, но и не выкинутые, иногда условно называют «DOM Level 0»</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что почитать</h2>
+	<p><a href="http://www.w3.org/DOM/DOMTR" target="_blank">w3.org/DOM/DOMTR</a></p>
+	<p><a href="https://developer.mozilla.org/ru/docs/DOM" target="_blank">developer.mozilla.org/ru/docs/DOM</a></p>
+	<p><a href="https://msdn.microsoft.com/ru-ru/library/windows/apps/br212882.aspx" target="_blank">msdn.microsoft.com/ru-ru/library/windows/apps/br212882.aspx</a></p>
+	<p><a href="http://learn.javascript.ru/document" target="_blank">learn.javascript.ru/document</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Дерево документа</h2>
+<pre class="compact">
+<code>&lt;!DOCTYPE html&gt; <a class="next" href="sample/06-DOM-tree.html" target="_blank">Посмотреть вживую</a></code>
+<code>&lt;html&gt;</code>
+<code>	&lt;head&gt;</code>
+<code>		&lt;meta charset=&quot;utf-8&quot;&gt;</code>
+<code>		&lt;title&gt;DOM tree&lt;/title&gt;</code>
+<code>		&lt;!-- JS Escape - github.com/mathiasbynens/jsesc --&gt;</code>
+<code>	&lt;/head&gt;</code>
+<code>	&lt;body&gt;</code>
+<code>		&lt;h1&gt;DOM tree&lt;/h1&gt;</code>
+<code>		&lt;p&gt;F12 &gt; Console&lt;/p&gt;</code>
+<code>	&lt;/body&gt;</code>
+<code>&lt;/html&gt;</code>
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Дерево документа</h2>
+<pre class="compact"><code>nodeName                 nodeType            nodeValue
+#document                DOCUMENT_NODE       null
+    html                 DOCUMENT_TYPE_NODE  null
+    HTML                 ELEMENT_NODE        null
+        HEAD             ELEMENT_NODE        null
+            #text        TEXT_NODE           \n\t\t
+            META         ELEMENT_NODE        null
+            #text        TEXT_NODE           \n\t\t
+            TITLE        ELEMENT_NODE        null
+                #text    TEXT_NODE           DOM tree
+            #text        TEXT_NODE           \n\t\t
+            #comment     COMMENT_NODE        JS Escape - github.com/mathiasbynens/jsesc 
+            #text        TEXT_NODE           \n\t
+        #text            TEXT_NODE           \n\t
+        BODY             ELEMENT_NODE        null
+            #text        TEXT_NODE           \n\t\t
+            H1           ELEMENT_NODE        null
+                #text    TEXT_NODE           DOM tree
+            #text        TEXT_NODE           \n\t\t
+            P            ELEMENT_NODE        null
+                #text
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Дерево документа в IE8</h2>
+<pre class="compact"><code>nodeName                 nodeType            nodeValue
+#document                DOCUMENT_NODE       {}
+    #comment             COMMENT_NODE        DOCTYPE html
+    HTML                 ELEMENT_NODE        {}
+        HEAD             ELEMENT_NODE        {}
+            TITLE        ELEMENT_NODE        {}
+            META         ELEMENT_NODE        {}
+            #comment     COMMENT_NODE        JS Escape - github.com/mathiasbynens/jsesc 
+        BODY             ELEMENT_NODE        {}
+            H1           ELEMENT_NODE        {}
+                #text    TEXT_NODE           DOM tree
+            P            ELEMENT_NODE        {}
+                #text    TEXT_NODE           F12 > Console
+            SCRIPT       ELEMENT_NODE        {}
+            SCRIPT       ELEMENT_NODE        {}
+            SCRIPT       ELEMENT_NODE        {}
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Автоисправление</h2>
+	<p>При чтении неверного HTML браузер корректирует его для показа и построения DOM</p>
+	<p>Например, всегда будет верхний тег &lt;html&gt;, даже если в тексте его нет</p>
+	<p>Браузер  обрабатывает ошибки в документе, закрывает теги и т.д.</p>
+<pre>
+<code>&lt;li&gt;Раз  <a class="next" href="sample/06-DOM-tree2.html" target="_blank">Посмотреть вживую</a></code>
+<code>&lt;li&gt;Два</code>
+<code>&lt;li&gt;Три</code>
+</pre>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Интерфейсы DOM</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Document</h2>
+	<p>Объект <code>document</code> может быть получен из разных API</p>
+	<ul>
+    <li><code>window.document</code></li>
+    <li>свойство <code>contentDocument</code> объекта iframe</li>
+    <li>ответ <code>responseXML</code> объекта XMLHttpRequest</li>
+    <li>из элемента или узла через свойство <code>ownerDocument</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Интерфейс Document (частично)</h2>
+	<ul>
+		<li><code>.documentElement</code></li>
+		<li><code>.createElement(...)</code>, <code>.createTextNode(...)</code>, и т.п.</li>
+		<li><code>.getElementById(...)</code>, <code>.getElementsByTagName(...)</code>, ...</li>
+	</ul>
+	<p>Интерфейс Document наследует также интерфейсы Node и EventTarget</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Интерфейс HTMLDocument (частично)</h2>
+	<ul>
+		<li><code>.body</code>, <code>.head</code></li>
+		<li><code>.images[]</code> — исторически из «DOM Level 0»</li>
+		<li><code>.forms[]</code></li>
+		<li><code>.links[]</code></li>
+		<li><code>.anchors[]</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Навигация по узлам дерева</h2>
+	<p><img src="pictures/dom_links.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Интерфейс Node (абстрактный узел)</h2>
+	<ul>
+		<li><code>.nodeName</code>, <code>.nodeType</code>, <code>.nodeValue</code> (изменяемое)</li>
+		<li><code>.ownerDocument</code></li>
+		<li><code>.parentNode</code>, <code>.childNodes</code>, <code>.firstChild</code>, <code>.lastChild</code>, <code>.previousSibling</code>, <code>.nextSibling</code></li>
+		<li><code>.appendChild(new)</code>, <code>.insertBefore(new,ref)</code>, <code>.removeChild(node)</code>, <code>.removeChild(new,old)</code></li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Везде узлы, они преследуют нас</h2>
+	<p><img src="pictures/dom_hierarchy.png"></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Интерфейс NodeList (коллекция узлов)</h2>
+	<ul>
+		<li><code>.length</code></li>
+		<li><code>.item(n)</code> — «метод по-умолчанию»</li>
+	</ul>
+	<p>Возвращается, например, свойством <code>.childNodes</code></p>
+	<p>Можно <code>childNodes[0]</code>, но это не массив (нет forEach, map, ...)</p>
+	<p>Этот интерфейс — «живой», но readonly (нельзя заменить элемент как-то так: <code>childNodes[i] = ...</code>)</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Навигация по DOM-элементам</h2>
+	<p><img src="pictures/dom_links_elements.png"></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Поиск элементов</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>document.getElementById() / просто id</h2>
+<pre class="compact">
+<code>&lt;div id=&quot;content-holder&quot;&gt;</code>
+<code>	&lt;div id=&quot;content&quot;&gt;Элемент&lt;/div&gt;</code>
+<code>&lt;/div&gt;</code>
+<code>&nbsp;</code>
+<code>&lt;script&gt;</code>
+<code>	console.log( content ); // элемент по id</code>
+<code>	console.log( window[&#39;content-holder&#39;] ); // дефис</code>
+<code>	var e = document.<mark>getElementById</mark>('content');</code>
+<code>	e.style.background = 'red';</code>
+<code>	// а если с одним id несколько ?</code>
+<code>&lt;/script&gt;</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>element.getElementsByTagName()</h2>
+<pre>
+<code>var elements = document.getElement<mark>s</mark>ByTagName('div');</code>
+<code>var elements = document.<mark>head</mark>.getElementsByTagName('script');</code>
+</pre>
+<pre>
+<code>document.getElementsByTagName('input').value = 5; // :(</code>
+<code>document.getElementsByTagName('input')[0].value = 5; // :)</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>document.getElementsByName()</h2>
+	<p>Возвращает коллекцию элементов с данным атрибутом name</p>
+	<p>Например, сгруппированные элементы input</p>
+	<p>На практике используется редко</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>.querySelectorAll() / querySelector()</h2>
+	<p><code>querySelectorAll</code> коллекция элементов внутри заданного, удовлетворяющих CSS-селектору</p>
+	<p><code>querySelector</code> — только первый элемент</p>
+	<p onclick="alert(document.querySelectorAll('section.slide code').length)" title="нажми меня"><code>document.querySelectorAll('.slide code').length</code></p>
+	<p onclick="var e=document.querySelectorAll(':hover'); for (var i=0; i<e.length; i++) { alert(e[i].nodeName); }" title="нажми меня"><code>document.querySelectorAll(':hover')</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>element.matches()</h2>
+	<p>Метод element.<code>matches(css)</code> ничего не ищет, а проверяет, удовлетворяет ли <code>element</code> селектору css, возвращает true / false</p>
+	<h2>element.closest()</h2>
+	<p>Метод element.<code>closest(css)</code> ищет ближайший элемент выше по иерархии DOM, подходящий селектору css</p>
+	<p>Сам элемент тоже включается в поиск</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Различия поисковых методов</h2>
+	<p>getElementById() — это очень быстро</p>
+	<p>querySelector(), querySelectorAll() — результаты статические</p>
+	<p>getElementsBy*(…) — результаты живые, <a href="sample/06-DOM-query1.html" target="_blank">пример</a></p>
+	<p>В IE / Gecko (Firefox) и Webkit (Chrome) по-разному работает кеширование <a href="sample/06-DOM-query2.html" target="_blank">пример</a></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Модификация дерева</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Элементы</h2>
+<pre>
+<code>// DOM Level 1</code>
+<code>elem = document.<mark>createElement</mark>("div");</code>
+<code>document.getElementbyId('xxx').<mark>appendChild</mark>(elem)</code>
+<code>// содержимое элемента HTML</code>
+<code>document.body.innerHTML = '&lt;p&gt;текст&lt;/p&gt;'</code>
+<code>// HTML элемента целиком (есть <a href="sample/06-DOM-outerHTML.html" target="_blank">тонкости</a>)</code>
+<code>document.body.children[0].outerHTML = '&lt;p&gt;текст&lt;/p&gt;';</code>
+</pre>
+</script>
+
+</div></section>
+
+<section class="slide"><div>
+	<h2>Атрибуты</h2>
+<pre>
+<code>table=document.createElement("table");</code>
+<code>// HTMLElement</code>
+<code>table.border=1;</code>
+<code>// DOM Level 1 / XML</code>
+<code>table.setAttribute("id","tbl02");</code>
+<code>// интерфейс NamedNodeMap</code>
+<code>attr=document.createAttribute("cellSpacing");</code>
+<code>attr.nodeValue=0;</code>
+<code>table.attributes.setNamedItem(attr);</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Текст</h2>
+<pre style="margin: 0">
+<code>// (DOM Level 1)</code>
+<code>t = document.createTextNode("Новый абзац");</code>
+<code>p = document.createElement("p");</code>
+<code>p.appendChild(t)</code>
+</pre>
+	<p><code>data</code> — содержимое текстового узла (read/write)</p>
+	<p><code>textContent</code> — текст внутри элемента, за вычетом всех тегов<br>
+	<samp>element.innerHTML = '&lt;u&gt;УрФУ&lt;/u&gt;'</samp> &rarr; <span onclick="this.innerHTML = '&lt;u&gt;УрФУ&lt;/u&gt;'">Нажми меня</span><br>
+	<samp>element.textContent = '&lt;u&gt;УрФУ&lt;/u&gt;'</samp> &rarr; <span onclick="this.textContent = '&lt;u&gt;УрФУ&lt;/u&gt;'">Нажми меня</span></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Метод document.write</h2>
+	<p><code>document.write(str)</code> дописывает текст в текущее место HTML до того, как браузер построит из него DOM</p>
+	<pre>
+	<code>var url=&#39;//ads.com/buyme?screen=&#39;+screen.width+&quot;x&quot;+screen.height;</code>
+	<code>document.write(&#39;&lt;script src=&quot;&#39;+url+&#39;&quot;&gt;&lt;/scr&#39;+&#39;ipt&gt;&#39;);</code>
+	</pre>
+	<p>Работает только пока HTML-страница находится в процессе загрузки</p>
+	<p>Попытка дописать что-то в «закрытый» документ открывает его заново, при этом все текущее содержимое удаляется</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Expando</h2>
+	<p>Узел DOM – объект, может иметь пользовательские свойства и методы</p>
+	<p>При присвоении нестандартных атрибутов DOM-свойство не создаётся</p>
+	<div id="elem" href="http://ya.ru" about="Yandex"></div>
+<pre onclick="alert(elem.id); alert(elem.about); elem.about='Elephant'; alert( elem.about );" title="нажми меня">
+<code>&lt;div id=&quot;elem&quot; href=&quot;http://ya.ru&quot; about=&quot;Yandex&quot;&gt;&lt;/div&gt;</code>
+<code>&lt;script&gt;</code>
+<code>	alert( elem.id ); alert( elem.about );</code>
+<code>	elem.about='Elephant' alert( elem.about );</code>
+<code>&lt;/script&gt;</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Dataset</h2>
+	<p>Стандарт HTML5 специально разрешает атрибуты data-* и резервирует их для пользовательских данных</p>
+<pre>
+<code>&lt;div id=&quot;elem&quot; data-about=&quot;Web&quot; data-user-location=&quot;UrFU&quot;&gt;</code>
+<code>&lt;script&gt;</code>
+<code>	alert( elem.getAttribute(&#39;data-about&#39;) );</code>
+<code>	alert( elem.getAttribute(&#39;data-user-location&#39;) );</code>
+<code>	alert( elem.<mark>dataset</mark>.<mark>userLocation</mark> );</code>
+<code>&lt;/script&gt;</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Исследование элементов</h2>
+	<p>Документация <a href="http://dev.w3.org/html5/markup/elements.html" target="_blank">dev.w3.org/html5/markup/elements.html</a> для слабаков</p>
+	<p onclick="console.dir(document.body)"><code>console.dir(document.body)</code></p>
+	<p onclick="console.log(document.body)"><code>console.log(document.body)</code></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Динамические таблицы стилей</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Объект style</h2>
+	<p>Свойство element.style возвращает объект, который дает доступ к стилю элемента на чтение и запись</p>
+	<pre>
+	<code>elem.style.border =  "1px solid black"</code>
+	<code>background-color  => elem.style.backgroundColor</code>
+	</pre>
+	<p>Исключения</p>
+	<pre>
+	<code>float             => elem.style.cssFloat</code>
+	<code>class             => elem.className</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>cssText</h2>
+	<p>Работает ли <code title='нажми меня' onclick='this.style="color:blue"'>div.style="color:blue"</code> ?</p>
+	<p>Для полной перезаписи CSS у элемента рекомендуется использовать свойство <code>cssText</code></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Чтение из style</h2>
+	<p>Свойство style содержит стиль, указанный в атрибуте элемента, без учёта каскада CSS</p>
+<pre class="compact" onclick="alert(document.body.style.color)" title="нажми меня">
+<code>&lt;head&gt;</code>
+<code>	&lt;style&gt; body { color: red } &lt;/style&gt;</code>
+<code>&lt;/head&gt;</code>
+<code>&lt;body&gt;</code>
+<code>	&lt;script&gt;</code>
+<code>		alert(document.body.style.color);</code>
+<code>	&lt;/script&gt;</code>
+<code>&lt;/body&gt;</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>getComputedStyle</h2>
+	<p><code>window.getComputedStyle(element[, pseudo])</code><br> здесь pseudo — это например ':before', но не ':visited'</p>
+<pre class="compact" onclick="var computedStyle = getComputedStyle(document.body); alert(computedStyle.color)" title="нажми меня">
+<code>&lt;head&gt;</code>
+<code>	&lt;style&gt; body { color: black } &lt;/style&gt;</code>
+<code>&lt;/head&gt;</code>
+<code>&lt;body&gt;</code>
+<code>	&lt;script&gt;</code>
+<code>		var computedStyle = getComputedStyle(document.body);</code>
+<code>		alert(computedStyle.color);</code>
+<code>	&lt;/script&gt;</code>
+<code>&lt;/body&gt;</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Computed и resolved</h2>
+	<p>Вычисленное значение — получено после применения всех правил CSS и CSS-наследования, например, width: auto или font-size: 125%</p>
+	<p>Окончательное значение — непосредственно применяемое к элементу, размеры приводятся к пикселям</p>
+	<p>Сейчас браузеры понимают getComputedStyle() как окончательное значение</p>
+	<p class="compact" id="testResolved" style="font-size:101%" onclick="var computedStyle = getComputedStyle(testResolved); alert('style = '+this.style.fontSize); alert('computedStyle = '+computedStyle.fontSize)" title="нажми меня">У этого абзаца style="font-size:101%"</p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Современный DOM: полифиллы</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Polyfill</h2>
+	<p>Обобщенное название библиотек, которые добавляют в старые браузеры поддержку возможностей, которые в современных браузерах являются встроенными</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Добавим поддержку firstElementChild</h2>
+<pre class="compact" style="font-size: smaller">
+<code>if (document.documentElement.firstElementChild === undefined) {</code>
+<code>	Object.defineProperty(Element.prototype, 'firstElementChild', {</code>
+<code>		get: function() {</code>
+<code>			var el = this.firstChild;</code>
+<code>			do {</code>
+<code>				if (el.nodeType === 1) {</code>
+<code>					return el;</code>
+<code>				}</code>
+<code>				el = el.nextSibling;</code>
+<code>			} while (el);</code>
+<code>		return null;</code>
+<code>		}</code>
+<code>	});</code>
+<code>}</code>
+</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Что использовать из готового</h2>
+	<p><a href="http://html5please.com/#polyfill" target="_blank">html5please.com/#polyfill</a></p>
+	<p><a href="https://modernizr.com/" target="_blank">modernizr.com</a></p>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>

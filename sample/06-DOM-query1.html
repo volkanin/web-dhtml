@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+<pre>
+&lt;div&gt;&lt;/div&gt;
+&lt;script&gt;
+  var resultGet = document.getElementsByTagName(&#39;div&#39;);
+  var resultQuery = document.querySelectorAll(&#39;div&#39;);
+
+  alert( resultQuery.length + &#39;, &#39; + resultGet.length ); // 1, 1
+
+  document.body.innerHTML = &#39;&#39;; // удалить всё содержимое BODY
+
+  alert( resultQuery.length + &#39;, &#39; + resultGet.length ); // 1, 0
+&lt;/script&gt;
+</pre>
+
+<div></div>
+<script>
+  var resultGet = document.getElementsByTagName('div');
+  var resultQuery = document.querySelectorAll('div');
+
+  alert( resultQuery.length + ', ' + resultGet.length ); // 1, 1
+
+  document.body.innerHTML = ''; // удалить всё содержимое BODY
+
+  alert( resultQuery.length + ', ' + resultGet.length ); // 1, 0
+</script>
+
+</body>
+</html>
