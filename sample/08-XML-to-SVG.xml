@@ -1,0 +1,12 @@
+<?xml version='1.0' ?>
+<?xml-stylesheet type="text/xsl" href="08-XML-to-SVG.xsl"?>
+<root>
+   <item>
+      <detail>100</detail>
+      <detail>200</detail>
+   </item>
+   <item>
+      <detail>50</detail>
+      <detail>100</detail>
+   </item>
+</root>

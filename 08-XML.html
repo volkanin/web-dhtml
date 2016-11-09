@@ -25,6 +25,12 @@
 </div></section>
 
 <section class="slide"><div>
+	<h2>Необходимое предисловие</h2>
+	<p>В современной веб-разработке XML как формат обмена и хранения уступает формату JSON</p>
+	<p>Тем не менее, в промышленных информационных системах XML — стандарт de facto</p>
+</div></section>
+
+<section class="slide"><div>
 	<h2>История — XML</h2>
 	<p>XML (eXtensible Markup Language), расширяемый язык разметки, предназначен для хранения структурированных данных</p>
 	<p>XML может содержать любые теги, описанные создателями словаря, но XML не даёт указаний, как должны отображаться данные</p>
@@ -421,7 +427,22 @@
 
 <section class="slide"><div>
 	<h2>XSL Transformations</h2>
-	<p>Предназначен для <em>трансформации</em> исходного документа, например</p>
+	<p>Предназначен для <em>трансформации</em> исходного документа, <a href="sample\08-XML-to-SVG.xml" target="_blank">например</a> готовый векторный SVG из извлечённых из СУБД данных </p>
+	<pre class="compact">
+	<code>&lt;root&gt;</code>
+	<code>	&lt;item&gt;</code>
+	<code>		&lt;detail&gt;100&lt;/detail&gt; &lt;detail&gt;200&lt;/detail&gt;</code>
+	<code>	&lt;/item&gt;</code>
+	<code>	&lt;item&gt;</code>
+	<code>		&lt;detail&gt;50&lt;/detail&gt; &lt;detail&gt;100&lt;/detail&gt;</code>
+	<code>	&lt;/item&gt;</code>
+	<code>&lt;/root&gt;</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>XSL Transformations</h2>
+	<p>Более простой пример</p>
 	<pre style="margin:0">
 		<code>&lt;source&gt;</code>
 		<code>	&lt;title&gt;XSL&lt;/title&gt;</code>
@@ -438,7 +459,7 @@
 <section class="slide"><div>
 	<h2>Пример шаблона</h2>
 	<pre style="margin:0">
-		<code>&lt;xsl:stylesheet version = &#39;1.0&#39;</code>
+		<code>&lt;xsl:stylesheet version='1.0'</code>
 		<code>	xmlns:xsl=&#39;http://www.w3.org/1999/XSL/Transform&#39;&gt;</code>
 		<code>&lt;xsl:template match=&quot;/&quot;&gt;</code>
 		<code>	&lt;h1&gt;  &lt;xsl:value-of select=&quot;//title&quot;/&gt;  &lt;/h1&gt;</code>
@@ -456,15 +477,21 @@
 		<code>// source и stylesheet — объекты XML DOMDocument</code>
 		<code>source.load("books.xml");</code>
 		<code>stylesheet.load("template.xsl");</code>
-		<code>result = source.transformNode(stylesheet));</code>
+		<code>result = source.transformNode(stylesheet);</code>
 	</pre>
 </div></section>
 
 <section class="slide"><div>
-	<h2>Корневой элемент XSLT</h2>
+	<h2>Последовательность обработки XSLT</h2>
 	<p>Каждое преобразование XSL должно начинаться с элемента <code>&lt;xsl:stylesheet version = '1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'&gt;</code></p>
-	<p>XSLT-процессоры анализируют исходный XML и пытаются найти подходящий XSL-шаблон: <code>&lt;xsl:template match=&quot;узел&quot;&gt; ... &lt;/xsl:template</code></p>
+	<p>XSLT-процессоры анализируют исходный XML и пытаются найти подходящий XSL-шаблон: <code>&lt;xsl:template match=&quot;узел&quot;&gt; ... &lt;/xsl:template&gt;</code></p>
 	<p>Если такой шаблон найден, то выполняются инструкции внутри него</p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Последовательность обработки XSLT</h2>
+	<p>Обработка всегда начинается с шаблона, где <code>match="/"</code></p>
+	<p>Если такого нет, используется неявный шаблон: обрабатывать все дочерние элементы текущего узла, включая текстовые узлы</p>
 </div></section>
 
 <section class="slide"><div>
