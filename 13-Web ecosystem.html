@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+	<title>Web & DHTML - Экосистема веба</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="web-dhtml.css">
+</head>
+<body class="list">
+
+<header class="caption">
+	<h1>XML</h1>
+</header>
+
+<section class="slide cover" id="Cover"><div>
+	<h2>Web и DHTML<br>Экосистема веба</h2>
+	<h3 id="h31">Леонид Волканин</h3>
+	<h3 id="h32">ИМКН УрФУ</h3>
+	<div class="arrow"></div>
+	<img src="pictures/UrFULogo_Russian.png" alt="">
+</div></section>
+
+<section class="slide"><div>
+	<h2>Благодарности</h2>
+	<ul>
+	<li>Иван Комаров, Яндекс</li>
+	<li>Александр Ильин, СКБ Контур</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>История развивается по спирали</h2>
+	 <ul>
+		<li class="next">Тонкие клиенты (терминалы для мейнфреймов).</li>
+		<li class="next">Толстые клиенты (GUI-приложения).</li>
+		<li class="next">Тонкие клиенты (веб-браузеры).</li>
+		<li class="next">Толстые клиенты (и снова веб-браузеры).</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Три кита современного веба</h2>
+	<ul>
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>JavaScript</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Javascript</h2>
+	<ul>
+		<li>The Good</li>
+		<li>The Bad</li>
+		<li>The Ugly</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Визуализация данных (SVG)</h2>
+	<iframe src="http://square.github.io/cubism/demo/" width="100%" height="100%">
+	</iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Data-Driven Documents (D3)</h2>
+	<p><a href="https://github.com/d3/d3/wiki/Gallery" target="_blank">d3.js Gallery</a></p>
+</div></section>
+
+<section class="slide"><div>
+	<h2>3D-графика (WebGL)</h2>
+	<iframe src="http://madebyevan.com/webgl-water/" width="100%" height="100%">
+	</iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Кодирование видео и изображений</h2>
+	<iframe src="http://xooyoozoo.github.io/yolo-octo-bugfixes/" width="100%" height="100%">
+	</iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Работа с сетью</h2>
+	<pre>
+<code>var conn = new WebSocket('ws://node.remysharp.com:8001');</code>
+<code>conn.onmessage = function (event) {</code>
+<code>  var message = event.data;</code>
+<code>  if (!(/^\d+$/).test(message)) {</code>
+<code>      log.innerHTML = message;</code>
+<code>  }</code>
+<code>}</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Доступ к оборудованию</h2>
+	<pre>
+		<code>navigator.geolocation.getCurrentPosition(</code>
+		<code>  function(pos) {</code>
+		<code>      var lat = pos.coords.latitude;</code>
+		<code>      var lon = pos.coords.longitude;</code>
+		<code>      ...</code>
+		<code>  });</code>
+	</pre>
+</div></section>
+
+<section class="slide"><div>
+	<h2>На JavaScript можно писать</h2>
+	<ul>
+		<li class="next">Офисные приложения (Google Docs).</li>
+		<li class="next">Почтовые клиенты (GMail, Я.Почта).</li>
+		<li class="next">Геоприложения (Google Maps, Яндекс.Карты).</li>
+		<li class="next">И даже серверный код (node.js).</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>The Bad</h2>
+	<img src="pictures/javascript-and-the-good-parts.jpg">
+	<blockquote><b>Ten</b> days to implement the lexer, parser, bytecode emitter (which I folded into the parser; required some code buffering to reorder things like the for(;;) loop head parts and body), interpreter, built-in classes, and decompiler.</blockquote>
+</div></section>
+<section class="slide"><div>
+	<h2>Чего только в JavaScript нет</h2>
+	<ul>
+		<li class="next">Нет модулей<a href="https://medium.freecodecamp.com/javascript-modules-a-beginner-s-guide-783f7d7a5fcc" target="_blank">.</a></li>
+		<li class="next">Нет статической типизации.</li>
+		<li class="next">Нет областей видимости, отличных от глобальной и локальной.</li>
+		<li class="next">Нет совместимости между браузерами.</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Иногда плохо – это хорошо</h2>
+	Будем использовать JavaScript в роли базового строительного блока
+	<img src="pictures/javascript_car.jpeg" width="80%">
+</div></section>
+
+<section class="slide"><div>
+	<h2>CoffeeScript (синтаксический сахар)</h2>
+	<iframe src="http://coffeescript.org/#try:countdown%20%3D%20(num%20for%20num%20in%20%5B10..1%5D)%0Aalert%20countdown" width="100%" height="100%"></iframe>
+</div></section>
+
+ <section class="slide"><div>
+	<h2>TypeScript (JS + типы)</h2>
+	<iframe src="http://www.typescriptlang.org/Playground#src=function%20greeter(person%3A%20string)%20%7B%0D%0A%20%20%20%20return%20%22Hello%2C%20%22%20%2B%20person%3B%0D%0A%7D%0D%0A%0D%0Avar%20user%20%3D%20%5B0%2C%201%2C%202%5D%3B%0D%0A%0D%0Adocument.body.innerHTML%20%3D%20greeter(user)%3B" width="100%" height="100%"></iframe>
+</div></section>
+	
+<section class="slide"><div>
+	<h2>Elm (функциональщина + FRP)</h2>
+	<iframe src="http://elm-lang.org/examples/quick-sort" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Polyfills (устраняем несовместимости между браузерами)</h2>
+	<img src="pictures/polyfills.png">
+</div></section>
+	
+<section class="slide"><div>
+	<h2>The Ugly</h2>
+	Производительность оставляет желать лучшего
+	<img src="pictures/tortoise.jpg" width="100%">
+</div></section>
+	
+<section class="slide"><div>
+	<h2>Выжимаем всё возможное</h2>
+	Но этого всё равно недостаточно
+	<iframe src="http://arewefastyet.com/" width="100%" height="100%"></iframe>
+</div></section>
+	
+<section class="slide"><div>
+	<h2>asm.js (подмножество JavaScript)</h2>
+	<img src="pictures/asmjs.png">
+</div></section>
+	
+<section class="slide"><div>
+	<h2>Что будет дальше?</h2>
+	<ul>
+		<li>Браузеры, JS и CSS продолжат развиваться со страшной скоростью</li>
+		<li>Что будет через 10 лет, не знает никто</li>
+		<li><a href="https://www.destroyallsoftware.com/talks/the-birth-and-death-of-javascript">The Birth and Death of JavaScript</a></li>
+	</ul>
+	<img src="pictures/metal.png" width="60%">
+</div></section>
+
+<!--
+1 . Обычно веб приложения состоят из таких частей : A, B, C, D Например...
+2 . В Backbone A B C D выглядят так .... + небольшой пример по шагам
+3 . В Knockout  A B C D выглядят так ....  + небольшой пример
+4 . В Ember A B C D выглядят так .... + небольшой пример
+5 . В Angular A B C D выглядят так .... + небольшой пример
+6 . В React A B C D выглядят так .... + небольшой пример
+-->
+
+<section class="slide shout"><div>
+	<h2>JavaScript на клиенте</h2>
+</div></section>
+
+<section class="slide"><div>
+	<h2>Разработчик и веб-разработчик?</h2>
+	<img src="pictures/1870.jpg">
+</div></section>
+	
+<section class="slide"><div>
+	<h2>Приходится использовать MVC</h2>
+	<p>Много времени уходит на описание связей:</p>
+	<code>сумма = количество * стоимость</code>
+</div></section>
+	
+<section class="slide"><div>
+	<h2>2010 — Backbone.js</h2>
+	<p>каркас для создания RIA JavaScript приложений</p>
+	<iframe src="http://backbonejs.org/docs/todos.html" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>2011 — Ember.js (одностраничность)</h2>
+	<img src="pictures/ember-core-concepts.png" width="70%">
+</div></section>
+
+<section class="slide"><div>
+	<h2>2014 — Knockout</h2>
+	<ul>
+	<li>чёткое разделение доменных данных, компонентов отображения и отображаемых данных</li>
+	<li>специализированный код, задающий отношения компонентов отображения</li>
+	<li>aвтоматическое обновление интерфейса при изменении состояния данных модели</li>
+	</ul>
+</div></section>
+
+<section class="slide"><div>
+	<h2>2014 — Knockout.js</h2>
+	<iframe src="http://knockoutjs.com/examples/helloWorld.html" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>AngularJS</h2>
+	<p>AngularJS использует комбинацию настраиваемых HTML-тегов и выражений</p>
+	<iframe src="https://docs.angularjs.org/tutorial/step_06" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide"><div>
+	<h2>ReactJS</h2>
+	<iframe src="https://facebook.github.io/react/docs/introducing-jsx.html" width="100%" height="100%"></iframe>
+</div></section>
+
+<section class="slide shout"><div>
+	<h2>Вопросы?</h2>
+</div></section>
+
+<div class="progress"><div>
+<script src="shower/shower.min.js"></script>
+
+</body>
+</html>
